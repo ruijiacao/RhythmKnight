@@ -39,6 +39,16 @@ public class GameApp extends GameApplication {
     protected void initGame() {
         Sound OST = FXGL.getAssetLoader().loadSound("Tutorial.wav");
         FXGL.getAudioPlayer().playSound(OST);
+
+        var testTile = FXGL.getAssetLoader().loadTexture("hex.png");
+        testTile.setX(665);
+        testTile.setY(335);
+        testTile.setScaleX(1.35);
+        testTile.setScaleY(1.35);
+        testTile.setOpacity(0);
+
+        FXGL.getGameScene().addUINodes(testTile);
+        guideToBeat(testTile);
     }
 
     @Override
@@ -49,8 +59,22 @@ public class GameApp extends GameApplication {
 
     }
 
-    public void guideToBeat(Entity tile) {
+    public void guideToBeat(Texture tile) {
+        tile.setScaleX(2.35);
+        tile.setScaleY(2.35);
+        tile.setOpacity(1);
+        AtomicInteger frame = new AtomicInteger(0);
 
+        FXGL.run(() -> {
+            frame.addAndGet(1);
+            if (frame.get() == 30) {
+                tile.setScaleX(2.35);
+                tile.setScaleY(2.35);
+                frame.set(0);
+            }
+            tile.setScaleX(tile.getScaleX() - .02);
+            tile.setScaleY(tile.getScaleY() - .02);
+        }, Duration.millis(1));
     }
 
     public void move(Entity currentTile, Entity newTile) {

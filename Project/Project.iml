@@ -12,14 +12,14 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl:11.16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:16" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:linux:16" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:mac:16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:16" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:16" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:16" level="project" />
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl-core:11.16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:16" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:16" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:16" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:16" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:16" level="project" />
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl-io:11.16" level="project" />
     <orderEntry type="library" name="Maven: com.gluonhq.attach:storage:4.0.9" level="project" />
     <orderEntry type="library" name="Maven: com.gluonhq.attach:util:4.0.9" level="project" />
@@ -27,7 +27,7 @@
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl-entity:11.16" level="project" />
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl-media:11.16" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-media:16" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:linux:16" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-media:mac:16" level="project" />
     <orderEntry type="library" name="Maven: com.gluonhq.attach:audio:4.0.9" level="project" />
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl-input:11.16" level="project" />
     <orderEntry type="library" name="Maven: com.github.almasb:fxgl-scene:11.16" level="project" />
