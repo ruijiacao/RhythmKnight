@@ -33,6 +33,7 @@ public class AppMainMenu extends FXGLMenu {
 
         startButton.setOnMouseClicked(mouseEvent -> {
             System.out.println("Starting game...");
+            fireNewGame();
         });
 
         // game config button
@@ -49,7 +50,7 @@ public class AppMainMenu extends FXGLMenu {
         });
 
         configButton.setOnMouseClicked(mouseEvent -> {
-            System.out.println("Starting game...");
+            System.out.println("Opening game config...");
         });
 
         // exit button

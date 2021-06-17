@@ -35,51 +35,26 @@ public class GameApp extends GameApplication {
         });
     }
 
-    private Entity hex;
     @Override
     protected void initGame() {
-        var hex = FXGL.getAssetLoader().loadTexture("hex.png");
-        hex.setX(95);
-        hex.setY(355);
-        hex.setOpacity(0);
-
-        var hex1 = FXGL.getAssetLoader().loadTexture("hex.png");
-        hex1.setX(510);
-        hex1.setY(280);
-        hex1.setOpacity(0);
-
-        FXGL.getGameScene().addUINodes(hex, hex1);
-        Sound snare = FXGL.getAssetLoader().loadSound("snare01.wav");
-
-        enterScene(hex, snare);
-        FXGL.runOnce(() -> {enterScene(hex1, snare);}, Duration.millis(300));
+        Sound OST = FXGL.getAssetLoader().loadSound("Tutorial.wav");
+        FXGL.getAudioPlayer().playSound(OST);
     }
 
     @Override
     protected void initUI() {
         Entity map = new EntityBuilder()
-                .view("1-1TileMap.png")
+                .view("TutorialTilemap.png")
                 .buildAndAttach();
 
     }
 
-    public void enterScene(Texture tile, Sound sfx) {
-        tile.setScaleX(2);
-        tile.setScaleY(2);
-        AtomicInteger frame = new AtomicInteger();
+    public void guideToBeat(Entity tile) {
 
-        FXGL.run(() -> {
-            frame.addAndGet(1);
-            if (frame.get() >= 50 && frame.get() < 60) {
-                tile.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-                    tile.setOpacity(0);
-                    FXGL.getAudioPlayer().playSound(sfx);
-                });
-            }
-            tile.setOpacity(tile.getOpacity() + .016);
-            tile.setScaleX(tile.getScaleX() - .016);
-            tile.setScaleY(tile.getScaleY() - .016);
-        }, Duration.millis(.5), 60);
+    }
+
+    public void move(Entity currentTile, Entity newTile) {
+
     }
 
     public static void main(String[] args) {
