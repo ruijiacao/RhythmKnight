@@ -68,7 +68,9 @@ public class TestMap extends GameApplication {
             tile.setScaleY(tile.getScaleY() - .016);
         }, Duration.millis(.5), 60);
     }
+    /*
     public static void main(String[] args) {
         launch(args);
     }
+    */
 }
