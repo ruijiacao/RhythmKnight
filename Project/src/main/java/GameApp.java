@@ -145,7 +145,7 @@ public class GameApp extends GameApplication {
                 tile.setOnMouseClicked(mouseEvent -> {
                     // purposefully empty to clear the eventHandler
                 });
-                if (frame.get() >= 20 && frame.get() <= 30) {
+                if (frame.get() >= 15 && frame.get() < 30) {
                     tile.setOnMouseClicked(mouseEvent -> {
                         scoreBeat(scoreText);
                         score += frame.get();

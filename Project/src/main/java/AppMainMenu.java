@@ -5,6 +5,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class AppMainMenu extends FXGLMenu {
@@ -51,6 +52,27 @@ public class AppMainMenu extends FXGLMenu {
 
         configButton.setOnMouseClicked(mouseEvent -> {
             System.out.println("Opening game config...");
+
+            // Config Window
+            Rectangle configWindow = new Rectangle(1280, 720);
+            var configUI = FXGL.getAssetLoader().loadTexture("configUI.png");
+            configWindow.setLayoutX(300);
+            configWindow.setLayoutY(100);
+            configWindow.setFill(Color.WHITE);
+            configUI.setLayoutX(300);
+            configUI.setLayoutY(100);
+
+            // Close Button
+            Button close = new Button("X");
+            close.setLayoutX(350);
+            close.setLayoutY(150);
+            close.setScaleX(2.5);
+            close.setScaleY(2.5);
+            getContentRoot().getChildren().addAll(configWindow, configUI, close);
+
+            close.setOnMouseClicked(mouseEvent1 -> {
+                getContentRoot().getChildren().removeAll(configWindow, configUI, close);
+            });
         });
 
         // exit button
