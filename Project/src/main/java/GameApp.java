@@ -1,6 +1,5 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.MenuItem;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
@@ -14,8 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
-import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -52,13 +49,10 @@ public class GameApp extends GameApplication {
     ===== GAME INITIALIZATION =====
     This method is called as soon as
     the scene changes to the tutorial level.
-
     Sound variable 'hit' is defined in the
     class scope because multiple methods use it.
-
     The game first starts playing the tutorial music and
     loops it starting one beat after it finishes (30 frames = 1 beat for 120 BPM).
-
     The game also makes instances of the tiles on the tile map and passes them
     into the guideToBeat() method to match the rhythm of the music.
     =================================
@@ -80,7 +74,7 @@ public class GameApp extends GameApplication {
         testTile.setOpacity(0);
 
         FXGL.getGameScene().addUINodes(testTile);
-        guideToBeat(testTile);
+        FXGL.runOnce(() -> {guideToBeat(testTile);}, Duration.millis(235));
 
         testTile.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
             tileActive = true;
@@ -94,7 +88,6 @@ public class GameApp extends GameApplication {
     /*
     ===== UI INITIALIZATION =====
     The UI for the game is set up here.
-
     The tilemap background as well as the player's
     score is stored here in the UI method and is
     also called as soon as the game starts.
@@ -120,25 +113,24 @@ public class GameApp extends GameApplication {
     guideToBeat() takes a passed in tile and
     guides its shape according to the beat of
     the song.
-
     It first doubles the scale of the tile and as
     the beat progresses, makes the tile shrink. The
     player is expected to hit the tile as soon as it
     comes in contact with the matching tilemap in order
     to move and get score.
-
     It measures frames accordingly and determines if the
     player hit the tile at the appropriate time according
     to the beat and assigns a unique score based on frame
     number.
-
     Remember: 120BPM = 2 beats/sec = 1 beat every .5 seconds
     = 30 frames (60 frames = 1 second)
     ===========================
      */
     public void guideToBeat(Texture tile) {
+        // reset scale
         tile.setScaleX(2.35);
         tile.setScaleY(2.35);
+        tile.setOpacity(1);
         AtomicInteger frame = new AtomicInteger(0);
 
         FXGL.run(() -> {
@@ -153,10 +145,10 @@ public class GameApp extends GameApplication {
                 tile.setOnMouseClicked(mouseEvent -> {
                     // purposefully empty to clear the eventHandler
                 });
-                if (frame.get() >= 0 && frame.get() <= 10) {
+                if (frame.get() >= 20 && frame.get() <= 30) {
                     tile.setOnMouseClicked(mouseEvent -> {
                         scoreBeat(scoreText);
-                        score += 100 - (frame.get() * 10);
+                        score += frame.get();
                         scoreText.setText("Tutorial\n" + Integer.toString(score));
                         FXGL.getAudioPlayer().playSound(hit);
                     });
@@ -172,7 +164,6 @@ public class GameApp extends GameApplication {
     ===== SCORE BEAT =====
     The same as guideToBeat() but for the
     score Node.
-
     Unlike tiles, the score only moves to the
     beat as long as the player hits the tile
     on time. When the player hits the tile
@@ -206,5 +197,4 @@ public class GameApp extends GameApplication {
     public static void main(String[] args) {
         launch(args);
     }
-
 }
