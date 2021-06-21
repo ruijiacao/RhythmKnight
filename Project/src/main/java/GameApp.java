@@ -8,20 +8,25 @@ import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
+import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class GameApp extends GameApplication {
 
     // Global app variables
-    boolean tileActive = false;
     int score = 0;
     Text scoreText;
+    private static Media OST;
+    private static MediaPlayer songPlayer;
+    int currLevel;
+    int currFloor;
 
     /*
     ===== GAME WINDOW SETTINGS =====
@@ -60,29 +65,34 @@ public class GameApp extends GameApplication {
     Sound hit;
     @Override
     protected void initGame() {
-        Sound OST = FXGL.getAssetLoader().loadSound("Tutorial.wav");
-        FXGL.getAudioPlayer().playSound(OST);
-        FXGL.run(() -> {
-            FXGL.getAudioPlayer().playSound(OST);
-        }, Duration.seconds(132.30));
+        String OSTPath = "/Users/kylefry/Desktop/RhythmKnight/Project/src/main/resources/assets/sounds/Diodes.mp3";
+        OST = new Media(new File(OSTPath).toURI().toString());
+        songPlayer = new MediaPlayer(OST);
+        songPlayer.play();
+        currLevel = 1;
+        currFloor = 1;
+
         hit = FXGL.getAssetLoader().loadSound("snare01.wav");
-        var testTile = FXGL.getAssetLoader().loadTexture("hex.png");
-        testTile.setX(665);
-        testTile.setY(335);
-        testTile.setScaleX(1.35);
-        testTile.setScaleY(1.35);
-        testTile.setOpacity(0);
 
-        FXGL.getGameScene().addUINodes(testTile);
-        FXGL.runOnce(() -> {guideToBeat(testTile);}, Duration.millis(235));
+        var tile1 = FXGL.getAssetLoader().loadTexture("hex.png");
+        tile1.setX(665);
+        tile1.setY(335);
+        tile1.setScaleX(1.35);
+        tile1.setScaleY(1.35);
+        tile1.setOpacity(1);
 
-        testTile.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEvent -> {
-            tileActive = true;
-        });
+        FXGL.getGameScene().addUINodes(tile1);
+        guideToBeat(tile1);
 
-        testTile.addEventHandler(MouseEvent.MOUSE_EXITED, mouseEvent -> {
-            tileActive = false;
-        });
+        var tile2 = FXGL.getAssetLoader().loadTexture("hex.png");
+        tile2.setX(857);
+        tile2.setY(223);
+        tile2.setScaleX(1.35);
+        tile2.setScaleY(1.35);
+        tile2.setOpacity(1);
+
+        FXGL.getGameScene().addUINodes(tile2);
+        guideToBeat(tile2);
     }
 
     /*
@@ -99,8 +109,8 @@ public class GameApp extends GameApplication {
                 .view("TutorialTilemap.png")
                 .buildAndAttach();
 
-        scoreText = new Text("Tutorial\n0");
-        scoreText.setX(100);
+        scoreText = new Text("Level " + currLevel + " / Floor " + currFloor + "\n0");
+        scoreText.setX(200);
         scoreText.setY(100);
         scoreText.setScaleX(3);
         scoreText.setScaleY(3);
@@ -127,37 +137,40 @@ public class GameApp extends GameApplication {
     ===========================
      */
     public void guideToBeat(Texture tile) {
-        // reset scale
-        tile.setScaleX(2.35);
-        tile.setScaleY(2.35);
-        tile.setOpacity(1);
-        AtomicInteger frame = new AtomicInteger(0);
+        var cutout = FXGL.getAssetLoader().loadTexture("cutout.png");
+        FXGL.getGameScene().addUINode(cutout);
 
-        FXGL.run(() -> {
-            frame.addAndGet(1);
-            if (frame.get() == 30) {
-                tile.setOpacity(1);
-                tile.setScaleX(1.35);
-                tile.setScaleY(1.35);
-                frame.set(0);
-            }
-            if (tileActive) {
-                tile.setOnMouseClicked(mouseEvent -> {
-                    // purposefully empty to clear the eventHandler
-                });
-                if (frame.get() >= 15 && frame.get() < 30) {
+        int bpm = 135;
+        double beats = bpm * (OST.getDuration().toSeconds() / 60);
+
+        // beat, time
+        double[] times = new double[(int) beats + 1];
+
+        int i = 1;
+        while (i < beats) {
+            times[i] = (60.0 / bpm) * i;
+            i++;
+        }
+
+        AtomicInteger currBeat = new AtomicInteger(1);
+        FXGL.getGameTimer().runAtInterval(() -> {
+            double currTime = songPlayer.getCurrentTime().toSeconds();
+            tile.setOnMouseClicked(mouseEvent -> {});
+            if (currTime >= times[currBeat.get()] - .02 && currTime <= times[currBeat.get()] + .02) {
+                cutout.setOpacity(1);
+                FXGL.getGameTimer().runAtInterval(() -> {
                     tile.setOnMouseClicked(mouseEvent -> {
+                        score += 10 + currTime * 100;
+                        scoreText.setText("Level " + currLevel + " / Floor " + currFloor + "\n" + Integer.toString(score));
                         scoreBeat(scoreText);
-                        score += frame.get();
-                        scoreText.setText("Tutorial\n" + Integer.toString(score));
                         FXGL.getAudioPlayer().playSound(hit);
                     });
-                }
-                tile.setScaleX(tile.getScaleX() + .03);
-                tile.setScaleY(tile.getScaleY() + .03);
-                tile.setOpacity(tile.getOpacity() - .03);
+                }, Duration.millis(300));
+                currBeat.set(currBeat.get() + 1);
+            } else {
+                cutout.setOpacity(.15);
             }
-        }, Duration.millis(1));
+        }, Duration.seconds(1 / 60.0));
     }
 
     /*
@@ -191,7 +204,6 @@ public class GameApp extends GameApplication {
 
     // TO BE IMPLEMENTED
     public void move(Entity currentTile, Entity newTile) {
-
     }
 
     public static void main(String[] args) {
