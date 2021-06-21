@@ -27,6 +27,7 @@ public class GameApp extends GameApplication {
     private static MediaPlayer songPlayer;
     int currLevel;
     int currFloor;
+    Entity map;
 
     /*
     ===== GAME WINDOW SETTINGS =====
@@ -74,7 +75,7 @@ public class GameApp extends GameApplication {
 
         hit = FXGL.getAssetLoader().loadSound("snare01.wav");
 
-        var tile1 = FXGL.getAssetLoader().loadTexture("hex.png");
+        var tile1 = FXGL.getAssetLoader().loadTexture("unvisited.png");
         tile1.setX(665);
         tile1.setY(335);
         tile1.setScaleX(1.35);
@@ -84,7 +85,7 @@ public class GameApp extends GameApplication {
         FXGL.getGameScene().addUINodes(tile1);
         guideToBeat(tile1);
 
-        var tile2 = FXGL.getAssetLoader().loadTexture("hex.png");
+        var tile2 = FXGL.getAssetLoader().loadTexture("unvisited.png");
         tile2.setX(857);
         tile2.setY(223);
         tile2.setScaleX(1.35);
@@ -105,7 +106,7 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initUI() {
-        Entity map = new EntityBuilder()
+        map = new EntityBuilder()
                 .view("TutorialTilemap.png")
                 .buildAndAttach();
 
@@ -153,20 +154,24 @@ public class GameApp extends GameApplication {
         }
 
         AtomicInteger currBeat = new AtomicInteger(1);
+
         FXGL.getGameTimer().runAtInterval(() -> {
             double currTime = songPlayer.getCurrentTime().toSeconds();
             tile.setOnMouseClicked(mouseEvent -> {});
-            if (currTime >= times[currBeat.get()] - .02 && currTime <= times[currBeat.get()] + .02) {
-                cutout.setOpacity(1);
+            if (currTime >= times[currBeat.get()] - .1) {
+                currBeat.set(currBeat.get() + 1);
+                AtomicInteger scoreConstant = new AtomicInteger(15);
                 FXGL.getGameTimer().runAtInterval(() -> {
+                    cutoutAnimation(cutout);
                     tile.setOnMouseClicked(mouseEvent -> {
-                        score += 10 + currTime * 100;
+                        score += 10 + scoreConstant.get();
                         scoreText.setText("Level " + currLevel + " / Floor " + currFloor + "\n" + Integer.toString(score));
                         scoreBeat(scoreText);
+                        tileAnimation(tile);
                         FXGL.getAudioPlayer().playSound(hit);
                     });
-                }, Duration.millis(300));
-                currBeat.set(currBeat.get() + 1);
+                    scoreConstant.set(scoreConstant.get() - 1);
+                }, Duration.millis(1), 15);
             } else {
                 cutout.setOpacity(.15);
             }
@@ -202,8 +207,26 @@ public class GameApp extends GameApplication {
         }, Duration.millis(1), 30);
     }
 
+    public void cutoutAnimation(Texture cutout) {
+        cutout.setOpacity(1);
+        FXGL.run(() -> {
+            cutout.setOpacity(cutout.getOpacity() - 1 / 15.0);
+        }, Duration.millis(1), 15);
+    }
+
+    public void tileAnimation (Texture tile) {
+        FXGL.run(() -> {
+            tile.setScaleX(tile.getScaleX() + 1 / 15.0);
+            tile.setScaleY(tile.getScaleX() + 1 / 15.0);
+            tile.setOpacity(tile.getOpacity() - 1 / 15.0);
+        }, Duration.millis(1), 15);
+        tile.setScaleX(1.35);
+        tile.setScaleY(1.35);
+        tile.setOpacity(1);
+    }
+
     // TO BE IMPLEMENTED
-    public void move(Entity currentTile, Entity newTile) {
+    public void move(Texture currentTile, Texture newTile) {
     }
 
     public static void main(String[] args) {
