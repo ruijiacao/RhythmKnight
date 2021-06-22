@@ -53,20 +53,18 @@ public class GameApp extends GameApplication {
 
     /*
     ===== GAME INITIALIZATION =====
-    This method is called as soon as
-    the scene changes to the tutorial level.
-    Sound variable 'hit' is defined in the
-    class scope because multiple methods use it.
-    The game first starts playing the tutorial music and
-    loops it starting one beat after it finishes (30 frames = 1 beat for 120 BPM).
-    The game also makes instances of the tiles on the tile map and passes them
-    into the guideToBeat() method to match the rhythm of the music.
+    This method is called as soon as the game opens as well.
+
+    The song to be played is initialized and started through a MediaPlayer
+    and other game objects such as sound effects and tiles are instantiated.
     =================================
      */
     Sound hit;
     @Override
     protected void initGame() {
-        String OSTPath = "/Users/kylefry/Desktop/RhythmKnight/Project/src/main/resources/assets/sounds/Diodes.mp3";
+        String OSTPath = "." + File.separator + "src" + File.separator + "main" +
+                File.separator + "resources" + File.separator + "assets" + File.separator +
+                "sounds" + File.separator + "Diodes.mp3";
         OST = new Media(new File(OSTPath).toURI().toString());
         songPlayer = new MediaPlayer(OST);
         songPlayer.play();
@@ -121,20 +119,11 @@ public class GameApp extends GameApplication {
 
     /*
     ===== GUIDE TO BEAT =====
-    guideToBeat() takes a passed in tile and
-    guides its shape according to the beat of
-    the song.
-    It first doubles the scale of the tile and as
-    the beat progresses, makes the tile shrink. The
-    player is expected to hit the tile as soon as it
-    comes in contact with the matching tilemap in order
-    to move and get score.
-    It measures frames accordingly and determines if the
-    player hit the tile at the appropriate time according
-    to the beat and assigns a unique score based on frame
-    number.
-    Remember: 120BPM = 2 beats/sec = 1 beat every .5 seconds
-    = 30 frames (60 frames = 1 second)
+    This method uses the song positioning to maintain
+    a rhythm and creates a mouseEvent listener on a passed
+    in tile that is created during a beat window, which is
+    15 frames after a beat is played. Score is updated
+    with a constant relating to frame click.
     ===========================
      */
     public void guideToBeat(Texture tile) {
@@ -207,6 +196,12 @@ public class GameApp extends GameApplication {
         }, Duration.millis(1), 30);
     }
 
+    /*
+    ===== CUTOUT ANIMATION =====
+    This method is responsible for animating the cutout rectangle
+    that flows with the beat.
+    ============================
+     */
     public void cutoutAnimation(Texture cutout) {
         cutout.setOpacity(1);
         FXGL.run(() -> {
@@ -214,6 +209,12 @@ public class GameApp extends GameApplication {
         }, Duration.millis(1), 15);
     }
 
+    /*
+    ===== TILE ANIMATION =====
+    This method is responsible for animating the tile the
+    player will move to after it is clicked on.
+    ==========================
+     */
     public void tileAnimation (Texture tile) {
         FXGL.run(() -> {
             tile.setScaleX(tile.getScaleX() + 1 / 15.0);

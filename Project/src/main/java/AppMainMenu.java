@@ -145,4 +145,3 @@ public class AppMainMenu extends FXGLMenu {
         getContentRoot().getChildren().addAll(maincontainer);
     }
 }
-
