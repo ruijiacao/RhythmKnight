@@ -66,7 +66,8 @@ public class GameApp extends GameApplication {
     Sound hit;
     @Override
     protected void initGame() {
-        String OSTPath = "/Users/kylefry/Desktop/RhythmKnight/Project/src/main/resources/assets/sounds/Diodes.mp3";
+        String OSTPath = "src" + File.separator + "main" + File.separator + "resources" +
+            File.separator + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
         OST = new Media(new File(OSTPath).toURI().toString());
         songPlayer = new MediaPlayer(OST);
         songPlayer.play();
@@ -165,7 +166,8 @@ public class GameApp extends GameApplication {
                     cutoutAnimation(cutout);
                     tile.setOnMouseClicked(mouseEvent -> {
                         score += 10 + scoreConstant.get();
-                        scoreText.setText("Level " + currLevel + " / Floor " + currFloor + "\n" + Integer.toString(score));
+                        scoreText.setText("Level " + currLevel + " / Floor " + currFloor +
+                            "\n" + Integer.toString(score));
                         scoreBeat(scoreText);
                         tileAnimation(tile);
                         FXGL.getAudioPlayer().playSound(hit);
