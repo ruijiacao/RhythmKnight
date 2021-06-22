@@ -28,12 +28,14 @@ public class AppMainMenu extends FXGLMenu {
 
     public AppMainMenu(MenuType type) {
         super(type);
+
         //Welcome Screen
         splash = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
+
         // Enter Game
         Button enter = new Button("Start New Game");
-        enter.setLayoutX(FXGL.getAppWidth()/2 - 165);
-        enter.setLayoutY(FXGL.getAppHeight()/2 - 10);
+        enter.setLayoutX(FXGL.getAppWidth() / 2 - 165);
+        enter.setLayoutY(FXGL.getAppHeight() / 2 - 10);
         enter.setPrefWidth(330);
         enter.setPrefHeight(65);
         enter.setOpacity(1);
@@ -41,7 +43,7 @@ public class AppMainMenu extends FXGLMenu {
         enter.setStyle("-fx-text-weight: Bold");
 
         // menu image
-        menu = FXGL.getAssetLoader().loadTexture("main-menu.png");
+        menu = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
 
         // selector
         var selector = FXGL.getAssetLoader().loadTexture("rest.png");
@@ -54,7 +56,9 @@ public class AppMainMenu extends FXGLMenu {
         startButton.setLayoutY(615);
         startButton.setPrefWidth(330);
         startButton.setPrefHeight(65);
-        startButton.setOpacity(0);
+        startButton.setOpacity(1);
+        startButton.setText("Start!");
+        startButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         startButton.setOnMouseEntered(mouseEvent -> {
             selector.setX(540);
@@ -72,7 +76,9 @@ public class AppMainMenu extends FXGLMenu {
         configButton.setLayoutY(700);
         configButton.setPrefWidth(540);
         configButton.setPrefHeight(65);
-        configButton.setOpacity(0);
+        configButton.setOpacity(1);
+        configButton.setText("Game Configuration");
+        configButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         configButton.setOnMouseEntered(mouseEvent -> {
             selector.setX(540);
@@ -110,7 +116,9 @@ public class AppMainMenu extends FXGLMenu {
         exitButton.setLayoutY(790);
         exitButton.setPrefWidth(130);
         exitButton.setPrefHeight(65);
-        exitButton.setOpacity(0);
+        exitButton.setOpacity(1);
+        exitButton.setText("Quit");
+        exitButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         exitButton.setOnMouseEntered(mouseEvent -> {
             selector.setX(540);
