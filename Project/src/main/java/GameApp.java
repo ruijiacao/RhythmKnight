@@ -6,21 +6,18 @@ import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
-
+import java.util.ArrayList;
 
 public class GameApp extends GameApplication {
 
     // Global app variables
     int score = 0;
     Text scoreText;
-    private static Media OST;
-    private static MediaPlayer songPlayer;
     static int currLevel;
     static int currFloor;
     Entity map;
@@ -62,31 +59,26 @@ public class GameApp extends GameApplication {
                 "sounds" + File.separator + "Diodes.mp3";
         currLevel = 1;
         currFloor = 1;
-
-        Conductor conductor = new Conductor(135, OSTPath, 0);
+        int bpm = 135;
+        Conductor conductor = new Conductor(bpm, OSTPath, score);
+        scoreText = new Text("Level " + currLevel + " / Floor " + currFloor + "\n0");
+        scoreText.setX(200);
+        scoreText.setY(100);
+        scoreText.setScaleX(3);
+        scoreText.setScaleY(3);
+        scoreText.setFill(Color.WHITE);
+        FXGL.getGameScene().addUINodes(scoreText);
         var cutout = FXGL.getAssetLoader().loadTexture("cutout.png");
+
         conductor.startAndKeepRhythm(cutout);
 
-        var tile1 = FXGL.getAssetLoader().loadTexture("unvisited.png");
-        tile1.setX(665);
-        tile1.setY(335);
-        tile1.setScaleX(1.35);
-        tile1.setScaleY(1.35);
-        tile1.setOpacity(1);
+        ArrayList<Tile> tiles = new ArrayList<>();
 
-        FXGL.getGameScene().addUINodes(tile1);
-        tile1.setOnMouseClicked(mouseEvent -> { conductor.checkRhythm(tile1, scoreText); });
-
-
-        var tile2 = FXGL.getAssetLoader().loadTexture("unvisited.png");
-        tile2.setX(857);
-        tile2.setY(223);
-        tile2.setScaleX(1.35);
-        tile2.setScaleY(1.35);
-        tile2.setOpacity(1);
-
-        FXGL.getGameScene().addUINodes(tile2);
-        tile2.setOnMouseClicked(mouseEvent -> {conductor.checkRhythm(tile2, scoreText);});
+        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(665, 335));
+        Tile tile2 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(857, 223));
+        tiles.add(tile1);
+        tiles.add(tile2);
+        TileMap tileMap = new TileMap(tiles, conductor, scoreText);
     }
 
     /*
@@ -102,14 +94,6 @@ public class GameApp extends GameApplication {
         map = new EntityBuilder()
                 .view("TutorialTilemap.png")
                 .buildAndAttach();
-
-        scoreText = new Text("Level " + currLevel + " / Floor " + currFloor + "\n0");
-        scoreText.setX(200);
-        scoreText.setY(100);
-        scoreText.setScaleX(3);
-        scoreText.setScaleY(3);
-        scoreText.setFill(Color.WHITE);
-        FXGL.getGameScene().addUINodes(scoreText);
     }
     public static void main(String[] args) {
         launch(args);
