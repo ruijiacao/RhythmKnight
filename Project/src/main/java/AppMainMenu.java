@@ -57,7 +57,7 @@ public class AppMainMenu extends FXGLMenu {
         startButton.setPrefWidth(330);
         startButton.setPrefHeight(65);
         startButton.setOpacity(1);
-        startButton.setText("Start!");
+        startButton.setText("Proceed!");
         startButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         startButton.setOnMouseEntered(mouseEvent -> {
