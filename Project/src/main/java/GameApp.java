@@ -8,6 +8,9 @@ import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
+import com.almasb.fxgl.time.TimerAction;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -15,6 +18,9 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -28,6 +34,7 @@ public class GameApp extends GameApplication {
     int currLevel;
     int currFloor;
     Entity map;
+    private TimerAction timerAction;
 
     /*
     ===== GAME WINDOW SETTINGS =====
@@ -66,7 +73,7 @@ public class GameApp extends GameApplication {
     Sound hit;
     @Override
     protected void initGame() {
-        String OSTPath = "/Users/kylefry/Desktop/RhythmKnight/Project/src/main/resources/assets/sounds/Diodes.mp3";
+        String OSTPath = "./Project/src/main/resources/assets/sounds/Diodes.mp3";
         OST = new Media(new File(OSTPath).toURI().toString());
         songPlayer = new MediaPlayer(OST);
         songPlayer.play();
@@ -117,6 +124,26 @@ public class GameApp extends GameApplication {
         scoreText.setScaleY(3);
         scoreText.setFill(Color.WHITE);
         FXGL.getGameScene().addUINodes(scoreText);
+
+        // Display weapon graphic
+        try {
+            InputStream weaponPath = new FileInputStream("." + File.separator + "Project" + "src"
+                    + File.separator + "main" + File.separator + "resources" + File.separator + "assets"
+                    + File.separator + "textures" + File.separator + "weapons" + File.separator + "weapon"
+                    + GlobalSettings.startingWeapon + ".png");
+            Image weaponImg = new Image(weaponPath);
+            //Creating the image view
+            ImageView weaponImgNode = new ImageView();
+            //Setting image to the image view
+            weaponImgNode.setImage(weaponImg);
+            //Setting the image view parameters
+            weaponImgNode.setLayoutX(500);
+            weaponImgNode.setLayoutY(500);
+            FXGL.getGameScene().addUINode(weaponImgNode);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /*
@@ -228,6 +255,8 @@ public class GameApp extends GameApplication {
     // TO BE IMPLEMENTED
     public void move(Texture currentTile, Texture newTile) {
     }
+
+
 
     public static void main(String[] args) {
         launch(args);
