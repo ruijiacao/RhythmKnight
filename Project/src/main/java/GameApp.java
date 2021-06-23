@@ -70,7 +70,7 @@ public class GameApp extends GameApplication {
         FXGL.getGameScene().addUINodes(scoreText);
         var cutout = FXGL.getAssetLoader().loadTexture("cutout.png");
 
-        conductor.startAndKeepRhythm(cutout);
+        FXGL.getGameTimer().runOnceAfter(() ->{conductor.startAndKeepRhythm(cutout);}, Duration.millis(1));
 
         ArrayList<Tile> tiles = new ArrayList<>();
 
