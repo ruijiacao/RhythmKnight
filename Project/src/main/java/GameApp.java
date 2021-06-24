@@ -15,6 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class GameApp extends GameApplication {
