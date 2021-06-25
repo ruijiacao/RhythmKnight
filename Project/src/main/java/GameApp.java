@@ -61,10 +61,7 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initUI() {
-        map = new EntityBuilder()
-                .view("Level1-1Dungeon.png")
-                .buildAndAttach();
-
+        // comment this out when all tiles have been added later on
         layout = new EntityBuilder()
                 .view("Level1-1Layout.png")
                 .buildAndAttach();

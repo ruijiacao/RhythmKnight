@@ -73,7 +73,7 @@ public class Conductor {
             Animator animator = new Animator();
             if (isOnBeat) {
                 playerScore += 10 + scoreConstant.get();
-                scoreText.setText("Level " + GameApp.currLevel + " / Floor " + GameApp.currFloor + "\n" + Integer.toString(playerScore));
+                scoreText.setText("Level " + Initializer.currLevel + " / Floor " + Initializer.currFloor + "\n" + Integer.toString(playerScore));
                 animator.pulsateScore(scoreText);
                 animator.pulsateTile(tile.getTileTexture());
                 FXGL.getAudioPlayer().playSound(hit);

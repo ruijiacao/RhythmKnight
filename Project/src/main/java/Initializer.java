@@ -17,9 +17,6 @@ public class Initializer {
     Text healthText;
     static int currLevel;
     static int currFloor;
-    Entity map;
-    Entity layout;
-    Entity UI_bg;
 
     public void initLevel1() {
         String OSTPath = "." + File.separator + "src" + File.separator + "main" +
@@ -71,8 +68,11 @@ public class Initializer {
         // x + 30, y + 25
         Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(405, 435));
         Tile tile2 = new Tile(FXGL.getAssetLoader().loadTexture("player.png"), new Point2D(600, 545));
+        Tile exit = new Tile(FXGL.getAssetLoader().loadTexture("stairs.png"), new Point2D(1535, 185));
         tiles.add(tile1);
         tiles.add(tile2);
+        tiles.add(exit);
+
 
         TileMap tileMap = new TileMap(tiles, conductor, scoreText);
 
