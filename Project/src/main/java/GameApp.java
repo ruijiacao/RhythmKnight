@@ -6,17 +6,12 @@ import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import javafx.util.Duration;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 import java.io.File;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class GameApp extends GameApplication {
@@ -53,7 +48,6 @@ public class GameApp extends GameApplication {
     /*
     ===== GAME INITIALIZATION =====
     This method is called as soon as the game opens as well.
-
     The song to be played is initialized and started through a MediaPlayer
     and other game objects such as sound effects and tiles are instantiated.
     =================================
@@ -85,26 +79,6 @@ public class GameApp extends GameApplication {
         tiles.add(tile1);
         tiles.add(tile2);
         TileMap tileMap = new TileMap(tiles, conductor, scoreText);
-        // Display weapon graphic
-        try {
-            InputStream weaponPath = new FileInputStream("." + File.separator + "Project" + "src"
-                + File.separator + "main" + File.separator + "resources" + File.separator + "assets"
-                + File.separator + "textures" + File.separator + "weapons" + File.separator + "weapon"
-                + GlobalSettings.startingWeapon + ".png");
-            Image weaponImg = new Image(weaponPath);
-            //Creating the image view
-            ImageView weaponImgNode = new ImageView();
-            //Setting image to the image view
-            weaponImgNode.setImage(weaponImg);
-            //Setting the image view parameters
-            weaponImgNode.setLayoutX(500);
-            weaponImgNode.setLayoutY(500);
-            FXGL.getGameScene().addUINode(weaponImgNode);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     /*
