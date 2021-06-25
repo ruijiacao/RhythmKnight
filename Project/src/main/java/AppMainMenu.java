@@ -4,10 +4,16 @@ import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
+import com.almasb.fxgl.time.TimerAction;
+import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -16,6 +22,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class AppMainMenu extends FXGLMenu {
     private Texture menu;
@@ -66,8 +76,24 @@ public class AppMainMenu extends FXGLMenu {
         });
 
         startButton.setOnMouseClicked(mouseEvent -> {
-            System.out.println("Starting game...");
-            fireNewGame();
+
+            boolean canStart = true;
+            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
+                createAlert("", "A name was not selected, please try again");
+                canStart = false;
+            }
+            if (GlobalSettings.difficulty == -1) {
+                createAlert("", "A difficulty was not selected, please try again");
+                canStart = false;
+            }
+            if (GlobalSettings.startingWeapon == -1) {
+                createAlert("", "A starting weapon was not selected, please try again");
+                canStart = false;
+            }
+            if (canStart) {
+                System.out.println("Starting game...");
+                fireNewGame();
+            }
         });
 
         // game config button
@@ -97,16 +123,82 @@ public class AppMainMenu extends FXGLMenu {
             configUI.setLayoutX(300);
             configUI.setLayoutY(100);
 
+            // Margin constants
+            int hMargin = 320;
+            int vMargin = 180;
+
+            // Textbox for name
+            TextField tfEnterName = new TextField();
+            tfEnterName.setLayoutX(400);                // Note: These are not applicable for different resolutions!
+            tfEnterName.setLayoutY(1080 - 400);         // Where the second number is the num pixels from bottom of screen
+            tfEnterName.setScaleX(2);
+            tfEnterName.setScaleY(2);
+
+            // Weapon selection
+            ComboBox cbWeapons = new ComboBox();
+            cbWeapons.setLayoutX(1100);
+            cbWeapons.setLayoutY(1080 - 700);
+            cbWeapons.getItems().add("Weapon 0");
+            cbWeapons.getItems().add("Weapon 1");
+            cbWeapons.getItems().add("Weapon 2");
+
+            // Weapon selection
+            ComboBox cbDiff = new ComboBox();
+            cbDiff.setLayoutX(1100);
+            cbDiff.setLayoutY(1080 - 575);
+            cbDiff.getItems().add("Easy");
+            cbDiff.getItems().add("Medium");
+            cbDiff.getItems().add("Hard");
+
             // Close Button
             Button close = new Button("X");
             close.setLayoutX(350);
             close.setLayoutY(150);
             close.setScaleX(2.5);
             close.setScaleY(2.5);
-            getContentRoot().getChildren().addAll(configWindow, configUI, close);
 
+            // Add and remove children
+            getContentRoot().getChildren().addAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff);
             close.setOnMouseClicked(mouseEvent1 -> {
-                getContentRoot().getChildren().removeAll(configWindow, configUI, close);
+                getContentRoot().getChildren().removeAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff);
+                // Set player name
+                GlobalSettings.playerName = tfEnterName.getText();
+
+                // Set difficulty
+                int difficulty = -1;
+                if (cbDiff.getValue() != null) {
+                    switch((String) cbDiff.getValue()) {
+                        case "Easy":
+                            difficulty = 0;
+                            break;
+                        case "Medium":
+                            difficulty = 1;
+                            break;
+                        case "Hard":
+                            difficulty = 2;
+                            break;
+                    }
+                    GlobalSettings.difficulty = difficulty;
+                }
+                if (cbWeapons.getValue() != null) {
+                    // Set starting weapon
+                    int startingWeapon = -1;
+                    switch((String) cbWeapons.getValue()) {
+                        case "Weapon 0":
+                            startingWeapon = 0;
+                            break;
+                        case "Weapon 1":
+                            startingWeapon = 1;
+                            break;
+                        case "Weapon 2":
+                            startingWeapon = 2;
+                            break;
+                    }
+                    GlobalSettings.startingWeapon = startingWeapon;
+                }
+
+
+
             });
         });
 
@@ -144,4 +236,16 @@ public class AppMainMenu extends FXGLMenu {
 
         getContentRoot().getChildren().addAll(maincontainer);
     }
+
+    public void createAlert(String header, String msg) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        System.out.println("Alert created");
+        alert.setTitle("Error");
+        // Takes either a default message or the inputted
+        String headerText = (header.isBlank()) ? "Can't start the game!" : header;
+        alert.setHeaderText(headerText);
+        alert.setContentText(msg);
+        alert.showAndWait();
+    }
+
 }
