@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+import java.io.File;
+
 public class AppMainMenu extends FXGLMenu {
     private Texture menu;
     private Texture splash;
@@ -35,22 +37,19 @@ public class AppMainMenu extends FXGLMenu {
     // This pane contains the welcome screen
     private Pane container2 = new Pane();
     private Pane maincontainer;
-
     public AppMainMenu(MenuType type) {
         super(type);
-
         //Welcome Screen
         splash = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
 
-        // Enter Game
+
         Button enter = new Button("Start New Game");
         enter.setLayoutX(FXGL.getAppWidth() / 2 - 165);
         enter.setLayoutY(FXGL.getAppHeight() / 2 - 10);
         enter.setPrefWidth(330);
         enter.setPrefHeight(65);
         enter.setOpacity(1);
-        enter.setFont(Font.font("Times New Roman", 30));
-        enter.setStyle("-fx-text-weight: Bold");
+        enter.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         // menu image
         menu = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
@@ -134,15 +133,27 @@ public class AppMainMenu extends FXGLMenu {
             tfEnterName.setScaleX(2);
             tfEnterName.setScaleY(2);
 
+            // Text for weapon
+            Label weapon = new Label("Select Your Weapon: ");
+            weapon.setLayoutX(850);
+            weapon.setLayoutY(387);
+            weapon.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+
             // Weapon selection
             ComboBox cbWeapons = new ComboBox();
             cbWeapons.setLayoutX(1100);
             cbWeapons.setLayoutY(1080 - 700);
-            cbWeapons.getItems().add("Weapon 0");
             cbWeapons.getItems().add("Weapon 1");
             cbWeapons.getItems().add("Weapon 2");
+            cbWeapons.getItems().add("Weapon 3");
 
-            // Weapon selection
+            //Text for Difficulty
+            Label diffTxt = new Label("Difficulty Level: ");
+            diffTxt.setLayoutX(909);
+            diffTxt.setLayoutY(510);
+            diffTxt.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+
+            // Difficulty selection
             ComboBox cbDiff = new ComboBox();
             cbDiff.setLayoutX(1100);
             cbDiff.setLayoutY(1080 - 575);
@@ -158,9 +169,9 @@ public class AppMainMenu extends FXGLMenu {
             close.setScaleY(2.5);
 
             // Add and remove children
-            getContentRoot().getChildren().addAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff);
+            getContentRoot().getChildren().addAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weapon, diffTxt);
             close.setOnMouseClicked(mouseEvent1 -> {
-                getContentRoot().getChildren().removeAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff);
+                getContentRoot().getChildren().removeAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weapon, diffTxt);
                 // Set player name
                 GlobalSettings.playerName = tfEnterName.getText();
 
@@ -220,7 +231,8 @@ public class AppMainMenu extends FXGLMenu {
         exitButton.setOnMouseClicked(mouseEvent -> {
             System.exit(0);
         });
-        container1.getChildren().addAll(menu, startButton, configButton, exitButton, selector);
+        container1.getChildren().addAll(menu, startButton, configButton, exitButton, selector
+        );
         container2.getChildren().addAll(splash, enter
         );
         maincontainer = new StackPane(container2);
