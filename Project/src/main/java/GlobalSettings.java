@@ -13,4 +13,9 @@ public class GlobalSettings {
             "Ruijia Cao - Model/Design Implementation",
             "Micah Lingle - Character/Level Design"
     );
+
+    // Game config
+    public static String playerName;
+    public static int difficulty = -1;            // enum?
+    public static int startingWeapon = -1;
 }

@@ -1,3 +1,15 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Local folders
+.idea/
+logs/
+system/
+*.class
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,intellij,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,intellij,maven
 
