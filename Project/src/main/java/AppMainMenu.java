@@ -130,9 +130,14 @@ public class AppMainMenu extends FXGLMenu {
             configUI.setLayoutX(300);
             configUI.setLayoutY(100);
 
-            // Margin constants
-            int hMargin = 320;
-            int vMargin = 180;
+            // Margin constants: hMargin = 320; vMargin = 180;
+
+            // Knight graphic
+            var knightSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
+            knightSprite.setLayoutX(400);
+            knightSprite.setLayoutY(1080 - 820);
+            knightSprite.setScaleX(.5);
+            knightSprite.setScaleY(.5);
 
             // Textbox for name
             TextField tfEnterName = new TextField();
@@ -191,8 +196,9 @@ public class AppMainMenu extends FXGLMenu {
             close.setScaleX(2.5);
             close.setScaleY(2.5);
 
-            // Add and remove nodes
-            Node[] configNodes = {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect, diffSelect};
+            // Nodes, to be added (and later removed)
+            Node[] configNodes = {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect,
+                    diffSelect, knightSprite};
             getContentRoot().getChildren().addAll(configNodes);
 
             // Exit behavior
