@@ -9,6 +9,7 @@
 .idea/
 logs/
 system/
+target/
 *.class
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,intellij,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,intellij,maven

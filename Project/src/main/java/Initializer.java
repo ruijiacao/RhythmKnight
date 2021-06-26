@@ -19,9 +19,10 @@ public class Initializer {
     static int currFloor;
 
     public void initLevel1() {
-        String OSTPath = "." + File.separator + "src" + File.separator + "main" +
-                File.separator + "resources" + File.separator + "assets" + File.separator +
-                "sounds" + File.separator + "Diodes.mp3";
+        // Absolute filepath
+        String OSTPath = System.getProperty("user.dir") + File.separator + "Project" + File.separator
+                + "src" + File.separator + "main" + File.separator + "resources" + File.separator
+                + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
         currLevel = 1;
         currFloor = 1;
         int bpm = 135;
