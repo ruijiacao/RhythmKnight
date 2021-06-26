@@ -68,15 +68,16 @@ public class Conductor {
         }, Duration.seconds(1 / 60.0));
     }
 
-    public void checkRhythm(Texture tile, Text scoreText) {
-        tile.setOnMouseClicked(mouseEvent -> {
+    public void checkRhythm(Tile tile, Text scoreText) {
+        tile.getTileTexture().setOnMouseClicked(mouseEvent -> {
             Animator animator = new Animator();
             if (isOnBeat) {
                 playerScore += 10 + scoreConstant.get();
-                scoreText.setText("Level " + GameApp.currLevel + " / Floor " + GameApp.currFloor + "\n" + Integer.toString(playerScore));
+                scoreText.setText("Level " + Initializer.currLevel + " / Floor " + Initializer.currFloor + "\n" + Integer.toString(playerScore));
                 animator.pulsateScore(scoreText);
-                animator.pulsateTile(tile);
+                animator.pulsateTile(tile.getTileTexture());
                 FXGL.getAudioPlayer().playSound(hit);
+                tile.setPlayerOnTile(true);
             }
         });
     }
