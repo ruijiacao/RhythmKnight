@@ -2,7 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GlobalSettingsTest {
+public class GlobalSettingsTest {
 
     // checks that the default screen resolution on initial startup is 1920 x 1080
     @Test

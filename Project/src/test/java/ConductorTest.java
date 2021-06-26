@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class ConductorTest {
+public class ConductorTest {
 
     @Test
     void startAndKeepRhythm() {
