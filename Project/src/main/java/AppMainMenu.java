@@ -41,6 +41,7 @@ public class AppMainMenu extends FXGLMenu {
     // This pane contains the welcome screen
     private Pane container2 = new Pane();
     private Pane maincontainer;
+    private Button enter;
 
     public AppMainMenu(MenuType type) {
         super(type);
@@ -52,7 +53,7 @@ public class AppMainMenu extends FXGLMenu {
         menu = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
 
         // Enter Game
-        Button enter = new Button("Start New Game");
+        enter = new Button("Start New Game");
         enter.setLayoutX(FXGL.getAppWidth() / 2 - 175);
         enter.setLayoutY(FXGL.getAppHeight() / 2 - 10);
         enter.setPrefWidth(330);
@@ -273,6 +274,10 @@ public class AppMainMenu extends FXGLMenu {
         alert.setHeaderText(headerText);
         alert.setContentText(msg);
         alert.showAndWait();
+    }
+
+    public Button getEnter() {
+        return enter;
     }
 
 }
