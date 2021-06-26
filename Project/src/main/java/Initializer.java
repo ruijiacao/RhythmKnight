@@ -19,7 +19,7 @@ public class Initializer {
     static int currFloor;
 
     public void initLevel1() {
-        // Absolute filepath
+        // Absolute filepath!
         String OSTPath = System.getProperty("user.dir") + File.separator + "Project" + File.separator
                 + "src" + File.separator + "main" + File.separator + "resources" + File.separator
                 + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
