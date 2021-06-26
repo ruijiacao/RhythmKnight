@@ -60,6 +60,14 @@ public class Initializer {
         healthText.setFill(Color.MEDIUMVIOLETRED);
         FXGL.getGameScene().addUINodes(healthText);
 
+        var weaponDisplay = FXGL.getAssetLoader().loadTexture("weapons/weapon"
+                + GlobalSettings.startingWeapon + ".png");
+        weaponDisplay.setScaleX(3);
+        weaponDisplay.setScaleY(3);
+        weaponDisplay.setX(1600);
+        weaponDisplay.setY(1080 - 90);
+        FXGL.getGameScene().addUINode(weaponDisplay);
+
         var cutout = FXGL.getAssetLoader().loadTexture("cutout.png");
 
         FXGL.getGameTimer().runOnceAfter(() ->{conductor.startAndKeepRhythm(cutout);}, Duration.millis(1));
