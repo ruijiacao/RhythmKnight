@@ -41,7 +41,6 @@ public class AppMainMenu extends FXGLMenu {
     private Pane container2 = new Pane();
     private Pane maincontainer;
 
-
     public AppMainMenu(MenuType type) {
         super(type);
 
@@ -52,13 +51,13 @@ public class AppMainMenu extends FXGLMenu {
         menu = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
 
         // Enter Game
-        Button enter = new Button("Start Game");
+        Button enter = new Button("Start New Game");
         enter.setLayoutX(FXGL.getAppWidth() / 2 - 175);
         enter.setLayoutY(FXGL.getAppHeight() / 2 - 10);
         enter.setPrefWidth(330);
         enter.setPrefHeight(65);
         enter.setOpacity(1);
-        enter.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 35));
+        enter.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 
         enter.setOnAction(e -> {
             FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
