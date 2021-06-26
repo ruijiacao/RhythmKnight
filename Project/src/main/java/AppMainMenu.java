@@ -7,6 +7,7 @@ import com.almasb.fxgl.texture.Texture;
 import com.almasb.fxgl.time.TimerAction;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -71,28 +72,35 @@ public class AppMainMenu extends FXGLMenu {
             enter.setOpacity(1);
         });
 
-        // start game button
+        // Start game button
         Button startButton = new Button();
         startButton.setLayoutX(FXGL.getAppWidth() / 2 - 110);
         startButton.setLayoutY(FXGL.getAppHeight() / 2 - 10);
         startButton.setOpacity(1);
         startButton.setText("Proceed");
         startButton.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 35));
-
         startButton.setOnMouseClicked(mouseEvent -> {
-
             boolean canStart = true;
-            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
-                createAlert("", "A name was not selected, please try again");
+            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()
+                    && GlobalSettings.difficulty == -1
+                    && GlobalSettings.startingWeapon == -1) {
+                createAlert("", "Please use the configuration menu to set your preferences "
+                        + "before starting the game!");
                 canStart = false;
             }
-            if (GlobalSettings.difficulty == -1) {
-                createAlert("", "A difficulty was not selected, please try again");
-                canStart = false;
-            }
-            if (GlobalSettings.startingWeapon == -1) {
-                createAlert("", "A starting weapon was not selected, please try again");
-                canStart = false;
+            else {
+                if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
+                    createAlert("", "A name was not selected, please try again");
+                    canStart = false;
+                }
+                if (GlobalSettings.difficulty == -1) {
+                    createAlert("", "A difficulty was not selected, please try again");
+                    canStart = false;
+                }
+                if (GlobalSettings.startingWeapon == -1) {
+                    createAlert("", "A starting weapon was not selected, please try again");
+                    canStart = false;
+                }
             }
             if (canStart) {
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
@@ -110,7 +118,6 @@ public class AppMainMenu extends FXGLMenu {
         configButton.setOpacity(1);
         configButton.setText("Game Configuration");
         configButton.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 35));
-
         configButton.setOnMouseClicked(mouseEvent -> {
             FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
             System.out.println("Opening game config...");
@@ -124,9 +131,14 @@ public class AppMainMenu extends FXGLMenu {
             configUI.setLayoutX(300);
             configUI.setLayoutY(100);
 
-            // Margin constants
-            int hMargin = 320;
-            int vMargin = 180;
+            // Margin constants: hMargin = 320; vMargin = 180;
+
+            // Knight graphic
+            var knightSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
+            knightSprite.setLayoutX(400);
+            knightSprite.setLayoutY(1080 - 820);
+            knightSprite.setScaleX(.5);
+            knightSprite.setScaleY(.5);
 
             // Textbox for name
             TextField tfEnterName = new TextField();
@@ -135,6 +147,10 @@ public class AppMainMenu extends FXGLMenu {
             tfEnterName.setLayoutY(1080 - 365);         // Where the second number is the num pixels from bottom of screen
             tfEnterName.setScaleX(2);
             tfEnterName.setScaleY(2);
+            // If the name has been set previously
+            if (GlobalSettings.playerName != null && !GlobalSettings.playerName.isBlank()) {
+                tfEnterName.setText(GlobalSettings.playerName);
+            }
 
             // Text for weapon selection
             Text weaponSelect = new Text();
@@ -150,6 +166,10 @@ public class AppMainMenu extends FXGLMenu {
             cbWeapons.getItems().add("Weapon 0");
             cbWeapons.getItems().add("Weapon 1");
             cbWeapons.getItems().add("Weapon 2");
+            // Remember previous selection
+            if (GlobalSettings.startingWeapon != -1) {
+                cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.startingWeapon));
+            }
 
             // Text for weapon selection
             Text diffSelect = new Text();
@@ -165,6 +185,10 @@ public class AppMainMenu extends FXGLMenu {
             cbDiff.getItems().add("Easy");
             cbDiff.getItems().add("Medium");
             cbDiff.getItems().add("Hard");
+            // Remember previous selection
+            if (GlobalSettings.difficulty != -1) {
+                cbDiff.setValue(cbDiff.getItems().get(GlobalSettings.difficulty));
+            }
 
             // Close Button
             Button close = new Button("X");
@@ -173,10 +197,14 @@ public class AppMainMenu extends FXGLMenu {
             close.setScaleX(2.5);
             close.setScaleY(2.5);
 
-            // Add and remove children
-            getContentRoot().getChildren().addAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect, diffSelect);
+            // Nodes, to be added (and later removed)
+            Node[] configNodes = {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect,
+                    diffSelect, knightSprite};
+            getContentRoot().getChildren().addAll(configNodes);
+
+            // Exit behavior
             close.setOnMouseClicked(mouseEvent1 -> {
-                getContentRoot().getChildren().removeAll(configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect, diffSelect);
+                getContentRoot().getChildren().removeAll(configNodes);
                 // Set player name
                 GlobalSettings.playerName = tfEnterName.getText();
 

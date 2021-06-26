@@ -19,9 +19,10 @@ public class Initializer {
     static int currFloor;
 
     public void initLevel1() {
-        String OSTPath = "." + File.separator + "src" + File.separator + "main" +
-                File.separator + "resources" + File.separator + "assets" + File.separator +
-                "sounds" + File.separator + "Diodes.mp3";
+        // Absolute filepath!
+        String OSTPath = System.getProperty("user.dir") + File.separator + "Project" + File.separator
+                + "src" + File.separator + "main" + File.separator + "resources" + File.separator
+                + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
         currLevel = 1;
         currFloor = 1;
         int bpm = 135;
@@ -58,6 +59,14 @@ public class Initializer {
         healthText.setScaleY(3);
         healthText.setFill(Color.MEDIUMVIOLETRED);
         FXGL.getGameScene().addUINodes(healthText);
+
+        var weaponDisplay = FXGL.getAssetLoader().loadTexture("weapons/weapon"
+                + GlobalSettings.startingWeapon + ".png");
+        weaponDisplay.setScaleX(3);
+        weaponDisplay.setScaleY(3);
+        weaponDisplay.setX(1600);
+        weaponDisplay.setY(1080 - 90);
+        FXGL.getGameScene().addUINode(weaponDisplay);
 
         var cutout = FXGL.getAssetLoader().loadTexture("cutout.png");
 
