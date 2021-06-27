@@ -1,22 +1,28 @@
-import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
-import javafx.scene.text.Text;
-import org.assertj.core.api.AbstractStandardSoftAssertions;
+import javafx.scene.control.Button;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import tilesystem.Tile;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.base.NodeMatchers;
-import java.io.File;
+import tilesystem.Tile;
+
 import static org.testfx.api.FxAssert.verifyThat;
 
-
-import static org.junit.Assert.*;
-
 public class TileTest extends ApplicationTest{
+
+    @BeforeAll
+    public static void testSetUp() throws Exception {
+        GameApp.main(new String[0]);
+    }
+
+    @Test
+    public void testConstructor() {
+        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(405, 435));
+        Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
+        Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
+    }
+
 
     // checks if a tile is properly added to a scene
     @Test
