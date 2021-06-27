@@ -32,7 +32,7 @@ public class Tile {
 
     public void removeFromScene() {
         FXGL.getGameScene().removeUINode(tileTexture);
-        tileTexture.setOnMouseClicked(mouseEvent -> {});
+        tileTexture.setOnMouseClicked(mouseEvent -> { });
         isActive = false;
         playerOnTile = false;
     }
@@ -52,11 +52,13 @@ public class Tile {
         tileTexture.setScaleY(scale);
     }
 
-    public void setActive(boolean status) {isActive = status;}
+    public void setActive(boolean status) {
+        isActive = status;
+    }
 
     public void setPlayerOnTile(boolean status) {
         playerOnTile = status;
-        if (playerOnTile = true) {
+        if (playerOnTile) {
             tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
         }
     }
@@ -65,15 +67,25 @@ public class Tile {
         return tileTexture;
     }
 
-    public double getOpacity() { return tileTexture.getOpacity(); }
+    public double getOpacity() {
+        return tileTexture.getOpacity();
+    }
 
-    public double getScale() { return tileTexture.getScaleX(); }
+    public double getScale() {
+        return tileTexture.getScaleX();
+    }
 
-    public Point2D getPosition() {return new Point2D(tileTexture.getX(), tileTexture.getY());}
+    public Point2D getPosition() {
+        return new Point2D(tileTexture.getX(), tileTexture.getY());
+    }
 
-    public boolean isPlayerOnTile() {return playerOnTile;}
+    public boolean isPlayerOnTile() {
+        return playerOnTile;
+    }
 
-    public boolean isTileActive() {return isActive;}
+    public boolean isTileActive() {
+        return isActive;
+    }
 
     public void reset() {
         setScale(1.35);

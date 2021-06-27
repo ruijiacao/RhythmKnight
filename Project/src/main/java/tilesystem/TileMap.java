@@ -2,7 +2,6 @@ package tilesystem;
 
 import javafx.scene.text.Text;
 import rhythm.Conductor;
-import tilesystem.Tile;
 
 import java.util.List;
 

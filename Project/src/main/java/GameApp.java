@@ -13,11 +13,11 @@ import initializers.Initializer;
 public class GameApp extends GameApplication {
 
     // Global app variables
-    static int currLevel;
-    static int currFloor;
-    Entity map;
-    Entity layout;
-    Entity UI_bg;
+    private static int currLevel;
+    private static int currFloor;
+    private Entity map;
+    private Entity layout;
+    private Entity uiBg;
 
     /*
     ===== GAME WINDOW SETTINGS =====
@@ -69,7 +69,7 @@ public class GameApp extends GameApplication {
                 .view("Level1-1Layout.png")
                 .buildAndAttach();
 
-        UI_bg = new EntityBuilder()
+        uiBg = new EntityBuilder()
                 .view("UI-Layout.png")
                 .buildAndAttach();
     }

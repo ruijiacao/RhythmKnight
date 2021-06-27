@@ -1,14 +1,6 @@
-import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.texture.Texture;
-import javafx.geometry.Point2D;
-import javafx.scene.text.Text;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
-class TileTest{
+class TileTest {
     // checks if a tile is properly added to a scene
     @Test
     void displayOnScene() {

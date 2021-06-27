@@ -71,23 +71,23 @@ public class AppMainMenu extends FXGLMenu {
         startButton.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 35));
         startButton.setOnMouseClicked(mouseEvent -> {
             boolean canStart = true;
-            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()
-                    && GlobalSettings.difficulty == -1
-                    && GlobalSettings.startingWeapon == -1) {
+            if (GlobalSettings.getPlayerName() == null || GlobalSettings.getPlayerName().isBlank()
+                    && GlobalSettings.getDifficulty() == -1
+                    && GlobalSettings.getStartingWeapon() == -1) {
                 createAlert("", "Please use the configuration menu to set your preferences "
                         + "before starting the game!");
                 canStart = false;
-            }
-            else {
-                if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
+            } else {
+                if (GlobalSettings.getPlayerName() == null
+                    || GlobalSettings.getPlayerName().isBlank()) {
                     createAlert("", "A name was not selected, please try again");
                     canStart = false;
                 }
-                if (GlobalSettings.difficulty == -1) {
+                if (GlobalSettings.getDifficulty() == -1) {
                     createAlert("", "A difficulty was not selected, please try again");
                     canStart = false;
                 }
-                if (GlobalSettings.startingWeapon == -1) {
+                if (GlobalSettings.getStartingWeapon() == -1) {
                     createAlert("", "A starting weapon was not selected, please try again");
                     canStart = false;
                 }
@@ -133,13 +133,16 @@ public class AppMainMenu extends FXGLMenu {
             // Textbox for name
             TextField tfEnterName = new TextField();
             tfEnterName.setAlignment(Pos.CENTER);
-            tfEnterName.setLayoutX(465);                // Note: These are not applicable for different resolutions!
-            tfEnterName.setLayoutY(1080 - 365);         // Where the second number is the num pixels from bottom of screen
+            // Note: These are not applicable for different resolutions!
+            tfEnterName.setLayoutX(465);
+            // Where the second number is the num pixels from bottom of screen
+            tfEnterName.setLayoutY(1080 - 365);
             tfEnterName.setScaleX(2);
             tfEnterName.setScaleY(2);
             // If the name has been set previously
-            if (GlobalSettings.playerName != null && !GlobalSettings.playerName.isBlank()) {
-                tfEnterName.setText(GlobalSettings.playerName);
+            if (GlobalSettings.getPlayerName() != null
+                && !GlobalSettings.getPlayerName().isBlank()) {
+                tfEnterName.setText(GlobalSettings.getPlayerName());
             }
 
             // Text for weapon selection
@@ -157,8 +160,8 @@ public class AppMainMenu extends FXGLMenu {
             cbWeapons.getItems().add("Weapon 1");
             cbWeapons.getItems().add("Weapon 2");
             // Remember previous selection
-            if (GlobalSettings.startingWeapon != -1) {
-                cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.startingWeapon));
+            if (GlobalSettings.getStartingWeapon() != -1) {
+                cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.getStartingWeapon()));
             }
 
             // Text for weapon selection
@@ -176,8 +179,8 @@ public class AppMainMenu extends FXGLMenu {
             cbDiff.getItems().add("Medium");
             cbDiff.getItems().add("Hard");
             // Remember previous selection
-            if (GlobalSettings.difficulty != -1) {
-                cbDiff.setValue(cbDiff.getItems().get(GlobalSettings.difficulty));
+            if (GlobalSettings.getDifficulty() != -1) {
+                cbDiff.setValue(cbDiff.getItems().get(GlobalSettings.getDifficulty()));
             }
 
             // Close Button
@@ -188,47 +191,53 @@ public class AppMainMenu extends FXGLMenu {
             close.setScaleY(2.5);
 
             // Nodes, to be added (and later removed)
-            Node[] configNodes = {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect,
-                    diffSelect, knightSprite};
+            Node[] configNodes = {configWindow, configUI, close, tfEnterName, cbWeapons,
+                cbDiff, weaponSelect, diffSelect, knightSprite};
             getContentRoot().getChildren().addAll(configNodes);
 
             // Exit behavior
             close.setOnMouseClicked(mouseEvent1 -> {
                 getContentRoot().getChildren().removeAll(configNodes);
                 // Set player name
-                GlobalSettings.playerName = tfEnterName.getText();
+                GlobalSettings.setPlayerName(tfEnterName.getText());
 
                 // Set difficulty
-                int difficulty = -1;
+                int difficulty;
                 if (cbDiff.getValue() != null) {
-                    switch((String) cbDiff.getValue()) {
-                        case "Easy":
-                            difficulty = 0;
-                            break;
-                        case "Medium":
-                            difficulty = 1;
-                            break;
-                        case "Hard":
-                            difficulty = 2;
-                            break;
+                    switch ((String) cbDiff.getValue()) {
+
+                    case "Easy":
+                        difficulty = 0;
+                        break;
+                    case "Medium":
+                        difficulty = 1;
+                        break;
+                    case "Hard":
+                        difficulty = 2;
+                        break;
+                    default:
+                        difficulty = -1;
                     }
-                    GlobalSettings.difficulty = difficulty;
+                    GlobalSettings.setDifficulty(difficulty);
                 }
                 if (cbWeapons.getValue() != null) {
                     // Set starting weapon
                     int startingWeapon = -1;
-                    switch((String) cbWeapons.getValue()) {
-                        case "Weapon 0":
-                            startingWeapon = 0;
-                            break;
-                        case "Weapon 1":
-                            startingWeapon = 1;
-                            break;
-                        case "Weapon 2":
-                            startingWeapon = 2;
-                            break;
+                    switch ((String) cbWeapons.getValue()) {
+
+                    case "Weapon 0":
+                        startingWeapon = 0;
+                        break;
+                    case "Weapon 1":
+                        startingWeapon = 1;
+                        break;
+                    case "Weapon 2":
+                        startingWeapon = 2;
+                        break;
+                    default:
+                        startingWeapon = -1;
                     }
-                    GlobalSettings.startingWeapon = startingWeapon;
+                    GlobalSettings.setStartingWeapon(startingWeapon);
                 }
             });
         });
