@@ -11,6 +11,7 @@ import tilesystem.Tile;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.testfx.api.FxAssert.verifyThat;
 
 public class TileTest extends ApplicationTest{
@@ -80,24 +81,31 @@ public class TileTest extends ApplicationTest{
     // checks for the correct tile texture
     @Test
     void getTileTexture() {
+        
     }
 
     // checks for correct opacity value
     @Test
     void getOpacity() {
-
+        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(405, 435));
+        tile1.setOpacity(.5);
+        Assertions.assertEquals(.5, tile1.getOpacity());
     }
 
     // checks for correct active status
     @Test
     void isPlayerOnTile() {
-
+        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(200, 200));
+        tile1.setPlayerOnTile(true);
+        assertTrue(tile1.isPlayerOnTile());
     }
 
     // checks for correct active status
     @Test
     void isActive() {
-
+        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"), new Point2D(200, 200));
+        tile1.setActive(true);
+        assertTrue(tile1.isTileActive());
     }
 
     // checks if all tile properties are reset back to normal
