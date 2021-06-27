@@ -1,3 +1,5 @@
+package rhythm;
+
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.scene.text.Text;

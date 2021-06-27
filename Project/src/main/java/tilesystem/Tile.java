@@ -1,7 +1,10 @@
+package tilesystem;
+
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
+import rhythm.Conductor;
 
 public class Tile {
     private Texture tileTexture;

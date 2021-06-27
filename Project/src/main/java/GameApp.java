@@ -5,7 +5,10 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.entity.Entity;
+import ui.AppMainMenu;
 import org.jetbrains.annotations.NotNull;
+import settings.GlobalSettings;
+import initializers.Initializer;
 
 public class GameApp extends GameApplication {
 
@@ -19,7 +22,7 @@ public class GameApp extends GameApplication {
     /*
     ===== GAME WINDOW SETTINGS =====
     Sets the game window settings to default.
-    Check GlobalSettings.java for default game settings.
+    Check settings.GlobalSettings.java for default game settings.
     ================================
      */
     @Override

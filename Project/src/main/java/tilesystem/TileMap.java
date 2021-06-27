@@ -1,6 +1,9 @@
-import javafx.scene.text.Text;
+package tilesystem;
 
-import java.util.LinkedList;
+import javafx.scene.text.Text;
+import rhythm.Conductor;
+import tilesystem.Tile;
+
 import java.util.List;
 
 public class TileMap {

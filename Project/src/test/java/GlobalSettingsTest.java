@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import settings.GlobalSettings;
 
 import static org.junit.jupiter.api.Assertions.*;
 

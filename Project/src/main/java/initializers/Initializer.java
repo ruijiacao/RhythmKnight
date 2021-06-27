@@ -1,9 +1,15 @@
+package initializers;
+
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import rhythm.Conductor;
+import settings.GlobalSettings;
+import tilesystem.Tile;
+import tilesystem.TileMap;
+import ui.Player;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,12 +21,12 @@ public class Initializer {
     Text scoreText;
     Text goldText;
     Text healthText;
-    static int currLevel;
-    static int currFloor;
+    public static int currLevel;
+    public static int currFloor;
 
     public void initLevel1() {
         // Absolute filepath!
-        String OSTPath = System.getProperty("user.dir") + File.separator + "Project" + File.separator
+        String OSTPath = "." + File.separator
                 + "src" + File.separator + "main" + File.separator + "resources" + File.separator
                 + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
         currLevel = 1;

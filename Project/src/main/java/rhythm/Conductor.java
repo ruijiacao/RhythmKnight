@@ -1,3 +1,5 @@
+package rhythm;
+
 import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
@@ -5,6 +7,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import tilesystem.*;
+import initializers.Initializer;
 
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,6 +1,9 @@
+package ui;
+
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
-import javafx.geometry.Point2D;
+import settings.GlobalSettings;
+import tilesystem.Tile;
 
 public class Player {
     private String textureName;
