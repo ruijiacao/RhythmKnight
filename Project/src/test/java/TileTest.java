@@ -5,10 +5,14 @@ import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
 import org.junit.jupiter.api.Test;
+import tilesystem.Tile;
 
 import java.io.File;
 
+import static org.junit.Assert.assertNotNull;
+
 class TileTest{
+
     // checks if a tile is properly added to a scene
     @Test
     void displayOnScene() {
