@@ -4,18 +4,24 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
+import org.assertj.core.api.AbstractStandardSoftAssertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import tilesystem.Tile;
-
+import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.matcher.base.NodeMatchers;
 import java.io.File;
+import static org.testfx.api.FxAssert.verifyThat;
 
-import static org.junit.Assert.assertNotNull;
 
-class TileTest{
+import static org.junit.Assert.*;
+
+public class TileTest extends ApplicationTest{
 
     // checks if a tile is properly added to a scene
     @Test
     void displayOnScene() {
+
     }
 
     // checks if a tile is properly released from a scene
