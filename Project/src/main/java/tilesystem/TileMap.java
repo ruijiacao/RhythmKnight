@@ -2,7 +2,6 @@ package tilesystem;
 
 import javafx.scene.text.Text;
 import rhythm.Conductor;
-import tilesystem.Tile;
 
 import java.util.List;
 
@@ -32,5 +31,9 @@ public class TileMap {
     public void removeTile(Tile tile) {
         tile.removeFromScene();
         size--;
+    }
+
+    public int getSize() {
+        return size;
     }
 }
