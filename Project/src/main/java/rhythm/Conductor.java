@@ -15,25 +15,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Conductor {
 
-    private static Media OST;
-    private static MediaPlayer OSTPlayer;
-    int bpm;
-    int numOfBeats;
-    double[] beatTimes;
-    Sound hit;
-    int playerScore;
-    boolean isOnBeat;
-    AtomicInteger scoreConstant;
+    private static Media ost;
+    private static MediaPlayer ostPlayer;
+    private int bpm;
+    private int numOfBeats;
+    private double[] beatTimes;
+    private Sound hit;
+    private int playerScore;
+    private boolean isOnBeat;
+    private AtomicInteger scoreConstant;
 
     public Conductor(int bpm, String path, int playerScore) {
-        OST = new Media(new File(path).toURI().toString());
-        OSTPlayer = new MediaPlayer(OST);
+        ost = new Media(new File(path).toURI().toString());
+        ostPlayer = new MediaPlayer(ost);
         this.bpm = bpm;
         this.playerScore = playerScore;
     }
 
     public void startAndKeepRhythm(Texture cutout) {
-        numOfBeats = (int)(bpm * (OST.getDuration().toSeconds() / 60)) + 1;
+        numOfBeats = (int) (bpm * (ost.getDuration().toSeconds() / 60)) + 1;
         beatTimes = new double[numOfBeats];
 
         int i = 1;
@@ -47,14 +47,14 @@ public class Conductor {
         hit = FXGL.getAssetLoader().loadSound("snare01.wav");
         isOnBeat = false;
 
-        OSTPlayer.play();
+        ostPlayer.play();
         FXGL.getGameScene().addUINode(cutout);
 
         AtomicInteger currBeat = new AtomicInteger(1);
         Animator animator = new Animator();
 
         FXGL.getGameTimer().runAtInterval(() -> {
-            double currTime = OSTPlayer.getCurrentTime().toSeconds();
+            double currTime = ostPlayer.getCurrentTime().toSeconds();
 
             if (currTime >= beatTimes[currBeat.get()] - .1) {
                 currBeat.set(currBeat.get() + 1);
@@ -77,7 +77,8 @@ public class Conductor {
             Animator animator = new Animator();
             if (isOnBeat) {
                 playerScore += 10 + scoreConstant.get();
-                scoreText.setText("Level " + Initializer.currLevel + " / Floor " + Initializer.currFloor + "\n" + Integer.toString(playerScore));
+                scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
+                    + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
                 animator.pulsateScore(scoreText);
                 animator.pulsateTile(tile.getTileTexture());
                 FXGL.getAudioPlayer().playSound(hit);

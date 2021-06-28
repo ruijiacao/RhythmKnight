@@ -13,11 +13,11 @@ import initializers.Initializer;
 public class GameApp extends GameApplication {
 
     // Global app variables
-    static int currLevel;
-    static int currFloor;
-    Entity map;
-    Entity layout;
-    Entity UI_bg;
+    private static int currLevel;
+    private static int currFloor;
+    private Entity map;
+    private Entity layout;
+    private Entity uiBg;
 
     /*
     ===== GAME WINDOW SETTINGS =====
@@ -27,10 +27,10 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initSettings(GameSettings game) {
-        game.setWidth(GlobalSettings.windowWidth);
-        game.setHeight(GlobalSettings.windowHeight);
-        game.setTitle(GlobalSettings.gameTitle);
-        game.setVersion(GlobalSettings.version);
+        game.setWidth(GlobalSettings.getWindowWidth());
+        game.setHeight(GlobalSettings.getWindowHeight());
+        game.setTitle(GlobalSettings.getGameTitle());
+        game.setVersion(GlobalSettings.getVersion());
         game.setMainMenuEnabled(true);
         game.setSceneFactory(new SceneFactory() {
             @NotNull
@@ -69,7 +69,7 @@ public class GameApp extends GameApplication {
                 .view("Level1-1Layout.png")
                 .buildAndAttach();
 
-        UI_bg = new EntityBuilder()
+        uiBg = new EntityBuilder()
                 .view("UI-Layout.png")
                 .buildAndAttach();
     }

@@ -197,3 +197,7 @@ $RECYCLE.BIN/
 /Project/system/
 /Project/target/
 *.iml
+Project/.classpath
+Project/.project
+Project/.settings/org.eclipse.jdt.apt.core.prefs
+Project/.settings/org.eclipse.jdt.core.prefs
