@@ -1,5 +1,7 @@
 package settings;
 
+import ui.IGenerator;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +23,32 @@ public class GlobalSettings {
     private static int difficulty = -1;            // enum?
     private static int startingWeapon = -1;
 
+    public static boolean canStart() {
+        boolean canStart = true;
+        if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()
+                && GlobalSettings.difficulty == -1
+                && GlobalSettings.startingWeapon == -1) {
+            IGenerator.createAlert("", "Please use the configuration menu to set your preferences "
+                    + "before starting the game!");
+            canStart = false;
+        }
+        else {
+            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
+                IGenerator.createAlert("", "A name was not selected, please try again");
+                canStart = false;
+            }
+            if (GlobalSettings.difficulty == -1) {
+                IGenerator.createAlert("", "A difficulty was not selected, please try again");
+                canStart = false;
+            }
+            if (GlobalSettings.startingWeapon == -1) {
+                IGenerator.createAlert("", "A starting weapon was not selected, please try again");
+                canStart = false;
+            }
+        }
+        return canStart;
+    }
+  
     public static int getWindowWidth() {
         return windowWidth;
     }
