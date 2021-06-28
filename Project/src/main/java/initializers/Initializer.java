@@ -1,6 +1,10 @@
 package initializers;
 
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -9,7 +13,6 @@ import rhythm.Conductor;
 import settings.GlobalSettings;
 import tilesystem.Tile;
 import tilesystem.TileMap;
-import ui.Player;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -34,7 +37,7 @@ public class Initializer {
         int bpm = 135;
         Conductor conductor = new Conductor(bpm, ostPath, score);
 
-        userText = new Text(GlobalSettings.playerName);
+        userText = new Text(GlobalSettings.getPlayerName());
         userText.setX(200);
         userText.setY(1000);
         userText.setScaleX(3);
@@ -50,7 +53,7 @@ public class Initializer {
         scoreText.setFill(Color.WHITE);
         FXGL.getGameScene().addUINodes(scoreText);
 
-        goldText = new Text("Gold: \n" + (3 - GlobalSettings.difficulty) * 10);
+        goldText = new Text("Gold: \n" + (3 - GlobalSettings.getDifficulty()) * 10);
         goldText.setX(800);
         goldText.setY(1000);
         goldText.setScaleX(3);
@@ -58,7 +61,7 @@ public class Initializer {
         goldText.setFill(Color.GOLD);
         FXGL.getGameScene().addUINodes(goldText);
 
-        healthText = new Text("HP: \n" + (3 - GlobalSettings.difficulty) * 30);
+        healthText = new Text("HP: \n" + (3 - GlobalSettings.getDifficulty()) * 30);
         healthText.setX(1000);
         healthText.setY(1000);
         healthText.setScaleX(3);
@@ -67,7 +70,7 @@ public class Initializer {
         FXGL.getGameScene().addUINodes(healthText);
 
         var weaponDisplay = FXGL.getAssetLoader().loadTexture("weapons/weapon"
-                + GlobalSettings.startingWeapon + ".png");
+                + GlobalSettings.getStartingWeapon() + ".png");
         weaponDisplay.setScaleX(3);
         weaponDisplay.setScaleY(3);
         weaponDisplay.setX(1600);
@@ -94,9 +97,27 @@ public class Initializer {
         tiles.add(exit);
 
 
-        TileMap tileMap = new TileMap(tiles, conductor, scoreText);
 
-        Player player = new Player(FXGL.getAssetLoader().loadTexture("rhythm-knight.png"), tile2);
+        TileMap tileMap = new TileMap(tiles, conductor, scoreText);
+        var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
+
+
+        double x = (tile2.getPosition().getX() - 35);
+        double y = (tile2.getPosition().getY() - 95);
+        playerSprite.setX(x);
+        playerSprite.setY(y);
+        playerSprite.setScaleX(.35);
+        playerSprite.setScaleY(.35);
+        Entity playerEntity = FXGL.entityBuilder()
+            .at(x, y)
+            .viewWithBBox(playerSprite)
+            .buildAndAttach();
+        playerEntity.setScaleX(.35);
+        playerEntity.setScaleY(.35);
+        getGameWorld().addEntity(playerEntity);
+        GameView view = new GameView(playerSprite, 2);
+        getGameScene().addGameView(view);
+
     }
 
     public static int getCurrFloor() {

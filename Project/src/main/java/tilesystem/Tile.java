@@ -1,5 +1,6 @@
 package tilesystem;
 
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
@@ -23,7 +24,8 @@ public class Tile {
     }
 
     public void displayOnScene(Conductor conductor, Text scoreText) {
-        FXGL.getGameScene().addUINode(tileTexture);
+        GameView gameView = new GameView(tileTexture, 1);
+        FXGL.getGameScene().addGameView(gameView);
         conductor.checkRhythm(this, scoreText);
         isActive = true;
         passedInConductor = conductor;

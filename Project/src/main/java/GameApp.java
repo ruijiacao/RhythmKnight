@@ -27,10 +27,10 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initSettings(GameSettings game) {
-        game.setWidth(GlobalSettings.windowWidth);
-        game.setHeight(GlobalSettings.windowHeight);
-        game.setTitle(GlobalSettings.gameTitle);
-        game.setVersion(GlobalSettings.version);
+        game.setWidth(GlobalSettings.getWindowWidth());
+        game.setHeight(GlobalSettings.getWindowHeight());
+        game.setTitle(GlobalSettings.getGameTitle());
+        game.setVersion(GlobalSettings.getVersion());
         game.setMainMenuEnabled(true);
         game.setSceneFactory(new SceneFactory() {
             @NotNull

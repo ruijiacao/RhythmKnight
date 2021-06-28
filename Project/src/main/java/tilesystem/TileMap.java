@@ -32,4 +32,8 @@ public class TileMap {
         tile.removeFromScene();
         size--;
     }
+
+    public int getSize() {
+        return size;
+    }
 }
