@@ -32,7 +32,8 @@ public class StartMenuGen implements IGenerator<Node> {
         startButton.setFont(Font.font("Verdana", FontWeight.BOLD, FontPosture.REGULAR, 35));
 
         // game config button
-        Button configButton = (Button) IGenerator.nodeGen(new Button(), FXGL.getAppWidth() / 2 - 260,
+        Button configButton = (Button) IGenerator.nodeGen(new Button(),
+            FXGL.getAppWidth() / 2 - 260,
                 FXGL.getAppHeight() / 2 + 75, 1);
         configButton.setPrefWidth(540);
         configButton.setPrefHeight(65);
@@ -43,8 +44,10 @@ public class StartMenuGen implements IGenerator<Node> {
             FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
             System.out.println("Opening game config...");
 
-            // Nodes, to be added (and later removed)
-            // {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect, diffSelect, knightSprite}
+
+            //    {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect,
+            //    diffSelect, knightSprite}
+
             ConfigMenuGen configMenu = new ConfigMenuGen(root);
             ArrayList<Node> configNodes = (ArrayList<Node>) configMenu.componentGen();
             root.getChildren().addAll(configNodes);

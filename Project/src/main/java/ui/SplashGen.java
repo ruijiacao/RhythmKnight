@@ -15,8 +15,8 @@ import java.util.Collection;
 
 public class SplashGen implements IGenerator<Node> {
 
-    Pane root;
-    Pane container1;
+    private Pane root;
+    private Pane container1;
 
     public SplashGen(Pane root, Pane container1) {
         this.root = root;
@@ -28,7 +28,8 @@ public class SplashGen implements IGenerator<Node> {
         Texture splash = FXGL.getAssetLoader().loadTexture("logo-with-menu.png");
 
         // Enter Game
-        Button enter = (Button) IGenerator.nodeGen(new Button("Start New Game"), FXGL.getAppWidth() / 2 - 175,
+        Button enter = (Button) IGenerator.nodeGen(new Button("Start New Game"),
+            FXGL.getAppWidth() / 2 - 175,
                 FXGL.getAppHeight() / 2 - 10, 1);
         enter.setPrefWidth(330);
         enter.setPrefHeight(65);

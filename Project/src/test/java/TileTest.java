@@ -1,6 +1,5 @@
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Button;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

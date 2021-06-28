@@ -27,7 +27,8 @@ public class ConfigMenuGen implements IGenerator<Node> {
 
     public Collection<Node> componentGen() {
         // Config Window
-        Rectangle configWindow = (Rectangle) IGenerator.nodeGen(new Rectangle(1280, 720), 300, 100, 1);
+        Rectangle configWindow = (Rectangle) IGenerator.nodeGen(new Rectangle(1280, 720),
+            300, 100, 1);
         configWindow.setFill(Color.WHITE);
         var configUI = FXGL.getAssetLoader().loadTexture("configUI.png");
         configUI.setLayoutX(300);
@@ -43,8 +44,8 @@ public class ConfigMenuGen implements IGenerator<Node> {
         // Textbox for name; set initial value if previously chosen
         TextField tfEnterName = (TextField) IGenerator.nodeGen(new TextField(), 465, 715, 2);
         tfEnterName.setAlignment(Pos.CENTER);
-        if (GlobalSettings.playerName != null && !GlobalSettings.playerName.isBlank()) {
-            tfEnterName.setText(GlobalSettings.playerName);
+        if (GlobalSettings.getPlayerName() != null && !GlobalSettings.getPlayerName().isBlank()) {
+            tfEnterName.setText(GlobalSettings.getPlayerName());
         }
 
         // Weapon selection header
@@ -57,8 +58,8 @@ public class ConfigMenuGen implements IGenerator<Node> {
         cbWeapons.getItems().add("Weapon 0");
         cbWeapons.getItems().add("Weapon 1");
         cbWeapons.getItems().add("Weapon 2");
-        if (GlobalSettings.startingWeapon != -1) {
-            cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.startingWeapon));
+        if (GlobalSettings.getStartingWeapon() != -1) {
+            cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.getStartingWeapon()));
         }
 
         // Difficulty selection header
@@ -71,16 +72,16 @@ public class ConfigMenuGen implements IGenerator<Node> {
         cbDiff.getItems().add("Easy");
         cbDiff.getItems().add("Medium");
         cbDiff.getItems().add("Hard");
-        if (GlobalSettings.difficulty != -1) {
-            cbDiff.setValue(cbDiff.getItems().get(GlobalSettings.difficulty));
+        if (GlobalSettings.getDifficulty() != -1) {
+            cbDiff.setValue(cbDiff.getItems().get(GlobalSettings.getDifficulty()));
         }
 
         // Close Button
         Button close = (Button) IGenerator.nodeGen(new Button("X"), 350, 150, 2.5);
 
         // List of all nodes
-        Node[] configNodeArray = {configWindow, configUI, close, tfEnterName, cbWeapons, cbDiff, weaponSelect,
-                diffSelect, knightSprite};
+        Node[] configNodeArray = {configWindow, configUI, close, tfEnterName,
+            cbWeapons, cbDiff, weaponSelect, diffSelect, knightSprite};
         ArrayList<Node> configNodes = new ArrayList<>();
         for (Node n : configNodeArray) {
             configNodes.add(n);
@@ -92,36 +93,44 @@ public class ConfigMenuGen implements IGenerator<Node> {
             root.getChildren().removeAll(configNodes);
 
             // Store player preferences in settings
-            GlobalSettings.playerName = tfEnterName.getText();
-            int difficulty = -1;
+            GlobalSettings.setPlayerName(tfEnterName.getText());
+            int difficulty;
             if (cbDiff.getValue() != null) {
-                switch((String) cbDiff.getValue()) {
-                    case "Easy":
-                        difficulty = 0;
-                        break;
-                    case "Medium":
-                        difficulty = 1;
-                        break;
-                    case "Hard":
-                        difficulty = 2;
-                        break;
+                switch ((String) cbDiff.getValue()) {
+
+                case "Easy":
+                    difficulty = 0;
+                    break;
+                case "Medium":
+                    difficulty = 1;
+                    break;
+                case "Hard":
+                    difficulty = 2;
+                    break;
+                default:
+                    difficulty = -1;
+                    break;
                 }
-                GlobalSettings.difficulty = difficulty;
+                GlobalSettings.setDifficulty(difficulty);
             }
             if (cbWeapons.getValue() != null) {
-                int startingWeapon = -1;
-                switch((String) cbWeapons.getValue()) {
-                    case "Weapon 0":
-                        startingWeapon = 0;
-                        break;
-                    case "Weapon 1":
-                        startingWeapon = 1;
-                        break;
-                    case "Weapon 2":
-                        startingWeapon = 2;
-                        break;
+                int startingWeapon;
+                switch ((String) cbWeapons.getValue()) {
+
+                case "Weapon 0":
+                    startingWeapon = 0;
+                    break;
+                case "Weapon 1":
+                    startingWeapon = 1;
+                    break;
+                case "Weapon 2":
+                    startingWeapon = 2;
+                    break;
+                default:
+                    startingWeapon = -1;
+                    break;
                 }
-                GlobalSettings.startingWeapon = startingWeapon;
+                GlobalSettings.setStartingWeapon(startingWeapon);
             }
         });
         return configNodes;

@@ -31,8 +31,7 @@ public class GlobalSettings {
             IGenerator.createAlert("", "Please use the configuration menu to set your preferences "
                     + "before starting the game!");
             canStart = false;
-        }
-        else {
+        } else {
             if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
                 IGenerator.createAlert("", "A name was not selected, please try again");
                 canStart = false;
