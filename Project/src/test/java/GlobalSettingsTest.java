@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import settings.GlobalSettings;
 
@@ -25,4 +26,52 @@ public class GlobalSettingsTest {
         assertEquals(-1, difficulty);
         assertEquals(-1, weapon);
     }
+
+    @Test
+    void GameStartLogic() {
+        try {
+            GlobalSettings.canStart();
+        } catch (ExceptionInInitializerError e) {
+            System.out.println("Tries to create an alert because no config settings were filled");
+            Assertions.assertInstanceOf(ExceptionInInitializerError.class, e);
+        }
+
+        try {
+            GlobalSettings.playerName = " ";
+            GlobalSettings.difficulty = 1;
+            GlobalSettings.startingWeapon = 1;
+            GlobalSettings.canStart();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Attempted to create an alert box because name was not set");
+            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
+        }
+
+        try {
+            GlobalSettings.playerName = "Micah";
+            GlobalSettings.difficulty = -1;
+            GlobalSettings.startingWeapon = 1;
+            GlobalSettings.canStart();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Attempted to create an alert box because difficulty was not set");
+            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
+        }
+
+        try {
+            GlobalSettings.playerName = "Micah";
+            GlobalSettings.difficulty = 1;
+            GlobalSettings.startingWeapon = -1;
+            GlobalSettings.canStart();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Attempted to create an alert box because starting weapon was not set");
+            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
+        }
+
+        // Succesful
+        GlobalSettings.playerName = "Micah";
+        GlobalSettings.difficulty = 1;
+        GlobalSettings.startingWeapon = 1;
+        Assertions.assertTrue(GlobalSettings.canStart());
+
+    }
+
 }
