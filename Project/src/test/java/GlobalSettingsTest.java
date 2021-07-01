@@ -28,7 +28,7 @@ public class GlobalSettingsTest {
     }
 
     @Test
-    void GameStartLogic() {
+    public void GameStartLogic() {
         try {
             GlobalSettings.canStart();
         } catch (ExceptionInInitializerError e) {
