@@ -27,51 +27,51 @@ public class GlobalSettingsTest {
         assertEquals(-1, weapon);
     }
 
-//    @Test
-//    public void GameStartLogic() {
-//        try {
-//            GlobalSettings.canStart();
-//        } catch (ExceptionInInitializerError e) {
-//            System.out.println("Tries to create an alert because no config settings were filled");
-//            Assertions.assertInstanceOf(ExceptionInInitializerError.class, e);
-//        }
-//
-//        try {
-//            GlobalSettings.playerName= " ";
-//            GlobalSettings.getDifficulty = 1;
-//            GlobalSettings.startingWeapon = 1;
-//            GlobalSettings.canStart();
-//        } catch (NoClassDefFoundError e) {
-//            System.out.println("Attempted to create an alert box because name was not set");
-//            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
-//        }
-//
-//        try {
-//            GlobalSettings.playerName = "Micah";
-//            GlobalSettings.difficulty = -1;
-//            GlobalSettings.startingWeapon = 1;
-//            GlobalSettings.canStart();
-//        } catch (NoClassDefFoundError e) {
-//            System.out.println("Attempted to create an alert box because difficulty was not set");
-//            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
-//        }
-//
-//        try {
-//            GlobalSettings.playerName = "Micah";
-//            GlobalSettings.difficulty = 1;
-//            GlobalSettings.startingWeapon = -1;
-//            GlobalSettings.canStart();
-//        } catch (NoClassDefFoundError e) {
-//            System.out.println("Attempted to create an alert box because starting weapon was not set");
-//            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
-//        }
-//
-//        // Succesful
-//        GlobalSettings.playerName = "Micah";
-//        GlobalSettings.difficulty = 1;
-//        GlobalSettings.startingWeapon = 1;
-//        Assertions.assertTrue(GlobalSettings.canStart());
-//
-//    }
+    @Test
+    public void GameStartLogic() {
+        try {
+            GlobalSettings.canStart();
+        } catch (ExceptionInInitializerError e) {
+            System.out.println("Tries to create an alert because no config settings were filled");
+            Assertions.assertInstanceOf(ExceptionInInitializerError.class, e);
+        }
+
+        try {
+            GlobalSettings.setPlayerName(" ");
+            GlobalSettings.setDifficulty(1);
+            GlobalSettings.setStartingWeapon(1);
+            GlobalSettings.canStart();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Attempted to create an alert box because name was not set");
+            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
+        }
+
+        try {
+            GlobalSettings.setPlayerName("Micah");
+            GlobalSettings.setDifficulty(-1);
+            GlobalSettings.setStartingWeapon(1);
+            GlobalSettings.canStart();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Attempted to create an alert box because difficulty was not set");
+            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
+        }
+
+        try {
+            GlobalSettings.setPlayerName("Micah");
+            GlobalSettings.setDifficulty(1);
+            GlobalSettings.setStartingWeapon(-1);
+            GlobalSettings.canStart();
+        } catch (NoClassDefFoundError e) {
+            System.out.println("Attempted to create an alert box because starting weapon was not set");
+            Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
+        }
+
+        // Succesful
+        GlobalSettings.setPlayerName("Micah");
+        GlobalSettings.setDifficulty(1);
+        GlobalSettings.setStartingWeapon(1);
+        Assertions.assertTrue(GlobalSettings.canStart());
+
+    }
 
 }
