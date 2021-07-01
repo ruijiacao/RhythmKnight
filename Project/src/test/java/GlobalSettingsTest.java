@@ -28,7 +28,7 @@ public class GlobalSettingsTest {
     }
 
     @Test
-    void GameStartLogic() {
+    public void GameStartLogic() {
         try {
             GlobalSettings.canStart();
         } catch (ExceptionInInitializerError e) {
@@ -37,8 +37,8 @@ public class GlobalSettingsTest {
         }
 
         try {
-            GlobalSettings.playerName = " ";
-            GlobalSettings.difficulty = 1;
+            GlobalSettings.playerName= " ";
+            GlobalSettings.getDifficulty = 1;
             GlobalSettings.startingWeapon = 1;
             GlobalSettings.canStart();
         } catch (NoClassDefFoundError e) {
