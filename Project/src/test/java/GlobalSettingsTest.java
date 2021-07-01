@@ -37,9 +37,9 @@ public class GlobalSettingsTest {
         }
 
         try {
-            GlobalSettings.playerName= " ";
-            GlobalSettings.getDifficulty = 1;
-            GlobalSettings.startingWeapon = 1;
+            GlobalSettings.setPlayerName(" ");
+            GlobalSettings.setDifficulty(1);
+            GlobalSettings.setStartingWeapon(1);
             GlobalSettings.canStart();
         } catch (NoClassDefFoundError e) {
             System.out.println("Attempted to create an alert box because name was not set");
@@ -47,9 +47,9 @@ public class GlobalSettingsTest {
         }
 
         try {
-            GlobalSettings.playerName = "Micah";
-            GlobalSettings.difficulty = -1;
-            GlobalSettings.startingWeapon = 1;
+            GlobalSettings.setPlayerName("Micah");
+            GlobalSettings.setDifficulty(-1);
+            GlobalSettings.setStartingWeapon(1);
             GlobalSettings.canStart();
         } catch (NoClassDefFoundError e) {
             System.out.println("Attempted to create an alert box because difficulty was not set");
@@ -57,9 +57,9 @@ public class GlobalSettingsTest {
         }
 
         try {
-            GlobalSettings.playerName = "Micah";
-            GlobalSettings.difficulty = 1;
-            GlobalSettings.startingWeapon = -1;
+            GlobalSettings.setPlayerName("Micah");
+            GlobalSettings.setDifficulty(1);
+            GlobalSettings.setStartingWeapon(-1);
             GlobalSettings.canStart();
         } catch (NoClassDefFoundError e) {
             System.out.println("Attempted to create an alert box because starting weapon was not set");
@@ -67,9 +67,9 @@ public class GlobalSettingsTest {
         }
 
         // Succesful
-        GlobalSettings.playerName = "Micah";
-        GlobalSettings.difficulty = 1;
-        GlobalSettings.startingWeapon = 1;
+        GlobalSettings.setPlayerName("Micah");
+        GlobalSettings.setDifficulty(1);
+        GlobalSettings.setStartingWeapon(1);
         Assertions.assertTrue(GlobalSettings.canStart());
 
     }
