@@ -1,5 +1,10 @@
 package settings;
 
+import com.almasb.fxgl.dsl.EntityBuilder;
+import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.texture.Texture;
+import javafx.geometry.Point2D;
 import ui.IGenerator;
 
 import java.util.Arrays;
@@ -17,6 +22,7 @@ public class GlobalSettings {
             "Ruijia Cao - Model/Design Implementation",
             "Micah Lingle - Character/Level Design"
     );
+    private static Texture playerSprite;
 
     // Game config
     private static String playerName;
@@ -90,5 +96,18 @@ public class GlobalSettings {
 
     public static void setStartingWeapon(int startingWeapon) {
         GlobalSettings.startingWeapon = startingWeapon;
+    }
+
+    public static void setPlayerSprite(Texture playerSprite) {
+        GlobalSettings.playerSprite = playerSprite;
+    }
+
+    public static void setPlayerPos(Point2D playerPos) {
+        playerSprite.setX(playerPos.getX());
+        playerSprite.setY(playerPos.getY());
+    }
+
+    public static Texture getPlayerSprite() {
+        return playerSprite;
     }
 }

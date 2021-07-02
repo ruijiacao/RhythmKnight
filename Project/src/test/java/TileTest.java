@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import tilesystem.Tile;
+import tilesystem.TileType;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TileTest extends ApplicationTest {
@@ -16,8 +18,7 @@ public class TileTest extends ApplicationTest {
 
     @Test
     public void testConstructor() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(405, 435));
+        Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
         Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
         Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
     }
@@ -43,8 +44,7 @@ public class TileTest extends ApplicationTest {
     // checks for no errors on calling setOpacity()
     @Test
     void setOpacity() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(405, 435));
+        Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
         Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
         Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
         tile1.setOpacity(.5);
@@ -54,8 +54,7 @@ public class TileTest extends ApplicationTest {
     // checks for no errors on calling setScale()
     @Test
     void setScale() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(405, 435));
+        Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
         Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
         Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
         tile1.setScale(.5);
@@ -83,8 +82,7 @@ public class TileTest extends ApplicationTest {
     // checks for correct opacity value
     @Test
     void getOpacity() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(405, 435));
+        Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
         tile1.setOpacity(.5);
         Assertions.assertEquals(.5, tile1.getOpacity());
     }
@@ -92,8 +90,7 @@ public class TileTest extends ApplicationTest {
     // checks for correct active status
     @Test
     void isPlayerOnTile() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(200, 200));
+        Tile tile1 = new Tile(new Point2D(200, 200), TileType.UNVISITED);
         tile1.setPlayerOnTile(true);
         assertTrue(tile1.isPlayerOnTile());
     }
@@ -101,8 +98,7 @@ public class TileTest extends ApplicationTest {
     // checks for correct active status
     @Test
     void isActive() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(200, 200));
+        Tile tile1 = new Tile(new Point2D(200, 200), TileType.UNVISITED);
         tile1.setActive(true);
         assertTrue(tile1.isTileActive());
     }
@@ -110,8 +106,7 @@ public class TileTest extends ApplicationTest {
     // checks if all tile properties are reset back to normal
     @Test
     void reset() {
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(405, 435));
+        Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
         Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
         Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
         tile1.setScale(.5);

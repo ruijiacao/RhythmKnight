@@ -3,6 +3,7 @@ package initializers;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 import com.almasb.fxgl.app.scene.GameView;
+import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import javafx.geometry.Point2D;
@@ -13,6 +14,7 @@ import rhythm.Conductor;
 import settings.GlobalSettings;
 import tilesystem.Tile;
 import tilesystem.TileMap;
+import tilesystem.TileType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,24 +88,19 @@ public class Initializer {
         ArrayList<Tile> tiles = new ArrayList<>();
 
         // x + 30, y + 25
-        Tile tile1 = new Tile(FXGL.getAssetLoader().loadTexture("unvisited.png"),
-            new Point2D(405, 435));
-        Tile tile2 = new Tile(FXGL.getAssetLoader().loadTexture("player.png"),
-            new Point2D(600, 545));
-        Tile exit = new Tile(FXGL.getAssetLoader().loadTexture("stairs.png"),
-            new Point2D(1535, 185));
-        tiles.add(tile1);
-        tiles.add(tile2);
+        Tile origin = new Tile(new Point2D(810, 325), TileType.ORIGIN);
+        Tile normal = new Tile(new Point2D(610, 205), TileType.UNVISITED);
+        Tile exit = new Tile(new Point2D(1380, 215), TileType.EXIT);
+        tiles.add(origin);
+        tiles.add(normal);
         tiles.add(exit);
-
-
 
         TileMap tileMap = new TileMap(tiles, conductor, scoreText);
         var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
 
 
-        double x = (tile2.getPosition().getX() - 35);
-        double y = (tile2.getPosition().getY() - 95);
+        double x = (origin.getPosition().getX() - 35);
+        double y = (origin.getPosition().getY() - 95);
         playerSprite.setX(x);
         playerSprite.setY(y);
         playerSprite.setScaleX(.35);
@@ -117,7 +114,7 @@ public class Initializer {
         getGameWorld().addEntity(playerEntity);
         GameView view = new GameView(playerSprite, 2);
         getGameScene().addGameView(view);
-
+        GlobalSettings.setPlayerSprite(playerSprite);
     }
 
     public static int getCurrFloor() {

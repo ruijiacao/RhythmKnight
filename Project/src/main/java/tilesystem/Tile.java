@@ -13,11 +13,32 @@ public class Tile {
     private boolean playerOnTile;
     private Conductor passedInConductor;
     private Text passedInText;
+    private Point2D position;
+    private TileType type;
 
-    public Tile(Texture tileTexture, Point2D position) {
-        this.tileTexture = tileTexture;
-        tileTexture.setX(position.getX());
-        tileTexture.setY(position.getY());
+    public Tile(Point2D position, TileType type) {
+        switch(type) {
+            case UNVISITED:
+                tileTexture = FXGL.getAssetLoader().loadTexture("unvisited.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                break;
+            case VISITED:
+                tileTexture = FXGL.getAssetLoader().loadTexture("hex.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                break;
+            case EXIT:
+                tileTexture = FXGL.getAssetLoader().loadTexture("stairs.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                break;
+            case ORIGIN:
+                tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+        }
+        this.position = position;
         this.setScale(1.35);
         isActive = false;
         playerOnTile = false;
@@ -79,6 +100,10 @@ public class Tile {
 
     public Point2D getPosition() {
         return new Point2D(tileTexture.getX(), tileTexture.getY());
+    }
+
+    public TileType getType() {
+        return type;
     }
 
     public boolean isPlayerOnTile() {

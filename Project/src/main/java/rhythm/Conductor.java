@@ -3,10 +3,12 @@ package rhythm;
 import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
+import javafx.geometry.Point2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import settings.GlobalSettings;
 import tilesystem.*;
 import initializers.Initializer;
 
@@ -76,13 +78,19 @@ public class Conductor {
         tile.getTileTexture().setOnMouseClicked(mouseEvent -> {
             Animator animator = new Animator();
             if (isOnBeat) {
-                playerScore += 10 + scoreConstant.get();
-                scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
-                    + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
-                animator.pulsateScore(scoreText);
-                animator.pulsateTile(tile.getTileTexture());
-                FXGL.getAudioPlayer().playSound(hit);
-                tile.setPlayerOnTile(true);
+                if (mouseEvent.getX() - 120 > GlobalSettings.getPlayerSprite().getX() - 600 &&
+                        mouseEvent.getX() + 120 < GlobalSettings.getPlayerSprite().getX() + 600 &&
+                        mouseEvent.getY() - 170 > GlobalSettings.getPlayerSprite().getY() - 600 &&
+                        mouseEvent.getY() - 170 < GlobalSettings.getPlayerSprite().getY() + 600) {
+                    GlobalSettings.setPlayerPos(new Point2D(mouseEvent.getX() - 120, mouseEvent.getY() - 170));
+                    playerScore += 10 + scoreConstant.get();
+                    scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
+                            + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
+                    animator.pulsateScore(scoreText);
+                    animator.pulsateTile(tile.getTileTexture());
+                    FXGL.getAudioPlayer().playSound(hit);
+                    tile.setPlayerOnTile(true);
+                }
             }
         });
     }

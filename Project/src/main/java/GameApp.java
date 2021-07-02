@@ -66,7 +66,7 @@ public class GameApp extends GameApplication {
     protected void initUI() {
         // comment this out when all tiles have been added later on
         layout = new EntityBuilder()
-                .view("Level1-1Layout.png")
+                .view("layouts/start-room.png")
                 .buildAndAttach();
 
         uiBg = new EntityBuilder()
