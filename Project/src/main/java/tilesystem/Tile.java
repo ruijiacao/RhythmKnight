@@ -13,6 +13,7 @@ public class Tile {
     private boolean playerOnTile;
     private boolean isOrigin;
     private boolean visited;
+    private boolean isExit;
     private Conductor passedInConductor;
     private Text passedInText;
     private Point2D position;
@@ -135,5 +136,13 @@ public class Tile {
 
     public boolean isVisited() {
         return visited;
+    }
+
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public void setExit(boolean exit) {
+        isExit = exit;
     }
 }

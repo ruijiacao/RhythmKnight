@@ -4,8 +4,10 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.audio.Sound;
+import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -95,12 +97,18 @@ public class Initializer {
         }, Duration.millis(1));
 
         MapDirectory maps = new MapDirectory();
-        TileMap currentMap = new TileMap(maps.getStartMap(), conductor, scoreText);
+        /*
+        Texture layoutTexture = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout4.png");
+        Entity layout = new EntityBuilder()
+                .view(layoutTexture)
+                .buildAndAttach();*/
+
+        TileMap currentMap = new TileMap(maps.getIDLayout(0), conductor, scoreText);
 
         var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
 
-        double x = (810 - 35);
-        double y = (325 - 95);
+        double x = (maps.getMapOrigin(0).getX() - 35);
+        double y = (maps.getMapOrigin(0).getY() - 95);
         playerSprite.setX(x);
         playerSprite.setY(y);
         playerSprite.setScaleX(.35);

@@ -1,7 +1,11 @@
 package rhythm;
 
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.audio.Sound;
+import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.EntityExtKt;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.media.Media;
@@ -13,7 +17,11 @@ import tilesystem.*;
 import initializers.Initializer;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class Conductor {
 
@@ -106,6 +114,47 @@ public class Conductor {
                                 + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
 
                         tile.setVisited(true);
+                    }
+
+
+                    if (tile.isExit()) {
+                        Generator gen = new Generator();
+                        int newID = gen.genRoomID();
+
+                        MapDirectory maps = new MapDirectory();
+
+                        Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout" + newID + ".png");
+                        ArrayList<Tile> newTiles = maps.getIDLayout(newID);
+
+                        FXGL.getGameScene().clearGameViews();
+                        Entity layout = new EntityBuilder()
+                                .view(newRoomLayout)
+                                .buildAndAttach();
+
+                        Entity uiBg = new EntityBuilder()
+                                .view("UI-Layout.png")
+                                .buildAndAttach();
+
+                        var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
+
+                        double x = (maps.getMapOrigin(newID).getX() - 35);
+                        double y = (maps.getMapOrigin(newID).getY() - 95);
+                        playerSprite.setX(x);
+                        playerSprite.setY(y);
+                        playerSprite.setScaleX(.35);
+                        playerSprite.setScaleY(.35);
+                        Entity playerEntity = FXGL.entityBuilder()
+                                .at(x, y)
+                                .viewWithBBox(playerSprite)
+                                .buildAndAttach();
+                        playerEntity.setScaleX(.35);
+                        playerEntity.setScaleY(.35);
+                        getGameWorld().addEntity(playerEntity);
+                        GameView view = new GameView(playerSprite, 2);
+                        getGameScene().addGameView(view);
+                        GlobalSettings.setPlayerSprite(playerSprite);
+
+                        TileMap newMap = new TileMap(newTiles, this, scoreText);
                     }
 
                     FXGL.getAudioPlayer().playSound(hit);
