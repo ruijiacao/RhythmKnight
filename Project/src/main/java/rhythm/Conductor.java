@@ -82,13 +82,34 @@ public class Conductor {
                         mouseEvent.getX() + 120 < GlobalSettings.getPlayerSprite().getX() + 600 &&
                         mouseEvent.getY() - 170 > GlobalSettings.getPlayerSprite().getY() - 600 &&
                         mouseEvent.getY() - 170 < GlobalSettings.getPlayerSprite().getY() + 600) {
-                    GlobalSettings.setPlayerPos(new Point2D(mouseEvent.getX() - 120, mouseEvent.getY() - 170));
-                    playerScore += 10 + scoreConstant.get();
-                    scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
-                            + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
+
+                    Point2D position = tile.getPosition();
+
+                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50, position.getY() - 100));
+
                     animator.pulsateScore(scoreText);
                     animator.pulsateTile(tile.getTileTexture());
+
+                    if (tile.isOrigin()) {
+                        tile.removeFromScene();
+                        Tile visited = new Tile(position, TileType.ORIGIN);
+                        visited.setOrigin(true);
+                        visited.setVisited(true);
+                        visited.displayOnScene(this, scoreText);
+                    } else if (!tile.isVisited()) {
+                        tile.removeFromScene();
+                        Tile visited = new Tile(position, TileType.VISITED);
+                        visited.displayOnScene(this, scoreText);
+
+                        playerScore += 10 + scoreConstant.get();
+                        scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
+                                + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
+
+                        tile.setVisited(true);
+                    }
+
                     FXGL.getAudioPlayer().playSound(hit);
+
                     tile.setPlayerOnTile(true);
                 }
             }

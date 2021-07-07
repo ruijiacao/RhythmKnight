@@ -1,10 +1,16 @@
 package settings;
 
+import com.almasb.fxgl.app.GameSettings;
+import com.almasb.fxgl.app.scene.FXGLMenu;
+import com.almasb.fxgl.app.scene.MenuType;
+import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
+import org.jetbrains.annotations.NotNull;
+import ui.AppMainMenu;
 import ui.IGenerator;
 
 import java.util.Arrays;
@@ -109,5 +115,20 @@ public class GlobalSettings {
 
     public static Texture getPlayerSprite() {
         return playerSprite;
+    }
+
+    public static void setDefault(GameSettings game) {
+        game.setWidth(GlobalSettings.getWindowWidth());
+        game.setHeight(GlobalSettings.getWindowHeight());
+        game.setTitle(GlobalSettings.getGameTitle());
+        game.setVersion(GlobalSettings.getVersion());
+        game.setMainMenuEnabled(true);
+        game.setSceneFactory(new SceneFactory() {
+            @NotNull
+            @Override
+            public FXGLMenu newMainMenu() {
+                return new AppMainMenu(MenuType.MAIN_MENU);
+            }
+        });
     }
 }

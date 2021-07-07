@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import rhythm.Conductor;
 import settings.GlobalSettings;
+import tilesystem.MapDirectory;
 import tilesystem.Tile;
 import tilesystem.TileMap;
 import tilesystem.TileType;
@@ -30,10 +31,18 @@ public class Initializer {
     private static int currFloor;
 
     public void initLevel1() {
-        // Absolute filepath!
-        String ostPath = "." + File.separator
+        // Uncomment the potential filepaths below if music does not play
+
+        String ostPath = "Project" + File.separator
                 + "src" + File.separator + "main" + File.separator + "resources" + File.separator
                 + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
+
+        /* String ostPath = "src" + File.separator + "main" + File.separator + "resources" + File.separator
+            + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";*/
+
+        /*String ostPath = "src" + File.separator + "main" + File.separator + "resources" + File.separator
+                + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";*/
+
         currLevel = 1;
         currFloor = 1;
         int bpm = 135;
@@ -85,22 +94,13 @@ public class Initializer {
             conductor.startAndKeepRhythm(cutout);
         }, Duration.millis(1));
 
-        ArrayList<Tile> tiles = new ArrayList<>();
+        MapDirectory maps = new MapDirectory();
+        TileMap currentMap = new TileMap(maps.getStartMap(), conductor, scoreText);
 
-        // x + 30, y + 25
-        Tile origin = new Tile(new Point2D(810, 325), TileType.ORIGIN);
-        Tile normal = new Tile(new Point2D(610, 205), TileType.UNVISITED);
-        Tile exit = new Tile(new Point2D(1380, 215), TileType.EXIT);
-        tiles.add(origin);
-        tiles.add(normal);
-        tiles.add(exit);
-
-        TileMap tileMap = new TileMap(tiles, conductor, scoreText);
         var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
 
-
-        double x = (origin.getPosition().getX() - 35);
-        double y = (origin.getPosition().getY() - 95);
+        double x = (810 - 35);
+        double y = (325 - 95);
         playerSprite.setX(x);
         playerSprite.setY(y);
         playerSprite.setScaleX(.35);

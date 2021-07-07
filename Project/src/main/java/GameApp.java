@@ -5,12 +5,14 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.entity.Entity;
+import tilesystem.MapDirectory;
 import ui.AppMainMenu;
 import org.jetbrains.annotations.NotNull;
 import settings.GlobalSettings;
 import initializers.Initializer;
 
 public class GameApp extends GameApplication {
+    
 
     // Global app variables
     private static int currLevel;
@@ -27,18 +29,7 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initSettings(GameSettings game) {
-        game.setWidth(GlobalSettings.getWindowWidth());
-        game.setHeight(GlobalSettings.getWindowHeight());
-        game.setTitle(GlobalSettings.getGameTitle());
-        game.setVersion(GlobalSettings.getVersion());
-        game.setMainMenuEnabled(true);
-        game.setSceneFactory(new SceneFactory() {
-            @NotNull
-            @Override
-            public FXGLMenu newMainMenu() {
-                return new AppMainMenu(MenuType.MAIN_MENU);
-            }
-        });
+        GlobalSettings.setDefault(game);
     }
 
     /*
@@ -65,13 +56,15 @@ public class GameApp extends GameApplication {
     @Override
     protected void initUI() {
         // comment this out when all tiles have been added later on
-        layout = new EntityBuilder()
-                .view("layouts/start-room.png")
-                .buildAndAttach();
+        /*
+        MapDirectory mapDirectory = new MapDirectory();
+        mapDirectory.displayStartingLayout();
+         */
 
-        uiBg = new EntityBuilder()
+        Entity uiBg = new EntityBuilder()
                 .view("UI-Layout.png")
                 .buildAndAttach();
+
     }
     public static void main(String[] args) {
         launch(args);

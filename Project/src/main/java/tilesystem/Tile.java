@@ -11,6 +11,8 @@ public class Tile {
     private Texture tileTexture;
     private boolean isActive;
     private boolean playerOnTile;
+    private boolean isOrigin;
+    private boolean visited;
     private Conductor passedInConductor;
     private Text passedInText;
     private Point2D position;
@@ -114,9 +116,24 @@ public class Tile {
         return isActive;
     }
 
+    public boolean isOrigin() {
+        return isOrigin;
+    }
+
+    public void setOrigin(boolean origin) {
+        isOrigin = origin;
+    }
+
     public void reset() {
         setScale(1.35);
         setOpacity(1);
     }
 
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
 }
