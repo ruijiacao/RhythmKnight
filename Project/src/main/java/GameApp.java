@@ -45,27 +45,6 @@ public class GameApp extends GameApplication {
         init.initLevel1();
     }
 
-    /*
-    ===== UI INITIALIZATION =====
-    The UI for the game is set up here.
-    The tilemap background as well as the player's
-    score is stored here in the UI method and is
-    also called as soon as the game starts.
-    ==============================
-     */
-    @Override
-    protected void initUI() {
-        // comment this out when all tiles have been added later on
-        /*
-        MapDirectory mapDirectory = new MapDirectory();
-        mapDirectory.displayStartingLayout();
-         */
-
-        Entity uiBg = new EntityBuilder()
-                .view("UI-Layout.png")
-                .buildAndAttach();
-
-    }
     public static void main(String[] args) {
         launch(args);
     }

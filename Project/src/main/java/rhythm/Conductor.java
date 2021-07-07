@@ -1,11 +1,7 @@
 package rhythm;
 
-import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.audio.Sound;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.EntityExtKt;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.media.Media;
@@ -15,13 +11,9 @@ import javafx.util.Duration;
 import settings.GlobalSettings;
 import tilesystem.*;
 import initializers.Initializer;
-
 import java.io.File;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
 
 public class Conductor {
 
@@ -42,6 +34,19 @@ public class Conductor {
         this.playerScore = playerScore;
     }
 
+    /*
+    ========== START AND KEEP RHYTHM ==========
+    The core method that the game relies on. It works by doing the following:
+    - Calculates the amount of beats a single song has
+    - Creates an array of size of the number of beats a song has + 1
+    - Calculates the exact time a beat will be reached in a song and places that timestamp in the array
+    - Initially sets that the song is not on a beat
+    - Plays the song
+    - Every 1/60 seconds, it checks if the current timestamp matches the next beat's timestamp in the array
+    - Sets the boolean true if it is and false otherwise
+    - Calls the Animator class to animate the white cutout border pulsating on every beat.
+    =============================================
+     */
     public void startAndKeepRhythm(Texture cutout) {
         numOfBeats = (int) (bpm * (ost.getDuration().toSeconds() / 60)) + 1;
         beatTimes = new double[numOfBeats];
@@ -51,8 +56,6 @@ public class Conductor {
             beatTimes[i] = (60.0 / bpm) * i;
             i++;
         }
-
-        System.out.println();
 
         hit = FXGL.getAssetLoader().loadSound("snare01.wav");
         isOnBeat = false;
@@ -82,6 +85,15 @@ public class Conductor {
         }, Duration.seconds(1 / 60.0));
     }
 
+    /*
+    ========== CHECK PLAYER'S RHYTHM ==========
+    The core movement method for the game. It works by:
+    - Adding a MouseEvent Listener to a passed in Tile
+    - When a MouseEvent is fired off, it checks if the player is on beat with the song
+    - If the player is on beat, it then checks if the player's requested movement is within boundaries
+    - If the location is within boundaries, it moves to the tile requested and plays noise
+    - If the location is an exit tile, it calls Generator to generate a new dungeon room.
+     */
     public void checkRhythm(Tile tile, Text scoreText) {
         tile.getTileTexture().setOnMouseClicked(mouseEvent -> {
             Animator animator = new Animator();
@@ -116,45 +128,8 @@ public class Conductor {
                         tile.setVisited(true);
                     }
 
-
                     if (tile.isExit()) {
-                        Generator gen = new Generator();
-                        int newID = gen.genRoomID();
-
-                        MapDirectory maps = new MapDirectory();
-
-                        Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout" + newID + ".png");
-                        ArrayList<Tile> newTiles = maps.getIDLayout(newID);
-
-                        FXGL.getGameScene().clearGameViews();
-                        Entity layout = new EntityBuilder()
-                                .view(newRoomLayout)
-                                .buildAndAttach();
-
-                        Entity uiBg = new EntityBuilder()
-                                .view("UI-Layout.png")
-                                .buildAndAttach();
-
-                        var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
-
-                        double x = (maps.getMapOrigin(newID).getX() - 35);
-                        double y = (maps.getMapOrigin(newID).getY() - 95);
-                        playerSprite.setX(x);
-                        playerSprite.setY(y);
-                        playerSprite.setScaleX(.35);
-                        playerSprite.setScaleY(.35);
-                        Entity playerEntity = FXGL.entityBuilder()
-                                .at(x, y)
-                                .viewWithBBox(playerSprite)
-                                .buildAndAttach();
-                        playerEntity.setScaleX(.35);
-                        playerEntity.setScaleY(.35);
-                        getGameWorld().addEntity(playerEntity);
-                        GameView view = new GameView(playerSprite, 2);
-                        getGameScene().addGameView(view);
-                        GlobalSettings.setPlayerSprite(playerSprite);
-
-                        TileMap newMap = new TileMap(newTiles, this, scoreText);
+                        Generator.genNewRoom(this, scoreText);
                     }
 
                     FXGL.getAudioPlayer().playSound(hit);

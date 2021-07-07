@@ -1,16 +1,27 @@
 package tilesystem;
 
 import javafx.geometry.Point2D;
-
 import java.util.ArrayList;
 
+/*
+===== HOW TO MAP LAYOUT IMAGES TO TILES =====
+1) Open up any image editor of your choice (preferably Photoshop)
+2) Open up a layout image with all the tiles
+3) Select a tile you want to map. Grab the coordinates of the top left corner of the tile
+4) Add 30 to the x coordinate and 25 to the y coordinate
+5) Instantiate a new tile with the coordinates calculated and the type of tile it is
+6) Add the tile to the ArrayList for that level
+==============================================
+ */
 public class MapDirectory {
     private ArrayList<ArrayList<Tile>> tilemaps;
 
     public MapDirectory() {
         tilemaps = new ArrayList<>(16);
 
-        // tilemap for start room
+        /*
+        ===== START =====
+         */
         ArrayList<Tile> ST_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -58,7 +69,9 @@ public class MapDirectory {
 
         tilemaps.add(0, ST_TILES);
 
-        // tilemap for layout 1
+        /*
+        ===== LAYOUT 1 =====
+         */
         ArrayList<Tile> L1_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -70,7 +83,9 @@ public class MapDirectory {
 
         tilemaps.add(1, L1_TILES);
 
-        // tilemap for layout 2
+        /*
+        ===== LAYOUT 2 =====
+         */
         ArrayList<Tile> L2_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -82,7 +97,9 @@ public class MapDirectory {
 
         tilemaps.add(2, L2_TILES);
 
-        // tilemap for layout 3
+        /*
+        ===== LAYOUT 3 =====
+         */
         ArrayList<Tile> L3_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -94,7 +111,9 @@ public class MapDirectory {
 
         tilemaps.add(3, L3_TILES);
 
-        // tilemap for layout 4
+        /*
+        ===== LAYOUT 4 =====
+         */
         ArrayList<Tile> L4_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -106,7 +125,9 @@ public class MapDirectory {
 
         tilemaps.add(4, L4_TILES);
 
-        // tilemap for layout 5
+        /*
+        ===== LAYOUT 5 =====
+         */
         ArrayList<Tile> L5_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -118,7 +139,9 @@ public class MapDirectory {
 
         tilemaps.add(5, L5_TILES);
 
-        // tilemap for layout 6
+        /*
+        ===== LAYOUT 6 =====
+         */
         ArrayList<Tile> L6_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -130,7 +153,9 @@ public class MapDirectory {
 
         tilemaps.add(6, L6_TILES);
 
-        // tilemap for layout 7
+        /*
+        ===== LAYOUT 7 =====
+         */
         ArrayList<Tile> L7_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -142,7 +167,9 @@ public class MapDirectory {
 
         tilemaps.add(7, L7_TILES);
 
-        // tilemap for layout 8
+        /*
+        ===== LAYOUT 8 =====
+         */
         ArrayList<Tile> L8_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -154,7 +181,9 @@ public class MapDirectory {
 
         tilemaps.add(8, L8_TILES);
 
-        // tilemap for layout 9
+        /*
+        ===== LAYOUT 9 =====
+         */
         ArrayList<Tile> L9_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -166,7 +195,9 @@ public class MapDirectory {
 
         tilemaps.add(9, L9_TILES);
 
-        // tilemap for layout 10
+        /*
+        ===== LAYOUT 10 =====
+         */
         ArrayList<Tile> L10_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -178,7 +209,9 @@ public class MapDirectory {
 
         tilemaps.add(10, L10_TILES);
 
-        // tilemap for layout 11
+        /*
+        ===== LAYOUT 11 =====
+         */
         ArrayList<Tile> L11_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -190,7 +223,9 @@ public class MapDirectory {
 
         tilemaps.add(11, L11_TILES);
 
-        // tilemap for layout 12
+        /*
+        ===== LAYOUT 12 =====
+         */
         ArrayList<Tile> L12_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -202,7 +237,9 @@ public class MapDirectory {
 
         tilemaps.add(12, L12_TILES);
 
-        // tilemap for layout 13
+        /*
+        ===== LAYOUT 13 =====
+         */
         ArrayList<Tile> L13_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -214,7 +251,9 @@ public class MapDirectory {
 
         tilemaps.add(13, L13_TILES);
 
-        // tilemap for layout 14
+        /*
+        ===== LAYOUT 14 =====
+         */
         ArrayList<Tile> L14_TILES = new ArrayList<>();
 
         // x + 30, y + 25
@@ -226,7 +265,9 @@ public class MapDirectory {
 
         tilemaps.add(14, L14_TILES);
 
-        // tilemap for layout 15
+        /*
+        ===== LAYOUT 15 =====
+         */
         ArrayList<Tile> L15_TILES = new ArrayList<>();
 
         // x + 30, y + 25
