@@ -41,9 +41,9 @@ public class Initializer {
             + File.separator + "assets" + File.separator + "sounds" + File.separator
             + "Diodes.mp3";*/
 
-        /*String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
-            + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
-            + "Diodes.mp3";*/
+//        String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
+//            + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
+//            + "Diodes.mp3";
 
         currLevel = 1;
         currFloor = 1;

@@ -45,6 +45,12 @@ public class Room6 implements IRoom {
         tiles.set(13, new Tile(new Point2D(tiles.get(13).getPosition().getX() , tiles.get(13)
                 .getPosition().getY() ), TileType.GOLD));
 
+        // Locked_Exit
+        tiles.set(16, new Tile(new Point2D(tiles.get(16).getPosition().getX() - 30, tiles.get(16)
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
+        tiles.set(10, new Tile(new Point2D(tiles.get(10).getPosition().getX() -30, tiles.get(10)
+                .getPosition().getY() -20), TileType.LOCKED_EXIT));
+
         return tiles;
     }
 }
