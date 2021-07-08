@@ -59,6 +59,11 @@ public class Tile {
                 tileTexture.setX(position.getX());
                 tileTexture.setY(position.getY());
                 break;
+            case LOCKED_EXIT:
+                tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                break;
         }
         this.position = position;
         this.setScale(1.35);

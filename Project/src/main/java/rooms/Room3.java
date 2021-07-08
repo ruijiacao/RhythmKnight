@@ -18,13 +18,13 @@ public class Room3 implements IRoom {
         L3_TILES.set(0, new Tile(tile26Pos, TileType.ORIGIN));
 
         // exit tiles
-        L3_TILES.set(26, new Tile(new Point2D(originPos.getX() - 30, originPos.getY() - 20), TileType.EXIT));
+        L3_TILES.set(26, new Tile(new Point2D(originPos.getX() - 30, originPos.getY() - 20), TileType.LOCKED_EXIT));
         L3_TILES.set(7, new Tile(new Point2D(L3_TILES.get(7).getPosition().getX() - 30, L3_TILES.get(7)
                 .getPosition().getY() - 20), TileType.EXIT));
         L3_TILES.set(13, new Tile(new Point2D(L3_TILES.get(13).getPosition().getX() - 30, L3_TILES.get(13)
                 .getPosition().getY() - 20), TileType.EXIT));
         L3_TILES.set(27, new Tile(new Point2D(L3_TILES.get(27).getPosition().getX() - 30, L3_TILES.get(27)
-                .getPosition().getY() - 20), TileType.EXIT));
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
 
         // inactive
         L3_TILES.set(4, new Tile(new Point2D(-1000, -1000), TileType.VISITED));

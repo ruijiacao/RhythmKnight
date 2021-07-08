@@ -44,11 +44,11 @@ public class Room4 implements IRoom {
 
         // exits
         L4_TILES.set(4, new Tile(new Point2D(L4_TILES.get(4).getPosition().getX() - 30, L4_TILES.get(4)
-                .getPosition().getY() - 20), TileType.EXIT));
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
         L4_TILES.set(14, new Tile(new Point2D(L4_TILES.get(14).getPosition().getX() - 30, L4_TILES.get(14)
-                .getPosition().getY() - 20), TileType.EXIT));
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
         L4_TILES.set(20, new Tile(new Point2D(L4_TILES.get(20).getPosition().getX() - 30, L4_TILES.get(20)
-                .getPosition().getY() - 20), TileType.EXIT));
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
         L4_TILES.set(26, new Tile(new Point2D(L4_TILES.get(26).getPosition().getX() - 30, L4_TILES.get(26)
                 .getPosition().getY() - 20), TileType.EXIT));
 

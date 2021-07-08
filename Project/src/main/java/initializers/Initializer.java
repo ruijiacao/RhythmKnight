@@ -64,7 +64,7 @@ public class Initializer {
             conductor.startAndKeepRhythm(cutout);
         }, Duration.millis(1));
 
-        MapLoader.loadMap(5, conductor, scoreText);
+        MapLoader.loadMap(0, conductor, scoreText);
     }
 
     public static int getCurrFloor() {

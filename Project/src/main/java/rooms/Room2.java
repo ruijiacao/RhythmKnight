@@ -24,9 +24,9 @@ public class Room2 implements IRoom {
         tiles.set(10, new Tile(new Point2D(tiles.get(10).getPosition().getX() - 30, tiles.get(10)
                 .getPosition().getY() - 20), TileType.EXIT));
         tiles.set(12, new Tile(new Point2D(tiles.get(12).getPosition().getX() - 30, tiles.get(12)
-                .getPosition().getY() - 20), TileType.EXIT));
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
         tiles.set(22, new Tile(new Point2D(tiles.get(22).getPosition().getX() - 30, tiles.get(22)
-                .getPosition().getY() - 20), TileType.EXIT));
+                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
 
         // monster tiles
         tiles.set(17, new Tile(tiles.get(17).getPosition(), TileType.MONSTER));
