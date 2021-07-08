@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import rhythm.*;
+import settings.GlobalSettings;
 import tilesystem.*;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.File;
 public class Initializer {
     // Global app variables
     private int score = 0;
+    private static int gold = (3 - GlobalSettings.getDifficulty()) * 10;
     private Text userText;
     private Text scoreText;
     private Text goldText;
@@ -62,7 +64,7 @@ public class Initializer {
             conductor.startAndKeepRhythm(cutout);
         }, Duration.millis(1));
 
-        MapLoader.loadMap(2, conductor, scoreText);
+        MapLoader.loadMap(5, conductor, scoreText);
     }
 
     public static int getCurrFloor() {
@@ -73,4 +75,11 @@ public class Initializer {
         return currLevel;
     }
 
+    public static int getGold() {
+        return gold;
+    }
+
+    public static void setGold(int newGold) {
+        gold = newGold;
+    }
 }

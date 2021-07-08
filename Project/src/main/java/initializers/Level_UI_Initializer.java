@@ -14,11 +14,11 @@ Initializes the UI for a level in the following order:
 - Gets the selected weapon and displays its visual
  */
 public class Level_UI_Initializer {
-    public static void initLevelUI() {
-        Text userText;
-        Text goldText;
-        Text healthText;
+    static Text userText;
+    static Text goldText;
+    static Text healthText;
 
+    public static void initLevelUI() {
         userText = new Text(GlobalSettings.getPlayerName());
         userText.setX(200);
         userText.setY(1000);
@@ -51,5 +51,9 @@ public class Level_UI_Initializer {
         weaponDisplay.setY(1080 - 90);
         FXGL.getGameScene().addUINode(weaponDisplay);
 
+    }
+
+    public static void updateGold(int newValue) {
+        goldText.setText("Gold: \n" + newValue);
     }
 }

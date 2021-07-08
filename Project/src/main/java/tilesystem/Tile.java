@@ -14,6 +14,7 @@ public class Tile {
     private boolean isOrigin;
     private boolean visited;
     private boolean isExit;
+    private boolean isGold;
     private Conductor passedInConductor;
     private Text passedInText;
     private Point2D position;
@@ -41,6 +42,23 @@ public class Tile {
                 tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
                 tileTexture.setX(position.getX());
                 tileTexture.setY(position.getY());
+                break;
+            case MONSTER:
+                tileTexture = FXGL.getAssetLoader().loadTexture("atk_tile.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                break;
+            case GOLD:
+                tileTexture = FXGL.getAssetLoader().loadTexture("GoldTile.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                isGold = true;
+                break;
+            case MYSTERY:
+                tileTexture = FXGL.getAssetLoader().loadTexture("MysteryTile.png");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                break;
         }
         this.position = position;
         this.setScale(1.35);
@@ -145,5 +163,13 @@ public class Tile {
 
     public void setExit(boolean exit) {
         isExit = exit;
+    }
+
+    public void setGold(boolean gold) {
+        isGold = gold;
+    }
+
+    public boolean isGold() {
+        return isGold;
     }
 }
