@@ -9,15 +9,57 @@ import java.util.ArrayList;
 public class Room13 implements IRoom {
     @Override
     public ArrayList<Tile> buildTiles() {
-        ArrayList<Tile> L13_TILES = new ArrayList<>();
+        ArrayList<Tile> tiles = new TemplateRoom().buildTiles();
 
-        // x + 30, y + 25
-        Tile L13_ORIGIN = new Tile(new Point2D(810, 325), TileType.ORIGIN);
-        L13_ORIGIN.setOrigin(true);
-        L13_ORIGIN.setVisited(true);
+        //change the origin
+        int swap = (25);
 
-        L13_TILES.add(L13_ORIGIN);
+        Point2D swapPos = tiles.get(swap).getPosition();
+        Point2D originPos = tiles.get(0).getPosition();
 
-        return L13_TILES;
+        tiles.set(0, new Tile(swapPos, TileType.ORIGIN));
+        tiles.set(swap, new Tile(new Point2D(-1000,-1000), TileType.UNVISITED));
+
+        // removed tiles
+        tiles.set(1, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(2, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(3, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(5, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(6, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(7, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(9, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(11, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(17, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(24, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(27, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+
+        //combat tiles
+        tiles.set(8, new Tile(tiles.get(8).getPosition(), TileType.MONSTER));
+        tiles.set(13, new Tile(tiles.get(13).getPosition(), TileType.MONSTER));
+        tiles.set(14, new Tile(tiles.get(14).getPosition(), TileType.MONSTER));
+        tiles.set(20, new Tile(tiles.get(20).getPosition(), TileType.MONSTER));
+
+
+        //gold tiles
+        tiles.set(15, new Tile(tiles.get(15).getPosition(), TileType.GOLD));
+        tiles.set(21, new Tile(tiles.get(21).getPosition(), TileType.GOLD));
+
+        //mystery tiles
+        tiles.set(12, new Tile(tiles.get(12).getPosition(), TileType.MYSTERY));
+        tiles.set(16, new Tile(tiles.get(16).getPosition(), TileType.MYSTERY));
+        tiles.set(23, new Tile(tiles.get(23).getPosition(), TileType.MYSTERY));
+
+        // exit tiles
+        tiles.set(4, new Tile(new Point2D(tiles.get(4).getPosition().getX() - 30, tiles.get(4)
+            .getPosition().getY() - 20), TileType.EXIT));
+        tiles.set(10, new Tile(new Point2D(tiles.get(10).getPosition().getX() - 30, tiles.get(10)
+            .getPosition().getY() - 20), TileType.EXIT));
+        tiles.set(18, new Tile(new Point2D(tiles.get(18).getPosition().getX() - 30, tiles.get(18)
+            .getPosition().getY() - 20), TileType.EXIT));
+        tiles.set(26, new Tile(new Point2D(tiles.get(26).getPosition().getX() - 30, tiles.get(26)
+            .getPosition().getY() - 20), TileType.EXIT));
+
+
+        return tiles;
     }
 }

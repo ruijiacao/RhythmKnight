@@ -3,6 +3,7 @@ package rhythm;
 import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
+import initializers.Level_UI_Initializer;
 import javafx.geometry.Point2D;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -117,6 +118,11 @@ public class Conductor {
                         visited.setVisited(true);
                         visited.displayOnScene(this, scoreText);
                     } else if (!tile.isVisited()) {
+                        if (tile.isGold()) {
+                            Initializer.setGold(Initializer.getGold() + 15);
+                            Level_UI_Initializer.updateGold(Initializer.getGold());
+                        }
+
                         tile.removeFromScene();
                         Tile visited = new Tile(position, TileType.VISITED);
                         visited.displayOnScene(this, scoreText);
@@ -133,7 +139,6 @@ public class Conductor {
                     }
 
                     FXGL.getAudioPlayer().playSound(hit);
-
                     tile.setPlayerOnTile(true);
                 }
             }
