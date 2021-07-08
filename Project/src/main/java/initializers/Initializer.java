@@ -1,23 +1,13 @@
 package initializers;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
-import com.almasb.fxgl.app.scene.GameView;
-import com.almasb.fxgl.audio.Sound;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.texture.Texture;
-import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import rhythm.Conductor;
-import settings.GlobalSettings;
+import rhythm.*;
 import tilesystem.*;
 
 import java.io.File;
-import java.util.ArrayList;
 
 public class Initializer {
     // Global app variables
@@ -48,7 +38,7 @@ public class Initializer {
         /* String ostPath = "src" + File.separator + "main" + File.separator + "resources" + File.separator
             + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";*/
 
-        /*String ostPath = "." + File.seperator + "src" + File.separator + "main" + File.separator + "resources" + File.separator
+        /*String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator
                 + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";*/
 
         currLevel = 1;
@@ -72,7 +62,7 @@ public class Initializer {
             conductor.startAndKeepRhythm(cutout);
         }, Duration.millis(1));
 
-        MapLoader.loadMap(0, conductor, scoreText);
+        MapLoader.loadMap(2, conductor, scoreText);
     }
 
     public static int getCurrFloor() {

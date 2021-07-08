@@ -1,13 +1,6 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.scene.FXGLMenu;
-import com.almasb.fxgl.app.scene.MenuType;
-import com.almasb.fxgl.app.scene.SceneFactory;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.entity.Entity;
-import tilesystem.MapDirectory;
-import ui.AppMainMenu;
-import org.jetbrains.annotations.NotNull;
 import settings.GlobalSettings;
 import initializers.Initializer;
 

@@ -42,8 +42,8 @@ public class MapLoader {
 
         var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
 
-        double x = (maps.getMapOrigin(0).getX() - 35);
-        double y = (maps.getMapOrigin(0).getY() - 95);
+        double x = (maps.getMapOrigin(id).getX() - 35);
+        double y = (maps.getMapOrigin(id).getY() - 95);
         playerSprite.setX(x);
         playerSprite.setY(y);
         playerSprite.setScaleX(.35);

@@ -35,6 +35,7 @@ public class Tile {
                 tileTexture = FXGL.getAssetLoader().loadTexture("stairs.png");
                 tileTexture.setX(position.getX());
                 tileTexture.setY(position.getY());
+                this.setExit(true);
                 break;
             case ORIGIN:
                 tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
