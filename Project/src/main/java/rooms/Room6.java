@@ -9,15 +9,25 @@ import java.util.ArrayList;
 public class Room6 implements IRoom {
     @Override
     public ArrayList<Tile> buildTiles() {
-        ArrayList<Tile> L6_TILES = new ArrayList<>();
+        ArrayList<Tile> tiles = new TemplateRoom().buildTiles();
 
-        // x + 30, y + 25
-        Tile L6_ORIGIN = new Tile(new Point2D(810, 325), TileType.ORIGIN);
-        L6_ORIGIN.setOrigin(true);
-        L6_ORIGIN.setVisited(true);
+        tiles.set(4, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(7, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(21, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(24, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(27, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(14, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
 
-        L6_TILES.add(L6_ORIGIN);
+        // exit tiles
+        tiles.set(25, new Tile(new Point2D(tiles.get(25).getPosition().getX() - 30, tiles.get(25)
+                .getPosition().getY() - 20), TileType.EXIT));
+        tiles.set(23, new Tile(new Point2D(tiles.get(23).getPosition().getX() - 30, tiles.get(23)
+                .getPosition().getY() - 20), TileType.EXIT));
 
-        return L6_TILES;
+        //Monster tiles
+        tiles.set(20, new Tile(new Point2D(tiles.get(20).getPosition().getX() - 30, tiles.get(20)
+                .getPosition().getY() - 20), TileType.MONSTER));
+
+        return tiles;
     }
 }
