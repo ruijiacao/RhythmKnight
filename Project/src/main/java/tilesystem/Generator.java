@@ -9,11 +9,11 @@ public class Generator {
 
     /*
     ========== GENERATE NEW ROOM ID ==========
-    A private method that uses Random to get a
+    A public method that uses Random to get a
     random layout room id.
     ==========================================
      */
-    private static int genRoomID() {
+    public static int genRoomID() {
         Random rand = new Random();
         int newRoom = 1 + rand.nextInt(14);
 
