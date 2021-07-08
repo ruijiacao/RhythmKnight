@@ -17,16 +17,33 @@ public class Room6 implements IRoom {
         tiles.set(24, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
         tiles.set(27, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
         tiles.set(14, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(26, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(22, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        tiles.set(25, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
 
         // exit tiles
-        tiles.set(25, new Tile(new Point2D(tiles.get(25).getPosition().getX() - 30, tiles.get(25)
+        tiles.set(18, new Tile(new Point2D(tiles.get(18).getPosition().getX() - 30, tiles.get(18)
                 .getPosition().getY() - 20), TileType.EXIT));
         tiles.set(23, new Tile(new Point2D(tiles.get(23).getPosition().getX() - 30, tiles.get(23)
                 .getPosition().getY() - 20), TileType.EXIT));
 
         //Monster tiles
-        tiles.set(20, new Tile(new Point2D(tiles.get(20).getPosition().getX() - 30, tiles.get(20)
-                .getPosition().getY() - 20), TileType.MONSTER));
+        tiles.set(20, new Tile(new Point2D(tiles.get(20).getPosition().getX() , tiles.get(20)
+                .getPosition().getY()), TileType.MONSTER));
+        tiles.set(15, new Tile(new Point2D(tiles.get(15).getPosition().getX() , tiles.get(15)
+                .getPosition().getY()), TileType.MONSTER));
+
+        //Mystery tiles
+        tiles.set(17, new Tile(new Point2D(tiles.get(17).getPosition().getX() , tiles.get(17)
+                .getPosition().getY() ), TileType.MYSTERY));
+        tiles.set(11, new Tile(new Point2D(tiles.get(11).getPosition().getX() , tiles.get(11)
+                .getPosition().getY() ), TileType.MYSTERY));
+
+        //Gold tiles
+        tiles.set(5, new Tile(new Point2D(tiles.get(5).getPosition().getX() , tiles.get(5)
+                .getPosition().getY() ), TileType.GOLD));
+        tiles.set(13, new Tile(new Point2D(tiles.get(13).getPosition().getX() , tiles.get(13)
+                .getPosition().getY() ), TileType.GOLD));
 
         return tiles;
     }
