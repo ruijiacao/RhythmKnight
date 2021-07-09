@@ -54,10 +54,12 @@ public class MapDirectory {
         rooms.add(room15);
         IRoom exit = new ExitRoom();
         rooms.add(exit);
+        IRoom exit2 = new ExitRoom2();
+        rooms.add(exit2);
 
         tilemaps = new ArrayList<>();
         int i = 0;
-        while (i < 17) {
+        while (i < 18) {
             tilemaps.add(i, rooms.get(i).buildTiles());
             i++;
         }

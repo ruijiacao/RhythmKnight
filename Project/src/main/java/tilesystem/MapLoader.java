@@ -31,10 +31,12 @@ public class MapLoader {
 
         MapDirectory maps = new MapDirectory();
 
+        /*
         Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout" + id + ".png");
         Entity layout = new EntityBuilder()
                 .view(newRoomLayout)
                 .buildAndAttach();
+                */
 
         ArrayList<Tile> newTiles = maps.getIDLayout(id);
 
