@@ -18,7 +18,7 @@ public class ExitRoom implements IRoom{
         Point2D swapPos = tiles.get(swap).getPosition();
 
         tiles.set(0, new Tile(swapPos, TileType.ORIGIN));
-        tiles.set(swap, new Tile(new Point2D(1505, 25), TileType.EXIT));
+        tiles.set(swap, new Tile(new Point2D(1505, 25), TileType.EXIST_DUNGEON));
         return tiles;
     }
 

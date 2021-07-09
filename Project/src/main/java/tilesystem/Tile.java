@@ -64,6 +64,11 @@ public class Tile {
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             break;
+        case EXIST_DUNGEON:
+            tileTexture = FXGL.getAssetLoader().loadTexture("exitDungeonTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
         default:
         }
         this.position = position;

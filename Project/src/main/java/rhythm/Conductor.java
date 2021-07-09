@@ -5,6 +5,7 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import initializers.Level_UI_Initializer;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Alert;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -135,7 +136,11 @@ public class Conductor {
                     }
 
                     if (tile.isExit()) {
-                        Generator.genNewRoom(this, scoreText);
+                        if (GlobalSettings.getRoomCounter() == 6) {
+                            createAlert();
+                        } else {
+                            Generator.genNewRoom(this, scoreText);
+                        }
                     }
 
                     FXGL.getAudioPlayer().playSound(hit);
@@ -143,6 +148,17 @@ public class Conductor {
                 }
             }
         });
+    }
+    /*
+    This method creates an alert when the player reaches the end of the dungeon.
+     */
+    public void createAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        System.out.println("Alert created");
+        alert.setTitle("Congratulation");
+        alert.setHeaderText("Congratulation");
+        alert.setContentText("You Win!");
+        alert.showAndWait();
     }
 
 }
