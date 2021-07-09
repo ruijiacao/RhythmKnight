@@ -38,7 +38,7 @@ public class MapLoader {
 
         ArrayList<Tile> newTiles = maps.getIDLayout(id);
 
-        TileMap map = new TileMap(maps.getIDLayout(id), conductor, scoreText);
+        TileMap map = new TileMap(newTiles, conductor, scoreText);
 
         var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
 

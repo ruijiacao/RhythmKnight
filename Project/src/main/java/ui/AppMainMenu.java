@@ -5,8 +5,10 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
 import settings.GlobalSettings;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class AppMainMenu extends FXGLMenu {

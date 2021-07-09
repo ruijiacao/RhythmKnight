@@ -33,17 +33,17 @@ public class Initializer {
     public void initLevel1() {
         // Uncomment the potential filepaths below if music does not play
 
-//        String ostPath = "Project" + File.separator
-//                + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-//                + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
+       String ostPath = "Project" + File.separator
+               + "src" + File.separator + "main" + File.separator + "resources" + File.separator
+               + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
 
         /* String ostPath = "src" + File.separator + "main" + File.separator + "resources"
             + File.separator + "assets" + File.separator + "sounds" + File.separator
             + "Diodes.mp3";*/
 
-        String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
-            + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
-            + "Diodes.mp3";
+        //String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
+          //  + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
+            //+ "Diodes.mp3";
 
         currLevel = 1;
         currFloor = 1;
@@ -66,7 +66,9 @@ public class Initializer {
             conductor.startAndKeepRhythm(cutout);
         }, Duration.millis(1));
 
+        GlobalSettings.generatePath(GlobalSettings.getDifficulty());
         MapLoader.loadMap(0, conductor, scoreText);
+        GlobalSettings.setRoomCounter(0);
     }
 
     public static int getCurrFloor() {

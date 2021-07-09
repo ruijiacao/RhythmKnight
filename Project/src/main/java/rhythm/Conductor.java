@@ -4,8 +4,11 @@ import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import initializers.Level_UI_Initializer;
+import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -109,16 +112,37 @@ public class Conductor {
 
                     GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50, position.getY() - 100));
 
-                    animator.pulsateScore(scoreText);
-                    animator.pulsateTile(tile.getTileTexture());
 
-                    if (tile.isOrigin()) {
+                    if (tile.isExit()) {
+                        if (GlobalSettings.getRoomCounter() == 99) {
+                            createAlert();
+                        } else if (GlobalSettings.getRoomCounter() == 6 + GlobalSettings.getDifficulty()) {
+                            MapLoader.loadMap(16, this, scoreText);
+                            GlobalSettings.setRoomCounter(99);
+                        } else if (GlobalSettings.getRoomCounter() == 0) {
+                            GlobalSettings.setPathChosen(tile.getPathID());
+                            GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() + 1);
+                            MapLoader.loadMap(GlobalSettings.getPath(GlobalSettings.getPathChosen())[1], this, scoreText);
+                        } else {
+                            GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() + 1);
+                            MapLoader.loadMap(GlobalSettings.getPath(GlobalSettings.getPathChosen())[GlobalSettings.getRoomCounter()], this, scoreText);
+                        }
+                    } else if (tile.isOrigin() && GlobalSettings.getRoomCounter() != 0) {
                         tile.removeFromScene();
                         Tile visited = new Tile(position, TileType.ORIGIN);
                         visited.setOrigin(true);
                         visited.setVisited(true);
                         visited.displayOnScene(this, scoreText);
+                        GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() - 1);
+                        if (GlobalSettings.getRoomCounter() == 0) {
+                            MapLoader.loadMap(0, this, scoreText);
+                        } else {
+                            MapLoader.loadMap(GlobalSettings.getPath(GlobalSettings.getPathChosen())[GlobalSettings.getRoomCounter() - 1], this, scoreText);
+                        }
                     } else if (!tile.isVisited()) {
+                        animator.pulsateScore(scoreText);
+                        animator.pulsateTile(tile.getTileTexture());
+
                         if (tile.isGold()) {
                             Initializer.setGold(Initializer.getGold() + 15);
                             Level_UI_Initializer.updateGold(Initializer.getGold());
@@ -132,15 +156,7 @@ public class Conductor {
                         scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
                                 + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
 
-                        tile.setVisited(true);
-                    }
-
-                    if (tile.isExit()) {
-                        if (GlobalSettings.getRoomCounter() == 6) {
-                            createAlert();
-                        } else {
-                            Generator.genNewRoom(this, scoreText);
-                        }
+                        visited.setVisited(true);
                     }
 
                     FXGL.getAudioPlayer().playSound(hit);
@@ -153,12 +169,12 @@ public class Conductor {
     This method creates an alert when the player reaches the end of the dungeon.
      */
     public void createAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        System.out.println("Alert created");
-        alert.setTitle("Congratulation");
-        alert.setHeaderText("Congratulation");
-        alert.setContentText("You Win!");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Crawl Complete!");
+        alert.setHeaderText("Congratulations!");
+        alert.setContentText("You crawled out of the dungeon! \nGold collected: " + Initializer.getGold());
         alert.showAndWait();
+        System.exit(0);
     }
 
 }

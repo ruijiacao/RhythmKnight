@@ -6,6 +6,10 @@ import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
 import rhythm.Conductor;
+import settings.GlobalSettings;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Tile {
     private Texture tileTexture;
@@ -19,6 +23,7 @@ public class Tile {
     private Text passedInText;
     private Point2D position;
     private TileType type;
+    private int pathID;
 
     public Tile(Point2D position, TileType type) {
         switch (type) {
@@ -31,6 +36,7 @@ public class Tile {
             tileTexture = FXGL.getAssetLoader().loadTexture("hex.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
+            visited = true;
             break;
         case EXIT:
             tileTexture = FXGL.getAssetLoader().loadTexture("stairs.png");
@@ -42,6 +48,8 @@ public class Tile {
             tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
+            isOrigin = true;
+            visited = true;
             break;
         case MONSTER:
             tileTexture = FXGL.getAssetLoader().loadTexture("atk_tile.png");
@@ -68,6 +76,7 @@ public class Tile {
             tileTexture = FXGL.getAssetLoader().loadTexture("exitDungeonTile.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
+            isExit = true;
             break;
         default:
         }
@@ -182,5 +191,13 @@ public class Tile {
 
     public boolean isGold() {
         return isGold;
+    }
+
+    public int getPathID() {
+        return pathID;
+    }
+
+    public void setPathID(int pathID) {
+        this.pathID = pathID;
     }
 }

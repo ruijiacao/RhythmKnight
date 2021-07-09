@@ -29,12 +29,16 @@ public class StartingRoom implements IRoom {
 
         Tile ST_EXIT1 = new Tile(new Point2D(1340, 190), TileType.EXIT);
         ST_EXIT1.setExit(true);
+        ST_EXIT1.setPathID(1);
         Tile ST_EXIT2 = new Tile(new Point2D(210, 200), TileType.EXIT);
         ST_EXIT2.setExit(true);
+        ST_EXIT2.setPathID(2);
         Tile ST_EXIT3 = new Tile(new Point2D(600, 630), TileType.EXIT);
         ST_EXIT3.setExit(true);
+        ST_EXIT3.setPathID(3);
         Tile ST_EXIT4 = new Tile(new Point2D(1340, 630), TileType.EXIT);
         ST_EXIT4.setExit(true);
+        ST_EXIT4.setPathID(4);
 
         ST_TILES.add(ST_ORIGIN);
 
