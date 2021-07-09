@@ -30,6 +30,9 @@ public class GlobalSettings {
     );
     private static Texture playerSprite;
 
+    //Room Counter
+    private static int roomCounter = 0;
+
     // Game config
     private static String playerName;
     private static int difficulty = -1;            // enum?
@@ -115,6 +118,9 @@ public class GlobalSettings {
 
     public static Texture getPlayerSprite() {
         return playerSprite;
+    }
+    public static int getRoomCounter() {
+        return roomCounter;
     }
 
     public static void setDefault(GameSettings game) {

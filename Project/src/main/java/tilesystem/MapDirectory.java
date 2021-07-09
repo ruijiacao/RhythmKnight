@@ -52,10 +52,12 @@ public class MapDirectory {
         rooms.add(room14);
         IRoom room15 = new Room15();
         rooms.add(room15);
+        IRoom exit = new ExitRoom();
+        rooms.add(exit);
 
         tilemaps = new ArrayList<>();
         int i = 0;
-        while (i < 16) {
+        while (i < 17) {
             tilemaps.add(i, rooms.get(i).buildTiles());
             i++;
         }
