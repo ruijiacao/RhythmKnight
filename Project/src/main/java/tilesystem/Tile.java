@@ -21,49 +21,50 @@ public class Tile {
     private TileType type;
 
     public Tile(Point2D position, TileType type) {
-        switch(type) {
-            case UNVISITED:
-                tileTexture = FXGL.getAssetLoader().loadTexture("unvisited.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                break;
-            case VISITED:
-                tileTexture = FXGL.getAssetLoader().loadTexture("hex.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                break;
-            case EXIT:
-                tileTexture = FXGL.getAssetLoader().loadTexture("stairs.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                this.setExit(true);
-                break;
-            case ORIGIN:
-                tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                break;
-            case MONSTER:
-                tileTexture = FXGL.getAssetLoader().loadTexture("atk_tile.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                break;
-            case GOLD:
-                tileTexture = FXGL.getAssetLoader().loadTexture("GoldTile.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                isGold = true;
-                break;
-            case MYSTERY:
-                tileTexture = FXGL.getAssetLoader().loadTexture("MysteryTile.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                break;
-            case LOCKED_EXIT:
-                tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
-                tileTexture.setX(position.getX());
-                tileTexture.setY(position.getY());
-                break;
+        switch (type) {
+        case UNVISITED:
+            tileTexture = FXGL.getAssetLoader().loadTexture("unvisited.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case VISITED:
+            tileTexture = FXGL.getAssetLoader().loadTexture("hex.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case EXIT:
+            tileTexture = FXGL.getAssetLoader().loadTexture("stairs.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            this.setExit(true);
+            break;
+        case ORIGIN:
+            tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case MONSTER:
+            tileTexture = FXGL.getAssetLoader().loadTexture("atk_tile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case GOLD:
+            tileTexture = FXGL.getAssetLoader().loadTexture("GoldTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            isGold = true;
+            break;
+        case MYSTERY:
+            tileTexture = FXGL.getAssetLoader().loadTexture("MysteryTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case LOCKED_EXIT:
+            tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        default:
         }
         this.position = position;
         this.setScale(1.35);

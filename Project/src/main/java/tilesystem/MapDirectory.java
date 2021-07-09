@@ -68,8 +68,11 @@ public class MapDirectory {
         return tilemaps.get(0);
     }
 
-    public ArrayList<Tile> getIDLayout(int id) {return tilemaps.get(id); }
+    public ArrayList<Tile> getIDLayout(int id) {
+        return tilemaps.get(id);
+    }
 
-    public Point2D getMapOrigin(int id) {return tilemaps.get(id).get(0).getPosition();}
-
+    public Point2D getMapOrigin(int id) {
+        return tilemaps.get(id).get(0).getPosition();
+    }
 }
