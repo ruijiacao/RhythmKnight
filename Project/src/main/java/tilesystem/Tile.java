@@ -84,6 +84,7 @@ public class Tile {
         this.setScale(1.35);
         isActive = false;
         playerOnTile = false;
+        this.type = type;
     }
 
     public void displayOnScene(Conductor conductor, Text scoreText) {
@@ -199,5 +200,9 @@ public class Tile {
 
     public void setPathID(int pathID) {
         this.pathID = pathID;
+    }
+
+    public void setPosition(Point2D position) {
+        this.position = position;
     }
 }
