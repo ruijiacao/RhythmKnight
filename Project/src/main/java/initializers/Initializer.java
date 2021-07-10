@@ -60,7 +60,7 @@ public class Initializer {
 
         Level_UI_Initializer.initLevelUI();
 
-        var cutout = FXGL.getAssetLoader().loadTexture("cutout.png");
+        var cutout = FXGL.getAssetLoader().loadTexture("newCutout.png");
 
         FXGL.getGameTimer().runOnceAfter(() -> {
             conductor.startAndKeepRhythm(cutout);

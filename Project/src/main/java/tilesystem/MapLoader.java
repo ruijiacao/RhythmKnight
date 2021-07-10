@@ -31,12 +31,18 @@ public class MapLoader {
 
         MapDirectory maps = new MapDirectory();
 
-        /*
-        Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout" + id + ".png");
+
+        Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("newDungeonBG.png");
         Entity layout = new EntityBuilder()
                 .view(newRoomLayout)
                 .buildAndAttach();
-                */
+
+        /*
+        Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout" + id + ".png);
+        Entity layout = new EntityBuilder()
+            .view(newRoomLayout)
+            .buildAndAttach();
+         */
 
         ArrayList<Tile> newTiles = maps.getIDLayout(id);
 
@@ -60,10 +66,6 @@ public class MapLoader {
         GameView view = new GameView(playerSprite, 2);
         getGameScene().addGameView(view);
         GlobalSettings.setPlayerSprite(playerSprite);
-
-        Entity uiBg = new EntityBuilder()
-                .view("UI-Layout.png")
-                .buildAndAttach();
     }
 
     private static void clearScene() {

@@ -28,7 +28,7 @@ public class Tile {
     public Tile(Point2D position, TileType type) {
         switch (type) {
         case UNVISITED:
-            tileTexture = FXGL.getAssetLoader().loadTexture("unvisited.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             break;
@@ -39,7 +39,7 @@ public class Tile {
             visited = true;
             break;
         case EXIT:
-            tileTexture = FXGL.getAssetLoader().loadTexture("stairs.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newStairs.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             this.setExit(true);
@@ -52,18 +52,18 @@ public class Tile {
             visited = true;
             break;
         case MONSTER:
-            tileTexture = FXGL.getAssetLoader().loadTexture("atk_tile.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newEnemy.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             break;
         case GOLD:
-            tileTexture = FXGL.getAssetLoader().loadTexture("GoldTile.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newGoldTile.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             isGold = true;
             break;
         case MYSTERY:
-            tileTexture = FXGL.getAssetLoader().loadTexture("MysteryTile.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newMystery.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             break;

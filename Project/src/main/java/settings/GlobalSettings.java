@@ -20,7 +20,7 @@ public class GlobalSettings {
     private static int windowWidth = 1920;
     private static int windowHeight = 1080;
     private static String gameTitle = "Rhythm Knight";
-    private static String version = "Milestone 2";
+    private static String version = "Milestone 3";
     private static List<String> credits = Arrays.asList(
             "Kyle Fry - Game Design/Programming",
             "Albin Liang - Programming/Debugging",
