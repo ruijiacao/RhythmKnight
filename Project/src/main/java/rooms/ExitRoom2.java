@@ -28,21 +28,21 @@ public class ExitRoom2 implements IRoom {
         tiles.set(19, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
         tiles.set(16, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
 
-        tiles.set(22, new Tile(new Point2D(tiles.get(22).getPosition().getX() , tiles.get(22)
+        tiles.set(22, new Tile(new Point2D(tiles.get(22).getPosition().getX(), tiles.get(22)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(18, new Tile(new Point2D(tiles.get(18).getPosition().getX() , tiles.get(18)
+        tiles.set(18, new Tile(new Point2D(tiles.get(18).getPosition().getX(), tiles.get(18)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(15, new Tile(new Point2D(tiles.get(15).getPosition().getX() , tiles.get(15)
+        tiles.set(15, new Tile(new Point2D(tiles.get(15).getPosition().getX(), tiles.get(15)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(12, new Tile(new Point2D(tiles.get(12).getPosition().getX() , tiles.get(12)
+        tiles.set(12, new Tile(new Point2D(tiles.get(12).getPosition().getX(), tiles.get(12)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(9, new Tile(new Point2D(tiles.get(9).getPosition().getX() , tiles.get(9)
+        tiles.set(9, new Tile(new Point2D(tiles.get(9).getPosition().getX(), tiles.get(9)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(5, new Tile(new Point2D(tiles.get(5).getPosition().getX() , tiles.get(5)
+        tiles.set(5, new Tile(new Point2D(tiles.get(5).getPosition().getX(), tiles.get(5)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(4, new Tile(new Point2D(tiles.get(4).getPosition().getX() , tiles.get(4)
+        tiles.set(4, new Tile(new Point2D(tiles.get(4).getPosition().getX(), tiles.get(4)
                 .getPosition().getY()), TileType.UNVISITED));
-        tiles.set(8, new Tile(new Point2D(tiles.get(8).getPosition().getX() , tiles.get(8)
+        tiles.set(8, new Tile(new Point2D(tiles.get(8).getPosition().getX(), tiles.get(8)
                 .getPosition().getY()), TileType.UNVISITED));
 
         int swap = 25;
@@ -58,14 +58,14 @@ public class ExitRoom2 implements IRoom {
                 .getPosition().getY() - 20), TileType.EXIT));
 
         //Gold tiles
-        tiles.set(25, new Tile(new Point2D(tiles.get(25).getPosition().getX() , tiles.get(25)
-                .getPosition().getY() ), TileType.GOLD));
-        tiles.set(2, new Tile(new Point2D(tiles.get(2).getPosition().getX() , tiles.get(2)
-                .getPosition().getY() ), TileType.GOLD));
-        tiles.set(1, new Tile(new Point2D(tiles.get(1).getPosition().getX() , tiles.get(1)
-                .getPosition().getY() ), TileType.GOLD));
-        tiles.set(2, new Tile(new Point2D(tiles.get(2).getPosition().getX() , tiles.get(2)
-                .getPosition().getY() ), TileType.GOLD));
+        tiles.set(25, new Tile(new Point2D(tiles.get(25).getPosition().getX(), tiles.get(25)
+                .getPosition().getY()), TileType.GOLD));
+        tiles.set(2, new Tile(new Point2D(tiles.get(2).getPosition().getX(), tiles.get(2)
+                .getPosition().getY()), TileType.GOLD));
+        tiles.set(1, new Tile(new Point2D(tiles.get(1).getPosition().getX(), tiles.get(1)
+                .getPosition().getY()), TileType.GOLD));
+        tiles.set(2, new Tile(new Point2D(tiles.get(2).getPosition().getX(), tiles.get(2)
+                .getPosition().getY()), TileType.GOLD));
 
         return tiles;
     }

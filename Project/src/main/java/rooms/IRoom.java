@@ -1,6 +1,5 @@
 package rooms;
 
-import javafx.geometry.Point2D;
 import tilesystem.Tile;
 
 import java.util.ArrayList;

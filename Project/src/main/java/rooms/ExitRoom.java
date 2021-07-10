@@ -6,7 +6,7 @@ import tilesystem.TileType;
 
 import java.util.ArrayList;
 
-public class ExitRoom implements IRoom{
+public class ExitRoom implements IRoom {
     @Override
     public ArrayList<Tile> buildTiles() {
         ArrayList<Tile> tiles = new TemplateRoom().buildTiles();
