@@ -52,6 +52,16 @@ public class MapDirectory {
         rooms.add(room14);
         IRoom room15 = new Room15();
         rooms.add(room15);
+        IRoom room16 = new Room16();
+        rooms.add(room16);
+        IRoom room17 = new Room17();
+        rooms.add(room17);
+        IRoom room18 = new Room18();
+        rooms.add(room18);
+        IRoom room19 = new Room19();
+        rooms.add(room19);
+        IRoom room20 = new Room20();
+        rooms.add(room20);
         IRoom exit = new ExitRoom();
         rooms.add(exit);
         IRoom exit2 = new ExitRoom2();
@@ -59,7 +69,7 @@ public class MapDirectory {
 
         tilemaps = new ArrayList<>();
         int i = 0;
-        while (i < 18) {
+        while (i < 23) {
             tilemaps.add(i, rooms.get(i).buildTiles());
             i++;
         }

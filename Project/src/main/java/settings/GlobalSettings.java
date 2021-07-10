@@ -164,14 +164,14 @@ public class GlobalSettings {
         Random rand = new Random();
         path1 = new int[7 + difficulty];
         int i = 0;
-        int id = 1 + rand.nextInt(15);
+        int id = 1 + rand.nextInt(20);
         while (i < path1.length) {
             if (!used.contains(id)) {
                 used.add(id);
                 path1[i] = id;
                 i++;
             } else {
-                id = 1 + rand.nextInt(15);
+                id = 1 + rand.nextInt(20);
             }
         }
 
@@ -189,14 +189,14 @@ public class GlobalSettings {
         rand = new Random();
         path2 = new int[7 + difficulty];
         i = 0;
-        id = 1 + rand.nextInt(15);
+        id = 1 + rand.nextInt(20);
         while (i < path2.length) {
             if (!used.contains(id)) {
                 used.add(id);
                 path2[i] = id;
                 i++;
             } else {
-                id = 1 + rand.nextInt(15);
+                id = 1 + rand.nextInt(20);
             }
         }
 
@@ -214,14 +214,14 @@ public class GlobalSettings {
         rand = new Random();
         path3 = new int[7 + difficulty];
         i = 0;
-        id = 1 + rand.nextInt(15);
+        id = 1 + rand.nextInt(20);
         while (i < path3.length) {
             if (!used.contains(id)) {
                 used.add(id);
                 path3[i] = id;
                 i++;
             } else {
-                id = 1 + rand.nextInt(15);
+                id = 1 + rand.nextInt(20);
             }
         }
 
@@ -239,14 +239,14 @@ public class GlobalSettings {
         rand = new Random();
         path4 = new int[7 + difficulty];
         i = 0;
-        id = 1 + rand.nextInt(15);
+        id = 1 + rand.nextInt(20);
         while (i < path4.length) {
             if (!used.contains(id)) {
                 used.add(id);
                 path4[i] = id;
                 i++;
             } else {
-                id = 1 + rand.nextInt(15);
+                id = 1 + rand.nextInt(20);
             }
         }
 

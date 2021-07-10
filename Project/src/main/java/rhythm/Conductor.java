@@ -117,7 +117,7 @@ public class Conductor {
                         if (GlobalSettings.getRoomCounter() == 99) {
                             createAlert();
                         } else if (GlobalSettings.getRoomCounter() == 6 + GlobalSettings.getDifficulty()) {
-                            MapLoader.loadMap(16, this, scoreText);
+                            MapLoader.loadMap(21, this, scoreText);
                             GlobalSettings.setRoomCounter(99);
                         } else if (GlobalSettings.getRoomCounter() == 0) {
                             GlobalSettings.setPathChosen(tile.getPathID());
