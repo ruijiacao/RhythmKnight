@@ -22,7 +22,7 @@ public class MapDirectory {
         ArrayList<IRoom> rooms = new ArrayList<>();
         IRoom start = new StartingRoom();
         rooms.add(start);
-        IRoom room1 = new Room1();
+        Room1 room1 = new Room1();
         rooms.add(room1);
         IRoom room2 = new Room2();
         rooms.add(room2);

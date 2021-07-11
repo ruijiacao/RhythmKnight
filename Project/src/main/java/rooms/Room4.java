@@ -1,57 +1,32 @@
 package rooms;
 
-import javafx.geometry.Point2D;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
 import java.util.ArrayList;
 
-public class Room4 implements IRoom {
+public class Room4 extends TemplateRoom {
     @Override
     public ArrayList<Tile> buildTiles() {
-        ArrayList<Tile> L4_TILES = new TemplateRoom().buildTiles();
+        ArrayList<Tile> tiles = super.buildTiles();
 
-        // origin swap
-        Point2D tile3Pos = L4_TILES.get(3).getPosition();
-        Point2D originPos = L4_TILES.get(0).getPosition();
+        setOrigin(3, tiles);
 
-        L4_TILES.set(0, new Tile(tile3Pos, TileType.ORIGIN));
+        int[] unused = {3, 5, 8, 10, 13, 17, 22, 24, 27};
+        removeUnused(unused, tiles);
 
-        // inactive
-        L4_TILES.set(3, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(5, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(8, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(10, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(13, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(17, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(22, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(24, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
-        L4_TILES.set(27, new Tile(new Point2D(-1000, 1000), TileType.VISITED));
+        int[] gold = {7, 19};
+        setTileType(gold, TileType.GOLD, tiles);
 
-        // monster
-        L4_TILES.set(1, new Tile(L4_TILES.get(1).getPosition(), TileType.MONSTER));
-        L4_TILES.set(18, new Tile(L4_TILES.get(18).getPosition(), TileType.MONSTER));
-        L4_TILES.set(27, new Tile(L4_TILES.get(27).getPosition(), TileType.MONSTER));
+        int[] mystery = {2, 15, 16};
+        setTileType(mystery, TileType.MYSTERY, tiles);
 
-        // gold
-        L4_TILES.set(7, new Tile(L4_TILES.get(7).getPosition(), TileType.GOLD));
-        L4_TILES.set(19, new Tile(L4_TILES.get(19).getPosition(), TileType.GOLD));
+        int[] monster = {1, 18, 27};
+        setTileType(monster, TileType.MONSTER, tiles);
 
-        // mystery
-        L4_TILES.set(2, new Tile(L4_TILES.get(2).getPosition(), TileType.MYSTERY));
-        L4_TILES.set(15, new Tile(L4_TILES.get(15).getPosition(), TileType.MYSTERY));
-        L4_TILES.set(16, new Tile(L4_TILES.get(16).getPosition(), TileType.MYSTERY));
+        int[] exits = {4, 14, 20, 26};
+        setTileType(exits, TileType.EXIT, tiles);
 
-        // exits
-        L4_TILES.set(4, new Tile(new Point2D(L4_TILES.get(4).getPosition().getX() - 30, L4_TILES.get(4)
-                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
-        L4_TILES.set(14, new Tile(new Point2D(L4_TILES.get(14).getPosition().getX() - 30, L4_TILES.get(14)
-                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
-        L4_TILES.set(20, new Tile(new Point2D(L4_TILES.get(20).getPosition().getX() - 30, L4_TILES.get(20)
-                .getPosition().getY() - 20), TileType.LOCKED_EXIT));
-        L4_TILES.set(26, new Tile(new Point2D(L4_TILES.get(26).getPosition().getX() - 30, L4_TILES.get(26)
-                .getPosition().getY() - 20), TileType.EXIT));
-
-        return L4_TILES;
+        return tiles;
     }
 }

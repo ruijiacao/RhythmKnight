@@ -1,59 +1,34 @@
 package rooms;
 
-import javafx.geometry.Point2D;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
 import java.util.ArrayList;
 
-public class Room15 implements IRoom {
+public class Room15 extends TemplateRoom {
     @Override
     public ArrayList<Tile> buildTiles() {
-        ArrayList<Tile> tiles = new TemplateRoom().buildTiles();
+        ArrayList<Tile> tiles = super.buildTiles();
 
-        //change the origin
-        int swap = (22);
+        setOrigin(22, tiles);
 
-        Point2D swapPos = tiles.get(swap).getPosition();
-        Point2D originPos = tiles.get(0).getPosition();
+        int[] unused = {3, 5, 10, 17, 21, 23, 24, 27};
+        removeUnused(unused, tiles);
 
-        tiles.set(0, new Tile(swapPos, TileType.ORIGIN));
-        tiles.set(swap, new Tile(new Point2D(-1000,-1000), TileType.UNVISITED));
+        int[] gold = {8};
+        setTileType(gold, TileType.GOLD, tiles);
 
-        // removed tiles
-        tiles.set(3, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(5, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(10, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(17, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(21, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(23, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(24, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
-        tiles.set(27, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        int[] mystery = {7, 15, 20, 26};
+        setTileType(mystery, TileType.MYSTERY, tiles);
 
-        //combat tiles
-        tiles.set(1, new Tile(tiles.get(1).getPosition(), TileType.MONSTER));
-        tiles.set(6, new Tile(tiles.get(6).getPosition(), TileType.MONSTER));
-        tiles.set(16, new Tile(tiles.get(16).getPosition(), TileType.MONSTER));
+        int[] monster = {1, 6, 16};
+        setTileType(monster, TileType.MONSTER, tiles);
 
+        int[] exits = {2};
+        setTileType(exits, TileType.EXIT, tiles);
 
-        //gold tiles
-        tiles.set(8, new Tile(tiles.get(8).getPosition(), TileType.GOLD));
-
-        //mystery tiles
-        tiles.set(7, new Tile(tiles.get(7).getPosition(), TileType.MYSTERY));
-        tiles.set(15, new Tile(tiles.get(15).getPosition(), TileType.MYSTERY));
-        tiles.set(20, new Tile(tiles.get(20).getPosition(), TileType.MYSTERY));
-        tiles.set(26, new Tile(tiles.get(26).getPosition(), TileType.MYSTERY));
-
-        // exit tiles
-        tiles.set(2, new Tile(new Point2D(tiles.get(2).getPosition().getX() - 30, tiles.get(2)
-            .getPosition().getY() - 20), TileType.EXIT));
-        tiles.set(13, new Tile(new Point2D(tiles.get(13).getPosition().getX() - 30, tiles.get(13)
-            .getPosition().getY() - 20), TileType.EXIT));
-        tiles.set(19, new Tile(new Point2D(tiles.get(19).getPosition().getX() - 30, tiles.get(19)
-            .getPosition().getY() - 20), TileType.EXIT));
-        tiles.set(25, new Tile(new Point2D(tiles.get(25).getPosition().getX() - 30, tiles.get(25)
-            .getPosition().getY() - 20), TileType.EXIT));
+        int[] lockedExits = {13, 19, 25};
+        setTileType(lockedExits, TileType.LOCKED_EXIT, tiles);
 
         return tiles;
     }

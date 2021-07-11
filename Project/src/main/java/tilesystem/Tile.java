@@ -40,8 +40,8 @@ public class Tile {
             break;
         case EXIT:
             tileTexture = FXGL.getAssetLoader().loadTexture("newStairs.png");
-            tileTexture.setX(position.getX());
-            tileTexture.setY(position.getY());
+            tileTexture.setX(position.getX()-30);
+            tileTexture.setY(position.getY()-20);
             this.setExit(true);
             break;
         case ORIGIN:

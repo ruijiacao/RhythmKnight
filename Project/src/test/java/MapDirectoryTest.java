@@ -173,9 +173,10 @@ public class MapDirectoryTest {
     // validates that the MapDirectory returns the valid 12th room + spawn point
     @Test
     public void Room12Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
         Room12 room = new Room12();
         ArrayList<Tile> tiles = room.buildTiles();
-        for (int i : new int[]{7, 4, 2, 3, 6, 9, 10, 20, 24, 27, 21, 25}) {
+        for (int i : new int[]{7, 4, 2, 3, 6, 9, 10, 20, 24, 21, 25}) {
             assertEquals(TileType.VISITED, tiles.get(i).getType());
         }
         for (int i : new int[]{5, 11, 18, 26}) {
@@ -190,7 +191,7 @@ public class MapDirectoryTest {
         for (int i : new int[]{13, 14}) {
             assertEquals(TileType.LOCKED_EXIT, tiles.get(i).getType());
         }
-        for (int i : new int[]{1, 28}) {
+        for (int i : new int[]{1, 27}) {
             assertEquals(TileType.EXIT, tiles.get(i).getType());
         }
     }

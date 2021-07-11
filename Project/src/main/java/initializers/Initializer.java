@@ -33,24 +33,25 @@ public class Initializer {
     public void initLevel1() {
         // Uncomment the potential filepaths below if music does not play
 
-       //String ostPath = "Project" + File.separator
-         //      + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-           //    + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
+        //String ostPath = "Project" + File.separator
+        //      + "src" + File.separator + "main" + File.separator + "resources" + File.separator
+        //    + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
 
-         String ostPath = "src" + File.separator + "main" + File.separator + "resources"
+        String ostPath = "src" + File.separator + "main" + File.separator + "resources"
             + File.separator + "assets" + File.separator + "sounds" + File.separator
             + "Diodes.mp3";
 
-        //String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
-          //  + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
-            //+ "Diodes.mp3";
+        /*String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
+          + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
+          + "Diodes.mp3";*/
 
         currLevel = 1;
         currFloor = 1;
         int bpm = 135;
         Conductor conductor = new Conductor(bpm, ostPath, score);
 
-        scoreText = new Text("Level " + Initializer.getCurrLevel() + " / Floor " + Initializer.getCurrFloor() + "\n0");
+        scoreText = new Text("Level " + Initializer.getCurrLevel() + " / Floor "
+            + Initializer.getCurrFloor() + "\n0");
         scoreText.setX(500);
         scoreText.setY(1000);
         scoreText.setScaleX(3);
@@ -58,7 +59,7 @@ public class Initializer {
         scoreText.setFill(Color.WHITE);
         FXGL.getGameScene().addUINodes(scoreText);
 
-        Level_UI_Initializer.initLevelUI();
+        LevelUIInitializer.initLevelUI();
 
         var cutout = FXGL.getAssetLoader().loadTexture("newCutout.png");
 

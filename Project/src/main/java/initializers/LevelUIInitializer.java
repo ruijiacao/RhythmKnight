@@ -13,10 +13,10 @@ Initializes the UI for a level in the following order:
 - Gets the amount of HP on start based on difficulty and displays it
 - Gets the selected weapon and displays its visual
  */
-public class Level_UI_Initializer {
-    static Text userText;
-    static Text goldText;
-    static Text healthText;
+public class LevelUIInitializer {
+    private static Text userText;
+    private static Text goldText;
+    private static Text healthText;
 
     public static void initLevelUI() {
         userText = new Text(GlobalSettings.getPlayerName());
