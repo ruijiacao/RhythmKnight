@@ -33,13 +33,13 @@ public class Initializer {
     public void initLevel1() {
         // Uncomment the potential filepaths below if music does not play
 
-       String ostPath = "Project" + File.separator
-               + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-               + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
+       //String ostPath = "Project" + File.separator
+         //      + "src" + File.separator + "main" + File.separator + "resources" + File.separator
+           //    + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
 
-        /* String ostPath = "src" + File.separator + "main" + File.separator + "resources"
+         String ostPath = "src" + File.separator + "main" + File.separator + "resources"
             + File.separator + "assets" + File.separator + "sounds" + File.separator
-            + "Diodes.mp3";*/
+            + "Diodes.mp3";
 
         //String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
           //  + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
