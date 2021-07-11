@@ -101,7 +101,49 @@ public class MapDirectoryTest {
         }
     }
 
-    // validates that the MapDirectory returns the valid 5th room + spawn point
+    // validates that the MapDirectory returns the valid 8th room + spawn point
+    @Test
+    public void Room8Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
+        Room8 room = new Room8();
+        MapDirectory maps = new MapDirectory();
+        ArrayList<Tile> roomTiles = room.buildTiles();
+
+        for (int i = 0; i < roomTiles.size(); i++) {
+            assertNotNull(roomTiles.get(i));
+            assertEquals(roomTiles.get(i).getType(), maps.getIDLayout(8).get(i).getType());
+        }
+    }
+
+    // validates that the MapDirectory returns the valid 9th room + spawn point
+    @Test
+    public void Room9Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
+        Room9 room = new Room9();
+        MapDirectory maps = new MapDirectory();
+        ArrayList<Tile> roomTiles = room.buildTiles();
+
+        for (int i = 0; i < roomTiles.size(); i++) {
+            assertNotNull(roomTiles.get(i));
+            assertEquals(roomTiles.get(i).getType(), maps.getIDLayout(9).get(i).getType());
+        }
+    }
+
+    // validates that the MapDirectory returns the valid 10th room + spawn point
+    @Test
+    public void Room10Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
+        Room10 room = new Room10();
+        MapDirectory maps = new MapDirectory();
+        ArrayList<Tile> roomTiles = room.buildTiles();
+
+        for (int i = 0; i < roomTiles.size(); i++) {
+            assertNotNull(roomTiles.get(i));
+            assertEquals(roomTiles.get(i).getType(), maps.getIDLayout(10).get(i).getType());
+        }
+    }
+
+    // validates that the MapDirectory returns the valid 11th room + spawn point
     @Test
     public void Room11Test() {
         GameApplication.launch(GameApp.class, new String[0]);
@@ -128,7 +170,7 @@ public class MapDirectoryTest {
 
     }
 
-    // validates that the MapDirectory returns the valid 5th room + spawn point
+    // validates that the MapDirectory returns the valid 12th room + spawn point
     @Test
     public void Room12Test() {
         Room12 room = new Room12();
