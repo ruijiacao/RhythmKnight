@@ -67,7 +67,7 @@ public class GlobalSettingsTest {
             Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
         }
 
-        // Succesful
+        // Successful
         GlobalSettings.setPlayerName("Micah");
         GlobalSettings.setDifficulty(1);
         GlobalSettings.setStartingWeapon(1);
