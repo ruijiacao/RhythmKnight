@@ -64,7 +64,7 @@ public class Conductor {
         hit = FXGL.getAssetLoader().loadSound("snare01.wav");
         isOnBeat = false;
 
-        ostPlayer.play();
+        ostPlayer.setAutoPlay(true);
         FXGL.getGameScene().addUINode(cutout);
 
         AtomicInteger currBeat = new AtomicInteger(1);
@@ -72,6 +72,11 @@ public class Conductor {
 
         FXGL.getGameTimer().runAtInterval(() -> {
             double currTime = ostPlayer.getCurrentTime().toSeconds();
+
+            if (currBeat.get() == numOfBeats - 1) {
+                currBeat.set(0);
+                currTime = 0;
+            }
 
             if (currTime >= beatTimes[currBeat.get()] - .1) {
                 currBeat.set(currBeat.get() + 1);
@@ -173,6 +178,11 @@ public class Conductor {
                             + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
 
                         visited.setVisited(true);
+                    } else {
+                        tile.removeFromScene();
+                        Tile visited;
+                        visited = new Tile(tile.getPosition(), TileType.VISITED);
+                        visited.displayOnScene(this, scoreText);
                     }
 
                     FXGL.getAudioPlayer().playSound(hit);
