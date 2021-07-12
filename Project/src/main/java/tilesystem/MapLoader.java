@@ -38,7 +38,8 @@ public class MapLoader {
                 .buildAndAttach();
 
         /*
-        Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("layouts/dungeon/layout" + id + ".png);
+        Texture newRoomLayout = FXGL.getAssetLoader()
+        .loadTexture("layouts/dungeon/layout" + id + ".png);
         Entity layout = new EntityBuilder()
             .view(newRoomLayout)
             .buildAndAttach();

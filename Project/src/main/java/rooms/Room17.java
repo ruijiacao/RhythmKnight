@@ -24,7 +24,7 @@ public class Room17 extends TemplateRoom {
         int[] monster = {5, 11, 16, 18};
         setTileType(monster, TileType.MONSTER, tiles);
 
-        int[] exits = {7, 14, 21, 23};
+        int[] exits = {7, 14, 21};
         setTileType(exits, TileType.EXIT, tiles);
 
         return tiles;

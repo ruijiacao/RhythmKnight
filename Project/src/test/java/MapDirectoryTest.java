@@ -33,7 +33,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 1st room + spawn point
     @Test
-    public void Room1Test() {
+    public void room1Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room1 room = new Room1();
         MapDirectory maps = new MapDirectory();
@@ -47,7 +47,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 2nd room + spawn point
     @Test
-    public void Room2Test() {
+    public void room2Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room2 room = new Room2();
         MapDirectory maps = new MapDirectory();
@@ -61,7 +61,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 3rd room + spawn point
     @Test
-    public void Room3Test() {
+    public void room3Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room3 room = new Room3();
         MapDirectory maps = new MapDirectory();
@@ -75,7 +75,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 4th room + spawn point
     @Test
-    public void Room4Test() {
+    public void room4Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room4 room = new Room4();
         MapDirectory maps = new MapDirectory();
@@ -89,7 +89,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 5th room + spawn point
     @Test
-    public void Room5Test() {
+    public void room5Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room5 room = new Room5();
         MapDirectory maps = new MapDirectory();
@@ -103,7 +103,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 8th room + spawn point
     @Test
-    public void Room8Test() {
+    public void room8Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room8 room = new Room8();
         MapDirectory maps = new MapDirectory();
@@ -117,7 +117,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 9th room + spawn point
     @Test
-    public void Room9Test() {
+    public void room9Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room9 room = new Room9();
         MapDirectory maps = new MapDirectory();
@@ -131,7 +131,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 10th room + spawn point
     @Test
-    public void Room10Test() {
+    public void room10Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room10 room = new Room10();
         MapDirectory maps = new MapDirectory();
@@ -145,7 +145,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 11th room + spawn point
     @Test
-    public void Room11Test() {
+    public void room11Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room11 room = new Room11();
         ArrayList<Tile> tiles = room.buildTiles();
@@ -172,7 +172,7 @@ public class MapDirectoryTest {
 
     // validates that the MapDirectory returns the valid 12th room + spawn point
     @Test
-    public void Room12Test() {
+    public void room12Test() {
         GameApplication.launch(GameApp.class, new String[0]);
         Room12 room = new Room12();
         ArrayList<Tile> tiles = room.buildTiles();
@@ -193,6 +193,84 @@ public class MapDirectoryTest {
         }
         for (int i : new int[]{1, 27}) {
             assertEquals(TileType.EXIT, tiles.get(i).getType());
+        }
+    }
+
+    @Test
+    public void room13Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
+        Room13 room = new Room13();
+        ArrayList<Tile> tilesList = room.buildTiles();
+
+        for (int i : new int[]{1, 2, 3, 5, 6, 7, 9, 11, 17, 24, 25, 27}) {
+            assertEquals(TileType.VISITED, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{15, 21}) {
+            assertEquals(TileType.GOLD, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{12, 16, 23}) {
+            assertEquals(TileType.MYSTERY, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{8, 13, 14, 20}) {
+            assertEquals(TileType.MONSTER, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{4, 10}) {
+            assertEquals(TileType.EXIT, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{18, 26}) {
+            assertEquals(TileType.LOCKED_EXIT, tilesList.get(i).getType());
+        }
+    }
+
+    @Test
+    public void room14Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
+        Room14 room = new Room14();
+        ArrayList<Tile> tilesList = room.buildTiles();
+
+        for (int i : new int[]{2, 3, 6, 7, 10, 14, 17, 21, 24, 26, 27}) {
+            assertEquals(TileType.VISITED, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{11, 22}) {
+            assertEquals(TileType.GOLD, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{8, 9, 19}) {
+            assertEquals(TileType.MYSTERY, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{4, 5, 12, 23}) {
+            assertEquals(TileType.MONSTER, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{1}) {
+            assertEquals(TileType.EXIT, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{13, 18, 20}) {
+            assertEquals(TileType.LOCKED_EXIT, tilesList.get(i).getType());
+        }
+    }
+
+    @Test
+    public void room15Test() {
+        GameApplication.launch(GameApp.class, new String[0]);
+        Room15 room = new Room15();
+        ArrayList<Tile> tilesList = room.buildTiles();
+
+        for (int i : new int[]{3, 5, 10, 17, 21, 22, 23, 24, 27}) {
+            assertEquals(TileType.VISITED, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{8}) {
+            assertEquals(TileType.GOLD, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{7, 15, 20, 26}) {
+            assertEquals(TileType.MYSTERY, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{1, 6, 16}) {
+            assertEquals(TileType.MONSTER, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{2}) {
+            assertEquals(TileType.EXIT, tilesList.get(i).getType());
+        }
+        for (int i : new int[]{13, 19, 25}) {
+            assertEquals(TileType.LOCKED_EXIT, tilesList.get(i).getType());
         }
     }
 }

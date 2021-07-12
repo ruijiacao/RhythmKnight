@@ -109,10 +109,13 @@ public class Conductor {
                     && mouseEvent.getY() - 170 < GlobalSettings.getPlayerSprite().getY() + 600) {
 
                     Point2D position = tile.getPosition();
-
-                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
-                        position.getY() - 100));
-
+                    if (tile.getType().equals(TileType.LOCKED_EXIT)) {
+                        GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,
+                            position.getY() - 80));
+                    } else {
+                        GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                            position.getY() - 100));
+                    }
 
                     if (tile.isExit()) {
                         if (GlobalSettings.getRoomCounter() == 99) {
@@ -155,11 +158,16 @@ public class Conductor {
                             Initializer.setGold(Initializer.getGold() + 15);
                             LevelUIInitializer.updateGold(Initializer.getGold());
                         }
-
                         tile.removeFromScene();
-                        Tile visited = new Tile(position, TileType.VISITED);
-                        visited.displayOnScene(this, scoreText);
+                        Tile visited;
+                        if (tile.getType().equals(TileType.LOCKED_EXIT)) {
+                            visited = new Tile(new Point2D((position.getX() + 30),
+                                (position.getY() + 20)), TileType.VISITED);
+                        } else {
+                            visited = new Tile(position, TileType.VISITED);
+                        }
 
+                        visited.displayOnScene(this, scoreText);
                         playerScore += 10 + scoreConstant.get();
                         scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
                             + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));

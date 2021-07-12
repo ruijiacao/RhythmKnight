@@ -12,7 +12,7 @@ public class Room10 extends TemplateRoom {
 
         setOrigin(12, tiles);
 
-        int[] unused = {0, 10, 21, 23, 24, 25, 26, 27};
+        int[] unused = {10, 21, 23, 24, 25, 26, 27};
         removeUnused(unused, tiles);
 
         int[] gold = {19};

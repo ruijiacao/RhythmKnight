@@ -6,10 +6,6 @@ import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
 import rhythm.Conductor;
-import settings.GlobalSettings;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Tile {
     private Texture tileTexture;
@@ -40,8 +36,8 @@ public class Tile {
             break;
         case EXIT:
             tileTexture = FXGL.getAssetLoader().loadTexture("newStairs.png");
-            tileTexture.setX(position.getX()-30);
-            tileTexture.setY(position.getY()-20);
+            tileTexture.setX(position.getX() - 30);
+            tileTexture.setY(position.getY() - 20);
             this.setExit(true);
             break;
         case ORIGIN:
@@ -69,10 +65,10 @@ public class Tile {
             break;
         case LOCKED_EXIT:
             tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
-            tileTexture.setX(position.getX());
-            tileTexture.setY(position.getY());
+            tileTexture.setX(position.getX() - 30);
+            tileTexture.setY(position.getY() - 20);
             break;
-        case EXIST_DUNGEON:
+        case EXITS_DUNGEON:
             tileTexture = FXGL.getAssetLoader().loadTexture("exitDungeonTile.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());

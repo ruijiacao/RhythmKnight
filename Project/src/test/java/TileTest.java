@@ -1,4 +1,3 @@
-import com.almasb.fxgl.dsl.FXGL;
 import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

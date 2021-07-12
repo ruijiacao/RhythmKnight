@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class TemplateRoom implements IRoom {
 
-    ArrayList<Tile> tiles = new ArrayList<>();
-    ArrayList<Point2D> positions = new ArrayList<>();
+    private ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<Point2D> positions = new ArrayList<>();
 
     @Override
     public ArrayList<Tile> buildTiles() {
@@ -63,6 +63,7 @@ public class TemplateRoom implements IRoom {
         Point2D originPos = map.get(0).getPosition();
         map.set(0, new Tile(swapTilePos, TileType.ORIGIN));
         map.set(tilePos, new Tile(originPos, type));
+
     }
 
     static void setOrigin(int tilePos, ArrayList<Tile> map) {
@@ -73,13 +74,13 @@ public class TemplateRoom implements IRoom {
     }
 
     static void setTileType(int[] cellsNum, TileType type, ArrayList<Tile> map) {
-        for(int i : cellsNum) {
+        for (int i : cellsNum) {
             map.set(i, new Tile((map.get(i).getPosition()), type));
         }
     }
 
     static void removeUnused(int[] cellsNum, ArrayList<Tile> map) {
-        for(int i : cellsNum) {
+        for (int i : cellsNum) {
             map.set(i, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
         }
     }
