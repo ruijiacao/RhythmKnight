@@ -49,6 +49,9 @@ public class GlobalSettings {
     // paths list
     private static ArrayList<Integer> pathList;
 
+    // current map
+    private static ArrayList<Tile> currentMap;
+
     // Game config
     private static String playerName;
     private static int difficulty = -1;            // enum?
@@ -285,4 +288,11 @@ public class GlobalSettings {
         return pathList;
     }
 
+    public static void setCurrentMap(ArrayList<Tile> currentMap) {
+        GlobalSettings.currentMap = currentMap;
+    }
+
+    public static ArrayList<Tile> getCurrentMap() {
+        return currentMap;
+    }
 }

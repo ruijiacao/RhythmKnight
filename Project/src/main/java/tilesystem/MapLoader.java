@@ -67,6 +67,7 @@ public class MapLoader {
         GameView view = new GameView(playerSprite, 2);
         getGameScene().addGameView(view);
         GlobalSettings.setPlayerSprite(playerSprite);
+        GlobalSettings.setCurrentMap(newTiles);
     }
 
     private static void clearScene() {

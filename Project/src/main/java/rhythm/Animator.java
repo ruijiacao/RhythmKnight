@@ -4,6 +4,8 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import settings.GlobalSettings;
+import tilesystem.Tile;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -63,5 +65,32 @@ public class Animator {
             score.setScaleX(score.getScaleX() + .03);
             score.setScaleY(score.getScaleY() + .03);
         }, Duration.millis(1), 30);
+    }
+
+    public void playerDance() {
+        GlobalSettings.getPlayerSprite().setScaleY(.40);
+        FXGL.run(() -> {
+            GlobalSettings.getPlayerSprite().setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - (.05 / 30));
+        }, Duration.millis(1), 15);
+    }
+
+    public void playerMoved() {
+        GlobalSettings.getPlayerSprite().setScaleX(.5);
+        GlobalSettings.getPlayerSprite().setScaleY(.5);
+        GlobalSettings.getPlayerSprite().setOpacity(0);
+        FXGL.run(() -> {
+            GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 15.0));
+            GlobalSettings.getPlayerSprite().setScaleX(GlobalSettings.getPlayerSprite().getScaleX() - .01);
+            GlobalSettings.getPlayerSprite().setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - .01);
+        }, Duration.millis(1), 15);
+    }
+
+    public void tileDance(Texture tile) {
+        tile.setScaleX(1.45);
+        tile.setScaleY(1.45);
+        FXGL.run(() -> {
+            tile.setScaleX(tile.getScaleX() - (.1 / 15.0));
+            tile.setScaleY(tile.getScaleX() - (.1 / 15.0));
+        }, Duration.millis(1), 15);
     }
 }

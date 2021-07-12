@@ -1,19 +1,16 @@
 package rhythm;
 
-import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
-import initializers.LevelUIInitializer;
-import javafx.geometry.Point2D;
-import javafx.scene.control.Alert;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import settings.GlobalSettings;
 import tilesystem.*;
-import initializers.Initializer;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -21,13 +18,13 @@ public class Conductor {
 
     private static Media ost;
     private static MediaPlayer ostPlayer;
-    private int bpm;
+    private final int bpm;
     private int numOfBeats;
     private double[] beatTimes;
-    private Sound hit;
-    private int playerScore;
+    private final int playerScore;
     private boolean isOnBeat;
     private AtomicInteger scoreConstant;
+    private AtomicInteger currBeat = new AtomicInteger();
 
     public Conductor(int bpm, String path, int playerScore) {
         ost = new Media(new File(path).toURI().toString());
@@ -61,24 +58,29 @@ public class Conductor {
             i++;
         }
 
-        hit = FXGL.getAssetLoader().loadSound("snare01.wav");
         isOnBeat = false;
 
         ostPlayer.setAutoPlay(true);
         FXGL.getGameScene().addUINode(cutout);
 
-        AtomicInteger currBeat = new AtomicInteger(1);
+        currBeat = new AtomicInteger(1);
         Animator animator = new Animator();
 
         FXGL.getGameTimer().runAtInterval(() -> {
             double currTime = ostPlayer.getCurrentTime().toSeconds();
-
+            ArrayList<Tile> curr = GlobalSettings.getCurrentMap();
             if (currBeat.get() == numOfBeats - 1) {
                 currBeat.set(0);
                 currTime = 0;
             }
 
             if (currTime >= beatTimes[currBeat.get()] - .1) {
+                if (currBeat.get() % 4 == 0) {
+                    for (Tile tile : curr) {
+                        animator.tileDance(tile.getTileTexture());
+                    }
+                }
+                animator.playerDance();
                 currBeat.set(currBeat.get() + 1);
                 scoreConstant = new AtomicInteger(15);
 
@@ -105,103 +107,11 @@ public class Conductor {
     - If the location is an exit tile, it calls Generator to generate a new dungeon room.
      */
     public void checkRhythm(Tile tile, Text scoreText) {
+        Animator anim = new Animator();
         tile.getTileTexture().setOnMouseClicked(mouseEvent -> {
-            Animator animator = new Animator();
             if (isOnBeat) {
-                if (mouseEvent.getX() - 120 > GlobalSettings.getPlayerSprite().getX() - 600
-                    && mouseEvent.getX() + 120 < GlobalSettings.getPlayerSprite().getX() + 600
-                    && mouseEvent.getY() - 170 > GlobalSettings.getPlayerSprite().getY() - 600
-                    && mouseEvent.getY() - 170 < GlobalSettings.getPlayerSprite().getY() + 600) {
-
-                    Point2D position = tile.getPosition();
-                    if (tile.getType().equals(TileType.LOCKED_EXIT)) {
-                        GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,
-                            position.getY() - 80));
-                    } else {
-                        GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
-                            position.getY() - 100));
-                    }
-
-                    if (tile.isExit()) {
-                        if (GlobalSettings.getRoomCounter() == 99) {
-                            createAlert();
-                        } else if (GlobalSettings.getRoomCounter() == 6
-                            + GlobalSettings.getDifficulty()) {
-                            MapLoader.loadMap(21, this, scoreText);
-                            GlobalSettings.setRoomCounter(99);
-                        } else if (GlobalSettings.getRoomCounter() == 0) {
-                            GlobalSettings.setPathChosen(tile.getPathID());
-                            GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() + 1);
-                            MapLoader
-                                .loadMap(GlobalSettings.getPath(GlobalSettings.getPathChosen())[1],
-                                    this, scoreText);
-                        } else {
-                            GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() + 1);
-                            MapLoader
-                                .loadMap(GlobalSettings.getPath(GlobalSettings.getPathChosen())
-                                    [GlobalSettings.getRoomCounter()], this, scoreText);
-                        }
-                    } else if (tile.isOrigin() && GlobalSettings.getRoomCounter() != 0) {
-                        tile.removeFromScene();
-                        Tile visited = new Tile(position, TileType.ORIGIN);
-                        visited.setOrigin(true);
-                        visited.setVisited(true);
-                        visited.displayOnScene(this, scoreText);
-                        GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() - 1);
-                        if (GlobalSettings.getRoomCounter() == 0) {
-                            MapLoader.loadMap(0, this, scoreText);
-                        } else {
-                            MapLoader
-                                .loadMap(GlobalSettings.getPath(GlobalSettings.getPathChosen())
-                                [GlobalSettings.getRoomCounter() - 1], this, scoreText);
-                        }
-                    } else if (!tile.isVisited()) {
-                        animator.pulsateScore(scoreText);
-                        animator.pulsateTile(tile.getTileTexture());
-
-                        if (tile.isGold()) {
-                            Initializer.setGold(Initializer.getGold() + 15);
-                            LevelUIInitializer.updateGold(Initializer.getGold());
-                        }
-                        tile.removeFromScene();
-                        Tile visited;
-                        if (tile.getType().equals(TileType.LOCKED_EXIT)) {
-                            visited = new Tile(new Point2D((position.getX() + 30),
-                                (position.getY() + 20)), TileType.VISITED);
-                        } else {
-                            visited = new Tile(position, TileType.VISITED);
-                        }
-
-                        visited.displayOnScene(this, scoreText);
-                        playerScore += 10 + scoreConstant.get();
-                        scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
-                            + Initializer.getCurrFloor() + "\n" + Integer.toString(playerScore));
-
-                        visited.setVisited(true);
-                    } else {
-                        tile.removeFromScene();
-                        Tile visited;
-                        visited = new Tile(tile.getPosition(), TileType.VISITED);
-                        visited.displayOnScene(this, scoreText);
-                    }
-
-                    FXGL.getAudioPlayer().playSound(hit);
-                    tile.setPlayerOnTile(true);
-                }
+                Mover.move(mouseEvent, tile, this, scoreText, playerScore, scoreConstant.get());
             }
         });
     }
-    /*
-    This method creates an alert when the player reaches the end of the dungeon.
-     */
-    public void createAlert() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Crawl Complete!");
-        alert.setHeaderText("Congratulations!");
-        alert.setContentText("You crawled out of the dungeon! \nGold collected: "
-            + Initializer.getGold());
-        alert.showAndWait();
-        System.exit(0);
-    }
-
 }
