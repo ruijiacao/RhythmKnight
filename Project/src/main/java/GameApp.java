@@ -1,16 +1,11 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.scene.FXGLMenu;
-import com.almasb.fxgl.app.scene.MenuType;
-import com.almasb.fxgl.app.scene.SceneFactory;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.entity.Entity;
-import ui.AppMainMenu;
-import org.jetbrains.annotations.NotNull;
 import settings.GlobalSettings;
 import initializers.Initializer;
 
 public class GameApp extends GameApplication {
+    
 
     // Global app variables
     private static int currLevel;
@@ -27,18 +22,7 @@ public class GameApp extends GameApplication {
      */
     @Override
     protected void initSettings(GameSettings game) {
-        game.setWidth(GlobalSettings.getWindowWidth());
-        game.setHeight(GlobalSettings.getWindowHeight());
-        game.setTitle(GlobalSettings.getGameTitle());
-        game.setVersion(GlobalSettings.getVersion());
-        game.setMainMenuEnabled(true);
-        game.setSceneFactory(new SceneFactory() {
-            @NotNull
-            @Override
-            public FXGLMenu newMainMenu() {
-                return new AppMainMenu(MenuType.MAIN_MENU);
-            }
-        });
+        GlobalSettings.setDefault(game);
     }
 
     /*
@@ -54,25 +38,6 @@ public class GameApp extends GameApplication {
         init.initLevel1();
     }
 
-    /*
-    ===== UI INITIALIZATION =====
-    The UI for the game is set up here.
-    The tilemap background as well as the player's
-    score is stored here in the UI method and is
-    also called as soon as the game starts.
-    ==============================
-     */
-    @Override
-    protected void initUI() {
-        // comment this out when all tiles have been added later on
-        layout = new EntityBuilder()
-                .view("Level1-1Layout.png")
-                .buildAndAttach();
-
-        uiBg = new EntityBuilder()
-                .view("UI-Layout.png")
-                .buildAndAttach();
-    }
     public static void main(String[] args) {
         launch(args);
     }

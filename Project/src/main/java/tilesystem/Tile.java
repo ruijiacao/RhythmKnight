@@ -11,16 +11,76 @@ public class Tile {
     private Texture tileTexture;
     private boolean isActive;
     private boolean playerOnTile;
+    private boolean isOrigin;
+    private boolean visited;
+    private boolean isExit;
+    private boolean isGold;
     private Conductor passedInConductor;
     private Text passedInText;
+    private Point2D position;
+    private TileType type;
+    private int pathID;
 
-    public Tile(Texture tileTexture, Point2D position) {
-        this.tileTexture = tileTexture;
-        tileTexture.setX(position.getX());
-        tileTexture.setY(position.getY());
+    public Tile(Point2D position, TileType type) {
+        switch (type) {
+        case UNVISITED:
+            tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case VISITED:
+            tileTexture = FXGL.getAssetLoader().loadTexture("hex.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            visited = true;
+            break;
+        case EXIT:
+            tileTexture = FXGL.getAssetLoader().loadTexture("newStairs.png");
+            tileTexture.setX(position.getX() - 30);
+            tileTexture.setY(position.getY() - 20);
+            this.setExit(true);
+            break;
+        case ORIGIN:
+            tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            isOrigin = true;
+            visited = true;
+            break;
+        case MONSTER:
+            tileTexture = FXGL.getAssetLoader().loadTexture("newEnemy.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case GOLD:
+            tileTexture = FXGL.getAssetLoader().loadTexture("newGoldTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            isGold = true;
+            break;
+        case MYSTERY:
+            tileTexture = FXGL.getAssetLoader().loadTexture("newMystery.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            break;
+        case LOCKED_EXIT:
+            tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
+            tileTexture.setX(position.getX() - 30);
+            tileTexture.setY(position.getY() - 20);
+            break;
+        case EXITS_DUNGEON:
+            tileTexture = FXGL.getAssetLoader().loadTexture("exitDungeonTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
+            isExit = true;
+            break;
+        default:
+        }
+        this.position = position;
         this.setScale(1.35);
         isActive = false;
         playerOnTile = false;
+        this.type = type;
     }
 
     public void displayOnScene(Conductor conductor, Text scoreText) {
@@ -81,6 +141,10 @@ public class Tile {
         return new Point2D(tileTexture.getX(), tileTexture.getY());
     }
 
+    public TileType getType() {
+        return type;
+    }
+
     public boolean isPlayerOnTile() {
         return playerOnTile;
     }
@@ -89,9 +153,52 @@ public class Tile {
         return isActive;
     }
 
+    public boolean isOrigin() {
+        return isOrigin;
+    }
+
+    public void setOrigin(boolean origin) {
+        isOrigin = origin;
+    }
+
     public void reset() {
         setScale(1.35);
         setOpacity(1);
     }
 
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public boolean isExit() {
+        return isExit;
+    }
+
+    public void setExit(boolean exit) {
+        isExit = exit;
+    }
+
+    public void setGold(boolean gold) {
+        isGold = gold;
+    }
+
+    public boolean isGold() {
+        return isGold;
+    }
+
+    public int getPathID() {
+        return pathID;
+    }
+
+    public void setPathID(int pathID) {
+        this.pathID = pathID;
+    }
+
+    public void setPosition(Point2D position) {
+        this.position = position;
+    }
 }

@@ -28,7 +28,7 @@ public class GlobalSettingsTest {
     }
 
     @Test
-    public void GameStartLogic() {
+    public void gameStartLogic() {
         try {
             GlobalSettings.canStart();
         } catch (ExceptionInInitializerError e) {
@@ -62,11 +62,12 @@ public class GlobalSettingsTest {
             GlobalSettings.setStartingWeapon(-1);
             GlobalSettings.canStart();
         } catch (NoClassDefFoundError e) {
-            System.out.println("Attempted to create an alert box because starting weapon was not set");
+            System.out.println("Attempted to create an alert box "
+                + "because starting weapon was not set");
             Assertions.assertInstanceOf(NoClassDefFoundError.class, e);
         }
 
-        // Succesful
+        // Successful
         GlobalSettings.setPlayerName("Micah");
         GlobalSettings.setDifficulty(1);
         GlobalSettings.setStartingWeapon(1);

@@ -1,11 +1,7 @@
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import org.assertj.core.internal.bytebuddy.agent.builder.AgentBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testfx.framework.junit.ApplicationTest;
-import settings.GlobalSettings;
 import ui.IGenerator;
 
 public class IGeneratorTest {
