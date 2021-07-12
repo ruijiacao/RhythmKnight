@@ -38,8 +38,8 @@ public class Initializer {
             + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
 
         //String ostPath = "src" + File.separator + "main" + File.separator + "resources"
-          //  + File.separator + "assets" + File.separator + "sounds" + File.separator
-            //+ "Diodes.mp3";
+        //  + File.separator + "assets" + File.separator + "sounds" + File.separator
+        //+ "Diodes.mp3";
 
         /*String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
           + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
