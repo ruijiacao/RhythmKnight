@@ -9,7 +9,6 @@ import javafx.util.Duration;
 import settings.GlobalSettings;
 import tilesystem.*;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -114,4 +113,9 @@ public class Conductor {
             }
         });
     }
+
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
 }

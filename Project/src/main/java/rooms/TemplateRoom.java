@@ -63,7 +63,7 @@ public class TemplateRoom implements IRoom {
         Point2D originPos = map.get(0).getPosition();
         map.set(0, new Tile(swapTilePos, TileType.ORIGIN));
         map.set(tilePos, new Tile(originPos, type));
-
+        map.get(0).setTileID(0);
     }
 
     static void setOrigin(int tilePos, ArrayList<Tile> map) {
@@ -71,11 +71,13 @@ public class TemplateRoom implements IRoom {
         Point2D originPos = map.get(0).getPosition();
         map.set(0, new Tile(swapTilePos, TileType.ORIGIN));
         map.set(tilePos, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        map.get(0).setTileID(0);
     }
 
     static void setTileType(int[] cellsNum, TileType type, ArrayList<Tile> map) {
         for (int i : cellsNum) {
             map.set(i, new Tile((map.get(i).getPosition()), type));
+            map.get(i).setTileID(i);
         }
     }
 

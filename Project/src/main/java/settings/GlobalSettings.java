@@ -29,6 +29,7 @@ public class GlobalSettings {
             "Micah Lingle - Character/Level Design"
     );
     private static Texture playerSprite;
+    private static int currPlayerTile;
 
     //Room Counter
     private static int roomCounter = 0;
@@ -294,5 +295,13 @@ public class GlobalSettings {
 
     public static ArrayList<Tile> getCurrentMap() {
         return currentMap;
+    }
+
+    public static void setCurrPlayerTile(int currPlayerTile) {
+        GlobalSettings.currPlayerTile = currPlayerTile;
+    }
+
+    public static int getCurrPlayerTile() {
+        return currPlayerTile;
     }
 }

@@ -6,6 +6,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import rhythm.*;
 import settings.GlobalSettings;
+import songs.Song;
+import songs.SongList;
 import tilesystem.*;
 
 import java.io.File;
@@ -31,23 +33,10 @@ public class Initializer {
     - Calls the MapLoader to load the starting room
      */
     public void initLevel1() {
-        // Uncomment the potential filepaths below if music does not play
-
-        String ostPath = "Project" + File.separator
-              + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-            + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
-
-        //String ostPath = "src" + File.separator + "main" + File.separator + "resources"
-        //  + File.separator + "assets" + File.separator + "sounds" + File.separator
-        //+ "Diodes.mp3";
-
-        /*String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
-          + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
-          + "Diodes.mp3";*/
-
+        String ostPath = SongList.getSongs()[0].getPath();
+        int bpm = SongList.getSongs()[0].getBpm();
         currLevel = 1;
         currFloor = 1;
-        int bpm = 135;
         Conductor conductor = new Conductor(bpm, ostPath, score);
 
         scoreText = new Text("Level " + Initializer.getCurrLevel() + " / Floor "

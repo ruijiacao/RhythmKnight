@@ -120,6 +120,7 @@ public class Mover {
 
             FXGL.getAudioPlayer().playSound(click);
             tile.setPlayerOnTile(true);
+            GlobalSettings.setCurrPlayerTile(tile.getTileID());
         }
     }
 }

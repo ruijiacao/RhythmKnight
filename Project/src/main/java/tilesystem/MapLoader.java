@@ -68,6 +68,7 @@ public class MapLoader {
         getGameScene().addGameView(view);
         GlobalSettings.setPlayerSprite(playerSprite);
         GlobalSettings.setCurrentMap(newTiles);
+        GlobalSettings.setCurrPlayerTile(0);
     }
 
     private static void clearScene() {

@@ -20,6 +20,7 @@ public class Tile {
     private Point2D position;
     private TileType type;
     private int pathID;
+    private int tileID;
 
     public Tile(Point2D position, TileType type) {
         switch (type) {
@@ -74,6 +75,10 @@ public class Tile {
             tileTexture.setY(position.getY());
             isExit = true;
             break;
+        case SLIME:
+            tileTexture = FXGL.getAssetLoader().loadTexture("monster_bg.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
         default:
         }
         this.position = position;
@@ -200,5 +205,13 @@ public class Tile {
 
     public void setPosition(Point2D position) {
         this.position = position;
+    }
+
+    public void setTileID(int tileID) {
+        this.tileID = tileID;
+    }
+
+    public int getTileID() {
+        return tileID;
     }
 }
