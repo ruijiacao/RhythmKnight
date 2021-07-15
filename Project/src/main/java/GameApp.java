@@ -35,7 +35,7 @@ public class GameApp extends GameApplication {
     @Override
     protected void initGame() {
         Initializer init = new Initializer();
-        init.initLevel1();
+        init.initStart();
     }
 
     public static void main(String[] args) {

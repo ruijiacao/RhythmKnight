@@ -30,7 +30,7 @@ public class Tile {
             tileTexture.setY(position.getY());
             break;
         case VISITED:
-            tileTexture = FXGL.getAssetLoader().loadTexture("hex.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("normal-tile.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             visited = true;

@@ -93,4 +93,8 @@ public class Animator {
             tile.setScaleY(tile.getScaleX() - (.1 / 15.0));
         }, Duration.millis(1), 15);
     }
+
+    public void setTile(Texture tile) {
+        tileDance(tile);
+    }
 }

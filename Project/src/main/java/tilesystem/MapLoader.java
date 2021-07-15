@@ -7,10 +7,13 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+import rhythm.Animator;
 import rhythm.Conductor;
 import settings.GlobalSettings;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
@@ -69,6 +72,13 @@ public class MapLoader {
         GlobalSettings.setPlayerSprite(playerSprite);
         GlobalSettings.setCurrentMap(newTiles);
         GlobalSettings.setCurrPlayerTile(0);
+
+        AtomicInteger i = new AtomicInteger();
+        Animator anim = new Animator();
+        FXGL.run(() -> {
+            anim.tileDance(GlobalSettings.getCurrentMap().get(i.get()).getTileTexture());
+            i.set(i.get() + 1);
+        }, Duration.millis(1), 27);
     }
 
     private static void clearScene() {

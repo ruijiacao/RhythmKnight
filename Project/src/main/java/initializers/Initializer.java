@@ -32,7 +32,7 @@ public class Initializer {
     - Calls the Level UI Initializer to deal with UI
     - Calls the MapLoader to load the starting room
      */
-    public void initLevel1() {
+    public void initStart() {
         String ostPath = SongList.getSongs()[0].getPath();
         int bpm = SongList.getSongs()[0].getBpm();
         currLevel = 1;
