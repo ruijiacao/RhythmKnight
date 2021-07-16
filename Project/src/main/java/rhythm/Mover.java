@@ -22,10 +22,10 @@ public class Mover {
     private static final Sound click = FXGL.getAssetLoader().loadSound("snare01.wav");
 
     private static boolean verifyBounds(MouseEvent point) {
-        return point.getX() > GlobalSettings.getPlayerSprite().getX() - 400
-                && point.getX() < GlobalSettings.getPlayerSprite().getX() + 400
-                && point.getY() > GlobalSettings.getPlayerSprite().getY() - 400
-                && point.getY() < GlobalSettings.getPlayerSprite().getY() + 400;
+        return point.getX() > GlobalSettings.getPlayerSprite().getX() - 450
+                && point.getX() < GlobalSettings.getPlayerSprite().getX() + 450
+                && point.getY() > GlobalSettings.getPlayerSprite().getY() - 450
+                && point.getY() < GlobalSettings.getPlayerSprite().getY() + 450;
     }
 
     private static void goBackInPath(Tile origin) {
