@@ -1,15 +1,13 @@
 package initializers;
 
 import com.almasb.fxgl.dsl.FXGL;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.apache.commons.lang3.time.StopWatch;
 import rhythm.*;
 import settings.GlobalSettings;
+import songs.CustomSongList;
 import songs.Song;
 import songs.SongList;
 import tilesystem.*;
@@ -42,8 +40,11 @@ public class Initializer {
         FXGL.getGameScene().clearGameViews();
         FXGL.getGameScene().clearUINodes();
 
-        String ostPath = SongList.getSongs()[1].getPath();
-        int bpm = SongList.getSongs()[1].getBpm();
+        String ostPath = SongList.getSongs()[0].getPath();
+        int bpm = SongList.getSongs()[0].getBpm();
+        // String ostPath = CustomSongList.getSongs()[0].getPath();
+        // int bpm = CustomSongList.getSongs()[0].getBpm();
+
         currLevel = 1;
         currFloor = 1;
         conductor = new Conductor(bpm, ostPath, score);

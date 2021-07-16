@@ -20,9 +20,7 @@ public class Animator {
      */
     public void pulsateCutout(Texture cutout) {
         cutout.setOpacity(1);
-        FXGL.run(() -> {
-            cutout.setOpacity(cutout.getOpacity() - 1 / 15.0);
-        }, Duration.millis(1), 15);
+        FXGL.run(() -> cutout.setOpacity(cutout.getOpacity() - 1 / 15.0), Duration.millis(1), 15);
     }
 
     /*
@@ -69,9 +67,7 @@ public class Animator {
 
     public void playerDance() {
         GlobalSettings.getPlayerSprite().setScaleY(.40);
-        FXGL.run(() -> {
-            GlobalSettings.getPlayerSprite().setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - (.05 / 30));
-        }, Duration.millis(1), 15);
+        FXGL.run(() -> GlobalSettings.getPlayerSprite().setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - (.05 / 30)), Duration.millis(1), 15);
     }
 
     public void playerMoved() {
@@ -96,5 +92,14 @@ public class Animator {
 
     public void setTile(Texture tile) {
         tileDance(tile);
+    }
+
+    public void disintegrate() {
+        Texture player = GlobalSettings.getPlayerSprite();
+        FXGL.run(() -> {
+            player.setScaleX(player.getScaleX() - (.35 / 15.0));
+            player.setScaleY(player.getScaleX() - (.35 / 15.0));
+            player.setOpacity(player.getOpacity() - (1 / 15.0));
+        }, Duration.millis(1), 15);
     }
 }

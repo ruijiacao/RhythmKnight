@@ -8,9 +8,11 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import rhythm.Animator;
 import rhythm.Conductor;
 
 public class Notifier {
+    static Animator anim = new Animator();
     /*
 This method creates an alert when the player reaches the end of the dungeon.
  */
@@ -73,6 +75,7 @@ This method creates an alert when the player reaches the end of the dungeon.
         close.setScaleY(0);
         runAgain.setScaleX(0);
         runAgain.setScaleY(0);
+
         FXGL.getGameTimer().runAtInterval(() -> {
             winAlert.setScaleX(winAlert.getScaleX() + (1 / 20.0));
             winAlert.setScaleY(winAlert.getScaleY() + (1 / 20.0));
@@ -83,6 +86,7 @@ This method creates an alert when the player reaches the end of the dungeon.
         }, Duration.millis(1), 20);
 
         Conductor.stopOST();
+        anim.disintegrate();
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("level-complete.mp3"));
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("fireworks.mp3"));
         FXGL.addUINode(dimBG);
@@ -138,6 +142,7 @@ This method creates an alert when the player reaches the end of the dungeon.
         }, Duration.millis(1), 20);
 
         Conductor.stopOST();
+        anim.disintegrate();
         FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("GameOver.mp3"));
         FXGL.addUINode(dimBG);
         FXGL.addUINode(gameAlert);
