@@ -15,6 +15,8 @@ import javafx.util.Duration;
 import org.w3c.dom.css.Rect;
 import settings.GlobalSettings;
 import tilesystem.*;
+import ui.Notifier;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -71,7 +73,7 @@ public class Conductor {
 
         isOnBeat = false;
 
-        ostPlayer.setAutoPlay(true);
+        ostPlayer.play();
         FXGL.getGameScene().addUINode(cutout);
 
         currBeat = new AtomicInteger(1);
@@ -81,9 +83,10 @@ public class Conductor {
             if (isActive) {
                 double currTime = ostPlayer.getCurrentTime().toSeconds();
                 ArrayList<Tile> curr = GlobalSettings.getCurrentMap();
-                if (currBeat.get() == numOfBeats - 1) {
-                    currBeat.set(0);
-                    currTime = 0;
+
+                if (currTime >= beatTimes[numOfBeats - 1] -.1) {
+                    stopOST();
+                    Notifier.createGameOverAlert();
                 }
 
                 if (currTime >= beatTimes[currBeat.get()] - .1) {

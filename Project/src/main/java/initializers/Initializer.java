@@ -42,8 +42,8 @@ public class Initializer {
         FXGL.getGameScene().clearGameViews();
         FXGL.getGameScene().clearUINodes();
 
-        String ostPath = SongList.getSongs()[0].getPath();
-        int bpm = SongList.getSongs()[0].getBpm();
+        String ostPath = SongList.getSongs()[1].getPath();
+        int bpm = SongList.getSongs()[1].getBpm();
         currLevel = 1;
         currFloor = 1;
         conductor = new Conductor(bpm, ostPath, score);
