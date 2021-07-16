@@ -2,10 +2,17 @@ package rhythm;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.w3c.dom.css.Rect;
 import settings.GlobalSettings;
 import tilesystem.*;
 import java.io.File;
@@ -130,7 +137,7 @@ public class Conductor {
         isActive = false;
     }
 
-    public static Media getOst() {
-        return ost;
+    public static MediaPlayer getOstPlayer() {
+        return ostPlayer;
     }
 }

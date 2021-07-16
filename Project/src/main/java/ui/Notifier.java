@@ -92,4 +92,56 @@ This method creates an alert when the player reaches the end of the dungeon.
         FXGL.addUINode(close);
         FXGL.addUINode(runAgain);
     }
+
+    public static void createGameOverAlert() {
+        Rectangle dimBG = new Rectangle(1920,1080);
+        dimBG.setFill(Color.BLACK);
+        dimBG.setOpacity(.25);
+
+
+        var gameAlert = FXGL.getAssetLoader().loadTexture("game-over-screen.png");
+        gameAlert.setLayoutX(600);
+        gameAlert.setLayoutY(100);
+
+        gameAlert.setScaleX(0);
+        gameAlert.setScaleY(0);
+
+        Button runAgain = new Button("Retry");
+        runAgain.setLayoutX(900);
+        runAgain.setLayoutY(575);
+        runAgain.setOnMouseClicked(mouseEvent -> {
+            FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
+            AppMainMenu menu = new AppMainMenu(MenuType.MAIN_MENU);
+            FXGL.getAudioPlayer().stopAllSounds();
+            menu.fireGame();
+        });
+
+        Button close = new Button("Quit");
+        close.setLayoutX(1050);
+        close.setLayoutY(575);
+        close.setOnMouseClicked(mouseEvent -> {
+            FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
+            System.exit(0);
+        });
+
+        close.setScaleX(0);
+        close.setScaleY(0);
+        runAgain.setScaleX(0);
+        runAgain.setScaleY(0);
+        FXGL.getGameTimer().runAtInterval(() -> {
+            gameAlert.setScaleX(gameAlert.getScaleX() + (1 / 20.0));
+            gameAlert.setScaleY(gameAlert.getScaleY() + (1 / 20.0));
+            close.setScaleX(close.getScaleX() + (2.5 / 20.0));
+            close.setScaleY(close.getScaleY() + (2.5 / 20.0));
+            runAgain.setScaleX(runAgain.getScaleX() + (2.5 / 20.0));
+            runAgain.setScaleY(runAgain.getScaleY() + (2.5 / 20.0));
+        }, Duration.millis(1), 20);
+
+        Conductor.stopOST();
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("GameOver.mp3"));
+        FXGL.addUINode(dimBG);
+        FXGL.addUINode(gameAlert);
+        FXGL.addUINode(close);
+        FXGL.addUINode(runAgain);
+    }
 }

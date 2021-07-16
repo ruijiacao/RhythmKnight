@@ -2,6 +2,7 @@ package rhythm;
 
 import com.almasb.fxgl.audio.Sound;
 import com.almasb.fxgl.dsl.FXGL;
+import com.almasb.fxgl.texture.Texture;
 import initializers.Initializer;
 import initializers.LevelUIInitializer;
 import javafx.geometry.Point2D;
@@ -21,10 +22,10 @@ public class Mover {
     private static final Sound click = FXGL.getAssetLoader().loadSound("snare01.wav");
 
     private static boolean verifyBounds(MouseEvent point) {
-        return point.getX() - 120 > GlobalSettings.getPlayerSprite().getX() - 650
-                && point.getX() + 120 < GlobalSettings.getPlayerSprite().getX() + 650
-                && point.getY() - 170 > GlobalSettings.getPlayerSprite().getY() - 650
-                && point.getY() + 170 < GlobalSettings.getPlayerSprite().getY() + 650;
+        return point.getX() > GlobalSettings.getPlayerSprite().getX() - 400
+                && point.getX() < GlobalSettings.getPlayerSprite().getX() + 400
+                && point.getY() > GlobalSettings.getPlayerSprite().getY() - 400
+                && point.getY() < GlobalSettings.getPlayerSprite().getY() + 400;
     }
 
     private static void goBackInPath(Tile origin) {
