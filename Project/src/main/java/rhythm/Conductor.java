@@ -17,11 +17,12 @@ public class Conductor {
 
     private static Media ost;
     private static MediaPlayer ostPlayer;
+    private static boolean isActive;
     private final int bpm;
-    private int numOfBeats;
-    private double[] beatTimes;
+    private static int numOfBeats;
+    private static double[] beatTimes;
     private final int playerScore;
-    private boolean isOnBeat;
+    private static boolean isOnBeat;
     private AtomicInteger scoreConstant;
     private AtomicInteger currBeat = new AtomicInteger();
 
@@ -50,6 +51,10 @@ public class Conductor {
     public void startAndKeepRhythm(Texture cutout) {
         numOfBeats = (int) (bpm * (ost.getDuration().toSeconds() / 60)) + 1;
         beatTimes = new double[numOfBeats];
+        isActive = true;
+
+        System.out.println("Number of beats: " + numOfBeats + " on");
+        System.out.println(ost.getDuration().toSeconds());
 
         int i = 1;
         while (i < beatTimes.length) {
@@ -66,31 +71,33 @@ public class Conductor {
         Animator animator = new Animator();
 
         FXGL.getGameTimer().runAtInterval(() -> {
-            double currTime = ostPlayer.getCurrentTime().toSeconds();
-            ArrayList<Tile> curr = GlobalSettings.getCurrentMap();
-            if (currBeat.get() == numOfBeats - 1) {
-                currBeat.set(0);
-                currTime = 0;
-            }
-
-            if (currTime >= beatTimes[currBeat.get()] - .1) {
-                if (currBeat.get() % 4 == 0) {
-                    for (Tile tile : curr) {
-                        animator.tileDance(tile.getTileTexture());
-                    }
+            if (isActive) {
+                double currTime = ostPlayer.getCurrentTime().toSeconds();
+                ArrayList<Tile> curr = GlobalSettings.getCurrentMap();
+                if (currBeat.get() == numOfBeats - 1) {
+                    currBeat.set(0);
+                    currTime = 0;
                 }
-                animator.playerDance();
-                currBeat.set(currBeat.get() + 1);
-                scoreConstant = new AtomicInteger(15);
 
-                FXGL.getGameTimer().runAtInterval(() -> {
-                    animator.pulsateCutout(cutout);
-                    isOnBeat = true;
-                    scoreConstant.set(scoreConstant.get() - 1);
-                }, Duration.millis(1), 15);
-            } else {
-                isOnBeat = false;
-                cutout.setOpacity(0);
+                if (currTime >= beatTimes[currBeat.get()] - .1) {
+                    if (currBeat.get() % 4 == 0) {
+                        for (Tile tile : curr) {
+                            animator.tileDance(tile.getTileTexture());
+                        }
+                    }
+                    animator.playerDance();
+                    currBeat.set(currBeat.get() + 1);
+                    scoreConstant = new AtomicInteger(15);
+
+                    FXGL.getGameTimer().runAtInterval(() -> {
+                        animator.pulsateCutout(cutout);
+                        isOnBeat = true;
+                        scoreConstant.set(scoreConstant.get() - 1);
+                    }, Duration.millis(1), 15);
+                } else {
+                    isOnBeat = false;
+                    cutout.setOpacity(0);
+                }
             }
         }, Duration.seconds(1 / 60.0));
     }
@@ -118,4 +125,12 @@ public class Conductor {
         return playerScore;
     }
 
+    public static void stopOST() {
+        ostPlayer.stop();
+        isActive = false;
+    }
+
+    public static Media getOst() {
+        return ost;
+    }
 }

@@ -21,10 +21,10 @@ public class Mover {
     private static final Sound click = FXGL.getAssetLoader().loadSound("snare01.wav");
 
     private static boolean verifyBounds(MouseEvent point) {
-        return point.getX() - 120 > GlobalSettings.getPlayerSprite().getX() - 600
-                && point.getX() + 120 < GlobalSettings.getPlayerSprite().getX() + 600
-                && point.getY() - 170 > GlobalSettings.getPlayerSprite().getY() - 600
-                && point.getY() + 170 < GlobalSettings.getPlayerSprite().getY() + 600;
+        return point.getX() - 120 > GlobalSettings.getPlayerSprite().getX() - 650
+                && point.getX() + 120 < GlobalSettings.getPlayerSprite().getX() + 650
+                && point.getY() - 170 > GlobalSettings.getPlayerSprite().getY() - 650
+                && point.getY() + 170 < GlobalSettings.getPlayerSprite().getY() + 650;
     }
 
     private static void goBackInPath(Tile origin) {
@@ -44,12 +44,12 @@ public class Mover {
     }
 
     private static void goForwardInPath(Tile exit) {
-        if (GlobalSettings.getRoomCounter() == 99) {
+        if (GlobalSettings.getRoomCounter() == 7 + GlobalSettings.getDifficulty()) {
             Notifier.createWinAlert();
         } else if (GlobalSettings.getRoomCounter() == 6
                 + GlobalSettings.getDifficulty()) {
             MapLoader.loadMap(21, conductor, scoreText);
-            GlobalSettings.setRoomCounter(99);
+            GlobalSettings.setRoomCounter(7 + GlobalSettings.getDifficulty());
         } else if (GlobalSettings.getRoomCounter() == 0) {
             GlobalSettings.setPathChosen(exit.getPathID());
             GlobalSettings.setRoomCounter(GlobalSettings.getRoomCounter() + 1);
