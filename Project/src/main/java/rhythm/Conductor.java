@@ -13,6 +13,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import monsters.Monster;
+import monsters.Slime;
+import monsters.Wizard;
+import monsters.Zombie;
 import org.w3c.dom.css.Rect;
 import settings.GlobalSettings;
 import tilesystem.*;
@@ -102,7 +105,11 @@ public class Conductor {
 
                     if (!GlobalSettings.getActiveMonsters().isEmpty()) {
                         for (Monster monster : GlobalSettings.getActiveMonsters()) {
-                            if (monster.isInCombat()) {
+                            if (monster instanceof Slime && currBeat.get() % 2 == 0) {
+                                monster.attack();
+                            } else if (monster instanceof Zombie && currBeat.get() % 6 == 0) {
+                                monster.attack();
+                            } else if (monster instanceof Wizard && currBeat.get() % 4 == 0) {
                                 monster.attack();
                             }
                         }

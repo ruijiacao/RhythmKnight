@@ -33,6 +33,8 @@ public class MapLoader {
     public static void loadMap(int id, Conductor conductor, Text scoreText) {
         clearScene();
 
+        GlobalSettings.clearActiveMonsters();
+
         MapDirectory maps = new MapDirectory();
 
 
@@ -50,6 +52,12 @@ public class MapLoader {
          */
 
         ArrayList<Tile> newTiles = maps.getIDLayout(id);
+
+        for (Tile tile : newTiles) {
+            if (tile.isMonster()) {
+                GlobalSettings.addActiveMonster(tile.getMonster());
+            }
+        }
 
         TileMap map = new TileMap(newTiles, conductor, scoreText);
 

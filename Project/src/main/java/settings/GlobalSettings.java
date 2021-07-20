@@ -8,10 +8,13 @@ import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import monsters.Monster;
 import org.jetbrains.annotations.NotNull;
+import rhythm.Animator;
 import tilesystem.MapDirectory;
 import tilesystem.Tile;
 import ui.AppMainMenu;
 import ui.IGenerator;
+import ui.Notifier;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +61,8 @@ public class GlobalSettings {
     private static String playerName;
     private static int difficulty = -1;            // enum?
     private static int startingWeapon = -1;
+    private static int playerHealth;
+    private static int maxHealth;
 
     // monsters
     private static ArrayList<Monster> activeMonsters = new ArrayList<>();
@@ -319,5 +324,24 @@ public class GlobalSettings {
 
     public static void clearActiveMonsters() {
         activeMonsters.clear();
+    }
+
+    public static int getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public static void setPlayerHealth(int playerHealth) {
+        GlobalSettings.playerHealth = playerHealth;
+        if (playerHealth <= 0) {
+            Notifier.createGameOverAlert();
+        }
+    }
+
+    public static int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public static void setMaxHealth(int maxHealth) {
+        GlobalSettings.maxHealth = maxHealth;
     }
 }

@@ -67,21 +67,18 @@ public class Tile {
                 tileTexture.setY(position.getY());
                 Slime slime = new Slime(this);
                 monster = slime;
-                GlobalSettings.addActiveMonster(slime);
             } else if (monsterID == 1) {
                 tileTexture = FXGL.getAssetLoader().loadTexture("zombie-tile.gif");
                 tileTexture.setX(position.getX());
                 tileTexture.setY(position.getY());
                 Zombie zombie = new Zombie(this);
                 monster = zombie;
-                GlobalSettings.addActiveMonster(zombie);
             } else {
                 tileTexture = FXGL.getAssetLoader().loadTexture("wizard-tile.gif");
                 tileTexture.setX(position.getX());
                 tileTexture.setY(position.getY());
                 Wizard wizard = new Wizard(this);
                 monster = wizard;
-                GlobalSettings.addActiveMonster(wizard);
             }
             break;
         case GOLD:

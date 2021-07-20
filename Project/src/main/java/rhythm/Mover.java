@@ -68,6 +68,23 @@ public class Mover {
         }
     }
 
+    private static void startAttacking(Tile tile, Text dmg) {
+        tile.getMonster().enterBattle();
+        int damage = (3 - GlobalSettings.getDifficulty()) * (20 + new Random().nextInt(10));
+        tile.getMonster().doDamage(damage);
+        dmg.setText(Integer.toString(damage));
+        animator.displayDamage(dmg, tile);
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-enemy.wav"));
+    }
+
+    private  static void attackMonster(Tile tile, Text dmg) {
+        int damage = (3 - GlobalSettings.getDifficulty()) * (10 + new Random().nextInt(10));
+        tile.getMonster().doDamage(damage);
+        dmg.setText(Integer.toString(damage));
+        animator.displayDamage(dmg, tile);
+        FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-enemy.wav"));
+    }
+
     public static void move(MouseEvent event, Tile tile, Conductor passedInCond, Text passedInScore, int score, int scoreConstant) {
         conductor = passedInCond;
         scoreText = passedInScore;
@@ -93,16 +110,9 @@ public class Mover {
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
                 if (!tile.getMonster().isInCombat()) {
-                    tile.getMonster().enterBattle();
-                    int damage = (3 - GlobalSettings.getDifficulty()) * (10 + new Random().nextInt(10));
-                    tile.getMonster().doDamage(damage);
-                    dmg.setText(Integer.toString(damage));
-                    animator.displayDamage(dmg);
+                    startAttacking(tile, dmg);
                 } else {
-                    int damage = (3 - GlobalSettings.getDifficulty()) * (10 + new Random().nextInt(10));
-                    tile.getMonster().doDamage(damage);
-                    dmg.setText(Integer.toString(damage));
-                    animator.displayDamage(dmg);
+                    attackMonster(tile, dmg);
                 }
             } else if (tile.getMonster() != null && tile.getMonster().isDefeated()) {
                 position = new TemplateRoom().buildTiles().get(tile.getTileID()).getPosition();
@@ -155,6 +165,10 @@ public class Mover {
                         + Initializer.getCurrFloor() + "\n" + score);
 
                 visited.setVisited(true);
+
+                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() + new Random().nextInt(11));
+                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+
             } else {
                 if (tile.getType().equals(TileType.LOCKED_EXIT)) {
                     GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,

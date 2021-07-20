@@ -55,9 +55,9 @@ public class ConfigMenuGen implements IGenerator<Node> {
 
         // Weapon selection; set initial value if previously chosen
         ComboBox cbWeapons = (ComboBox) IGenerator.nodeGen(new ComboBox(), 1100, 380, 1);
-        cbWeapons.getItems().add("Weapon 0");
-        cbWeapons.getItems().add("Weapon 1");
-        cbWeapons.getItems().add("Weapon 2");
+        cbWeapons.getItems().add("Knife");
+        cbWeapons.getItems().add("Sword");
+        cbWeapons.getItems().add("Hammer");
         if (GlobalSettings.getStartingWeapon() != -1) {
             cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.getStartingWeapon()));
         }
@@ -117,13 +117,13 @@ public class ConfigMenuGen implements IGenerator<Node> {
                 int startingWeapon;
                 switch ((String) cbWeapons.getValue()) {
 
-                case "Weapon 0":
+                case "Knife":
                     startingWeapon = 0;
                     break;
-                case "Weapon 1":
+                case "Sword":
                     startingWeapon = 1;
                     break;
-                case "Weapon 2":
+                case "Hammer":
                     startingWeapon = 2;
                     break;
                 default:

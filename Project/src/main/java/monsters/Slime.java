@@ -4,6 +4,9 @@ import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
+import initializers.LevelUIInitializer;
+import javafx.scene.text.Text;
+import rhythm.Animator;
 import settings.GlobalSettings;
 import tilesystem.Tile;
 import ui.Notifier;
@@ -20,11 +23,13 @@ public class Slime extends Monster {
     private int health;
     private GameView view;
     private boolean isDefeated;
+    private Animator anim;
 
     public Slime (Tile currentTile) {
         System.out.println(currentTile.getPosition().toString());
         this.currentTile = currentTile;
         health = 50;
+        anim = new Animator();
     }
 
     /*
@@ -36,18 +41,31 @@ public class Slime extends Monster {
      */
     @Override
     public void attack() {
-        int playerTile = GlobalSettings.getCurrPlayerTile();
-        int currTile = currentTile.getTileID();
+        if (isInCombat) {
+            int playerTile = GlobalSettings.getCurrPlayerTile();
+            int currTile = currentTile.getTileID();
 
-        if (currTile - 1 == playerTile || currTile - 4 == playerTile || currTile - 3 == playerTile ||
-        currTile + 1 == playerTile || currTile + 4 == playerTile || currTile + 3 == playerTile) {
-            // decrease health
+            if (currTile - 1 == playerTile || currTile - 4 == playerTile || currTile - 3 == playerTile ||
+                    currTile + 1 == playerTile || currTile + 4 == playerTile || currTile + 3 == playerTile) {
+                Text dmg = new Text("2");
+                dmg.setX(GlobalSettings.getPlayerSprite().getX() + 75);
+                dmg.setY(GlobalSettings.getPlayerSprite().getY() + 200);
+                FXGL.getGameScene().addUINode(dmg);
+                dmg.setScaleX(3);
+                dmg.setScaleY(3);
+                anim.displayDamage(dmg, GlobalSettings.getCurrentMap().get(GlobalSettings.getCurrPlayerTile()));
+                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 2);
+                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));
+            }
         }
     }
+
 
     private void checkHealth() {
         if (health <= 0) {
             isDefeated = true;
+            isInCombat = false;
         }
     }
 

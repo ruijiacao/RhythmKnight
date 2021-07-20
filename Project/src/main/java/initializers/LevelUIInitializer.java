@@ -56,4 +56,6 @@ public class LevelUIInitializer {
     public static void updateGold(int newValue) {
         goldText.setText("Gold: \n" + newValue);
     }
+
+    public static void updateHealth (int newValue) {healthText.setText("HP: \n" + newValue);}
 }

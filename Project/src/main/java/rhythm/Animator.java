@@ -105,8 +105,12 @@ public class Animator {
         }, Duration.millis(1), 15);
     }
 
-    public void displayDamage(Text damage) {
-        damage.setFill(Color.RED);
+    public void displayDamage(Text damage, Tile tile) {
+        if (tile.getTileID() == GlobalSettings.getCurrPlayerTile()) {
+            damage.setFill(Color.RED);
+        } else {
+            damage.setFill(Color.CORAL);
+        }
         damage.setOpacity(1);
         Point2D orig = new Point2D(damage.getX(), damage.getY());
         FXGL.getGameTimer().runAtInterval(() -> {

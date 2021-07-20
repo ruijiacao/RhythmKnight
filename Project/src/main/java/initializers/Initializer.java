@@ -67,6 +67,7 @@ public class Initializer {
         GlobalSettings.generatePath(GlobalSettings.getDifficulty());
         MapLoader.loadMap(0, conductor, scoreText);
         GlobalSettings.setRoomCounter(0);
+        GlobalSettings.setPlayerHealth((3 - GlobalSettings.getDifficulty()) * 30);
 
         time = new StopWatch();
         time.start();

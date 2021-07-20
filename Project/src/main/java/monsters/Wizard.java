@@ -4,7 +4,9 @@ import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import initializers.LevelUIInitializer;
 import javafx.scene.text.Text;
+import rhythm.Animator;
 import rhythm.Conductor;
 import settings.GlobalSettings;
 import songs.Song;
@@ -21,10 +23,12 @@ public class Wizard extends Monster {
     private boolean isInCombat;
     private int health;
     private boolean isDefeated;
+    private Animator anim;
 
     public Wizard (Tile currentTile) {
         this.currentTile = currentTile;
         health = 100;
+        anim = new Animator();
     }
 
     /*
@@ -35,17 +39,30 @@ public class Wizard extends Monster {
      */
     @Override
     public void attack() {
-        int playerTile = GlobalSettings.getCurrPlayerTile();
-        int currTile = currentTile.getTileID();
-        if (currTile - 1 == playerTile || currTile - 4 == playerTile || currTile - 3 == playerTile ||
-                currTile + 1 == playerTile || currTile + 4 == playerTile || currTile + 3 == playerTile) {
-            // decrease health
+        if (isInCombat) {
+            int playerTile = GlobalSettings.getCurrPlayerTile();
+            int currTile = currentTile.getTileID();
+
+            if (currTile - 1 == playerTile || currTile - 4 == playerTile || currTile - 3 == playerTile ||
+                    currTile + 1 == playerTile || currTile + 4 == playerTile || currTile + 3 == playerTile) {
+                Text dmg = new Text("15");
+                dmg.setX(GlobalSettings.getPlayerSprite().getX() + 75);
+                dmg.setY(GlobalSettings.getPlayerSprite().getY() + 200);
+                FXGL.getGameScene().addUINode(dmg);
+                dmg.setScaleX(3);
+                dmg.setScaleY(3);
+                anim.displayDamage(dmg, GlobalSettings.getCurrentMap().get(GlobalSettings.getCurrPlayerTile()));
+                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 15);
+                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));
+            }
         }
     }
 
     private void checkHealth() {
         if (health <= 0) {
             isDefeated = true;
+            isInCombat = false;
         }
     }
 
