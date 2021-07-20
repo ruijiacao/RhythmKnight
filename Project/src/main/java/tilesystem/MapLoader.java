@@ -33,38 +33,26 @@ public class MapLoader {
     public static void loadMap(int id, Conductor conductor, Text scoreText) {
         clearScene();
 
-        GlobalSettings.clearActiveMonsters();
-
-        MapDirectory maps = new MapDirectory();
-
-
         Texture newRoomLayout = FXGL.getAssetLoader().loadTexture("newDungeonBG.png");
         Entity layout = new EntityBuilder()
                 .view(newRoomLayout)
                 .buildAndAttach();
 
-        /*
-        Texture newRoomLayout = FXGL.getAssetLoader()
-        .loadTexture("layouts/dungeon/layout" + id + ".png);
-        Entity layout = new EntityBuilder()
-            .view(newRoomLayout)
-            .buildAndAttach();
-         */
+        TileMap tileMap = GlobalSettings.getMapDirectory().getIDLayout(id);
 
-        ArrayList<Tile> newTiles = maps.getIDLayout(id);
-
-        for (Tile tile : newTiles) {
+        for (Tile tile : tileMap.getTiles()) {
             if (tile.isMonster()) {
                 GlobalSettings.addActiveMonster(tile.getMonster());
             }
         }
 
-        TileMap map = new TileMap(newTiles, conductor, scoreText);
+        tileMap.displayTiles();
+        tileMap.addTileListeners(conductor, scoreText);
 
         var playerSprite = FXGL.getAssetLoader().loadTexture("rhythm-knight.png");
 
-        double x = (maps.getMapOrigin(id).getX() - 35);
-        double y = (maps.getMapOrigin(id).getY() - 95);
+        double x = (GlobalSettings.getMapDirectory().getMapOrigin(id).getX() - 35);
+        double y = (GlobalSettings.getMapDirectory().getMapOrigin(id).getY() - 95);
         playerSprite.setX(x);
         playerSprite.setY(y);
         playerSprite.setScaleX(.35);
@@ -79,13 +67,13 @@ public class MapLoader {
         GameView view = new GameView(playerSprite, 2);
         getGameScene().addGameView(view);
         GlobalSettings.setPlayerSprite(playerSprite);
-        GlobalSettings.setCurrentMap(newTiles);
+        GlobalSettings.setCurrentMap(tileMap);
         GlobalSettings.setCurrPlayerTile(0);
 
         AtomicInteger i = new AtomicInteger();
         Animator anim = new Animator();
         FXGL.run(() -> {
-            anim.tileDance(GlobalSettings.getCurrentMap().get(i.get()).getTileTexture());
+            anim.tileDance(GlobalSettings.getCurrentMap().getTile(i.get()).getTileTexture());
             i.set(i.get() + 1);
         }, Duration.millis(1), 27);
     }

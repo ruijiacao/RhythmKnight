@@ -6,31 +6,47 @@ import rhythm.Conductor;
 import java.util.List;
 
 public class TileMap {
+    private int id;
     private int size = 0;
-    private Conductor conductor;
-    private Text scoreText;
+    private List<Tile> tiles;
 
-    public TileMap(Conductor conductor, Text scoreText) {
-        this.conductor = conductor;
-        this.scoreText = scoreText;
+
+    public TileMap(int id, List<Tile> tiles) {
+        this.id = id;
+        this.tiles = tiles;
+        this.size = tiles.size();
     }
 
-    public TileMap(List<Tile> tiles, Conductor conductor, Text scoreText) {
-        this.conductor = conductor;
-        this.scoreText = scoreText;
-        for (Tile tile : tiles) {
-            addTile(tile);
+    public void displayTiles() {
+        for (Tile tile: tiles
+        ) {
+            tile.displayOnScene();
         }
     }
 
+    public void addTileListeners(Conductor conductor, Text scoreText) {
+        for (Tile tile: tiles
+        ) {
+            tile.tileClick(conductor, scoreText);
+        }
+    }
+
+
     public void addTile(Tile tile) {
-        tile.displayOnScene(conductor, scoreText);
         size++;
     }
 
     public void removeTile(Tile tile) {
         tile.removeFromScene();
         size--;
+    }
+
+    public Tile getTile(int id) {
+        return tiles.get(id);
+    }
+
+    public List<Tile> getTiles() {
+        return tiles;
     }
 
     public int getSize() {

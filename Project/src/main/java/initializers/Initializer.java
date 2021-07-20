@@ -48,6 +48,8 @@ public class Initializer {
         currLevel = 1;
         currFloor = 1;
         conductor = new Conductor(bpm, ostPath, score);
+        MapDirectory maps = new MapDirectory();
+        GlobalSettings.setMapDirectory(maps);
 
         scoreText = new Text("Level " + Initializer.getCurrLevel() + " / Floor "
             + Initializer.getCurrFloor() + "\n0");

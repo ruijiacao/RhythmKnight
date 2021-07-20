@@ -1,6 +1,7 @@
 package tilesystem;
 
 import javafx.geometry.Point2D;
+import rhythm.Conductor;
 import rooms.*;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 ==============================================
  */
 public class MapDirectory {
-    private ArrayList<ArrayList<Tile>> tilemaps;
+    private ArrayList<TileMap> tilemaps;
 
     public MapDirectory() {
         ArrayList<IRoom> rooms = new ArrayList<>();
@@ -70,23 +71,22 @@ public class MapDirectory {
         tilemaps = new ArrayList<>();
         int i = 0;
         while (i < 23) {
-            tilemaps.add(i, rooms.get(i).buildTiles());
+            tilemaps.add(i, new TileMap(i, rooms.get(i).buildTiles()));
             i++;
         }
     }
-    public ArrayList<ArrayList<Tile>> getTilemaps() {
-        return tilemaps;
-    }
 
-    public ArrayList<Tile> getStartMap() {
+
+    public TileMap getStartMap() {
         return tilemaps.get(0);
     }
 
-    public ArrayList<Tile> getIDLayout(int id) {
+    public TileMap getIDLayout(int id) {
         return tilemaps.get(id);
     }
 
+
     public Point2D getMapOrigin(int id) {
-        return tilemaps.get(id).get(0).getPosition();
+        return tilemaps.get(id).getTiles().get(0).getPosition();
     }
 }

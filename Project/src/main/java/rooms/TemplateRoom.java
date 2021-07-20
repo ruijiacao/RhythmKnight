@@ -23,8 +23,6 @@ public class TemplateRoom implements IRoom {
 
         int i = 0;
         Tile origin = new Tile(new Point2D(1535, 45), TileType.ORIGIN);
-        origin.setOrigin(true);
-        origin.setVisited(true);
         tiles.add(origin);
         origin.setTileID(i);
         i++;
@@ -38,7 +36,7 @@ public class TemplateRoom implements IRoom {
             if (column % 2 == 0) {
                 for (int row = 1; row <= 4; row++) {
                     if (!positions.contains(currPos)) {
-                        Tile newTile = new Tile(currPos, TileType.UNVISITED);
+                        Tile newTile = new Tile(currPos);
                         tiles.add(newTile);
                         positions.add(currPos);
                         newTile.setTileID(i);
@@ -50,7 +48,7 @@ public class TemplateRoom implements IRoom {
             } else {
                 for (int row = 1; row <= 3; row++) {
                     if (!positions.contains(currPos)) {
-                        Tile newTile = new Tile(currPos, TileType.UNVISITED);
+                        Tile newTile = new Tile(currPos);
                         tiles.add(newTile);
                         positions.add(currPos);
                         newTile.setTileID(i);
@@ -75,9 +73,8 @@ public class TemplateRoom implements IRoom {
 
     static void setOrigin(int tilePos, ArrayList<Tile> map) {
         Point2D swapTilePos = map.get(tilePos).getPosition();
-        Point2D originPos = map.get(0).getPosition();
         map.set(0, new Tile(swapTilePos, TileType.ORIGIN));
-        map.set(tilePos, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+        map.set(tilePos, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
         map.get(0).setTileID(0);
     }
 
@@ -86,11 +83,12 @@ public class TemplateRoom implements IRoom {
             map.set(i, new Tile((map.get(i).getPosition()), type));
             map.get(i).setTileID(i);
         }
+
     }
 
     static void removeUnused(int[] cellsNum, ArrayList<Tile> map) {
         for (int i : cellsNum) {
-            map.set(i, new Tile(new Point2D(-1000, -1000), TileType.VISITED));
+            map.set(i, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
         }
     }
 

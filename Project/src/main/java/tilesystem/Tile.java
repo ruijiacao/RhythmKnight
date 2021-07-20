@@ -10,9 +10,9 @@ import monsters.Slime;
 import monsters.Wizard;
 import monsters.Zombie;
 import rhythm.Conductor;
-import settings.GlobalSettings;
 
 import java.util.Random;
+import settings.GlobalSettings;
 
 public class Tile {
     private Texture tileTexture;
@@ -22,6 +22,7 @@ public class Tile {
     private boolean visited;
     private boolean isExit;
     private boolean isGold;
+    private int goldAmount;
     private Conductor passedInConductor;
     private Text passedInText;
     private Point2D position;
@@ -33,21 +34,25 @@ public class Tile {
 
     public Tile(Point2D position, TileType type) {
         switch (type) {
-        case UNVISITED:
-            tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
-            tileTexture.setX(position.getX());
-            tileTexture.setY(position.getY());
-            break;
-        case VISITED:
-            tileTexture = FXGL.getAssetLoader().loadTexture("normal-tile.png");
-            tileTexture.setX(position.getX());
-            tileTexture.setY(position.getY());
-            visited = true;
+//        case UNVISITED:
+//            tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
+//            tileTexture.setX(position.getX());
+//            tileTexture.setY(position.getY());
+//            break;
+//        case VISITED:
+//            tileTexture = FXGL.getAssetLoader().loadTexture("normal-tile.png");
+//            tileTexture.setX(position.getX());
+//            tileTexture.setY(position.getY());
+//            visited = true;
+//            break;
+        case INVISIBLE:
+
             break;
         case EXIT:
-            tileTexture = FXGL.getAssetLoader().loadTexture("newStairs.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newStaircase.png");
             tileTexture.setX(position.getX() - 30);
             tileTexture.setY(position.getY() - 20);
+            visited = true;
             this.setExit(true);
             break;
         case ORIGIN:
@@ -61,6 +66,7 @@ public class Tile {
             Random rand = new Random();
             int monsterID = rand.nextInt(3);
             isMonster = true;
+            visited = true;
             if (monsterID == 0) {
                 tileTexture = FXGL.getAssetLoader().loadTexture("slime-tile.gif");
                 tileTexture.setX(position.getX());
@@ -86,24 +92,35 @@ public class Tile {
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             isGold = true;
+            setGoldAmount(15);
+            visited = false;
             break;
         case MYSTERY:
             tileTexture = FXGL.getAssetLoader().loadTexture("newMystery.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
+            visited = false;
             break;
         case LOCKED_EXIT:
             tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
             tileTexture.setX(position.getX() - 30);
             tileTexture.setY(position.getY() - 20);
+            visited = true;
             break;
         case EXITS_DUNGEON:
             tileTexture = FXGL.getAssetLoader().loadTexture("exitDungeonTile.png");
             tileTexture.setX(position.getX());
             tileTexture.setY(position.getY());
             isExit = true;
+            visited = true;
             break;
         default:
+            visited = false;
+        }
+        if (!visited) {
+            tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
+            tileTexture.setX(position.getX());
+            tileTexture.setY(position.getY());
         }
         this.position = position;
         this.setScale(1.35);
@@ -111,27 +128,41 @@ public class Tile {
         playerOnTile = false;
         this.type = type;
     }
+    public Tile(Point2D position) {
+        visited = false;
+        tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
+        tileTexture.setX(position.getX());
+        tileTexture.setY(position.getY());
+        this.position = position;
+        this.setScale(1.35);
+        isActive = false;
+        playerOnTile = false;
+        this.type = TileType.NORMAL;
+    }
 
-    public void displayOnScene(Conductor conductor, Text scoreText) {
+    public void displayOnScene() {
         GameView gameView = new GameView(tileTexture, 1);
+        tileTexture.setX(position.getX());
+        tileTexture.setY(position.getY());
+        this.setScale(1.35);
         FXGL.getGameScene().addGameView(gameView);
-        conductor.checkRhythm(this, scoreText);
-        isActive = true;
+//        isActive = true;
+    }
+
+
+    public void tileClick(Conductor conductor, Text scoreText) {
         passedInConductor = conductor;
         passedInText = scoreText;
+        conductor.checkRhythm(this, scoreText);
     }
 
     public void removeFromScene() {
         FXGL.getGameScene().removeUINode(tileTexture);
         tileTexture.setOnMouseClicked(mouseEvent -> { });
-        isActive = false;
-        playerOnTile = false;
     }
 
     public void setTileTexture(Texture tileTexture) {
         this.tileTexture = tileTexture;
-        removeFromScene();
-        displayOnScene(passedInConductor, passedInText);
     }
 
     public void setOpacity(double opacity) {
@@ -195,8 +226,11 @@ public class Tile {
         setOpacity(1);
     }
 
-    public void setVisited(boolean visited) {
-        this.visited = visited;
+    public void setVisited() {
+        this.visited = true;
+        removeFromScene();
+        setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
+        displayOnScene();
     }
 
     public boolean isVisited() {
@@ -245,5 +279,23 @@ public class Tile {
 
     public Monster getMonster() {
         return monster;
+    }
+
+    public int getGoldAmount() {
+        return goldAmount;
+    }
+
+    public void setGoldAmount(int goldAmount) {
+        this.goldAmount = goldAmount;
+    }
+
+    public void setGoldTaken() {
+        setGoldAmount(0);
+    }
+
+    public void refresh() {
+        removeFromScene();
+//        setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
+        displayOnScene();
     }
 }

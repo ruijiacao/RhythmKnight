@@ -54,7 +54,7 @@ public class Zombie extends Monster {
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
-                anim.displayDamage(dmg, GlobalSettings.getCurrentMap().get(GlobalSettings.getCurrPlayerTile()));
+                anim.displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
                 GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 30);
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));

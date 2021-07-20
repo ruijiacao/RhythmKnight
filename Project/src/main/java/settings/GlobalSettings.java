@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import rhythm.Animator;
 import tilesystem.MapDirectory;
 import tilesystem.Tile;
+import tilesystem.TileMap;
 import ui.AppMainMenu;
 import ui.IGenerator;
 import ui.Notifier;
@@ -46,16 +47,18 @@ public class GlobalSettings {
     private static int[] path4;
 
     // room lists
-    private static ArrayList<Tile>[] rooms1;
-    private static ArrayList<Tile>[] rooms2;
-    private static ArrayList<Tile>[] rooms3;
-    private static ArrayList<Tile>[] rooms4;
+    private static ArrayList<TileMap> rooms1;
+    private static ArrayList<TileMap> rooms2;
+    private static ArrayList<TileMap> rooms3;
+    private static ArrayList<TileMap> rooms4;
 
     // paths list
     private static ArrayList<Integer> pathList;
 
     // current map
-    private static ArrayList<Tile> currentMap;
+    private static TileMap currentMap;
+    private static MapDirectory mapDirectory;
+
 
     // Game config
     private static String playerName;
@@ -75,6 +78,12 @@ public class GlobalSettings {
             IGenerator.createAlert("", "Please use the configuration menu to set your preferences "
                     + "before starting the game!");
             canStart = false;
+
+            // comment out the previous 3 lines and uncomment the next 3 lines for quick testing
+
+//            GlobalSettings.setPlayerName("TestKnight");
+//            GlobalSettings.setDifficulty(1);
+//            GlobalSettings.setStartingWeapon(1);
         } else {
             if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
                 IGenerator.createAlert("", "A name was not selected, please try again");
@@ -188,12 +197,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms1 = new ArrayList[path1.length + 1];
-        MapDirectory maps = new MapDirectory();
-        rooms1[0] = maps.getStartMap();
+        rooms1 = new ArrayList();
+        rooms1.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms1.length) {
-            rooms1[i] = maps.getIDLayout(path1[i - 1]);
+        while (i < path1.length) {
+            rooms1.add(mapDirectory.getIDLayout(path1[i - 1]));
             i++;
         }
 
@@ -213,12 +221,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms2 = new ArrayList[path2.length + 1];
-        maps = new MapDirectory();
-        rooms2[0] = maps.getStartMap();
+        rooms2 = new ArrayList();
+        rooms2.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms2.length) {
-            rooms2[i] = maps.getIDLayout(path2[i - 1]);
+        while (i < path2.length) {
+            rooms2.add(mapDirectory.getIDLayout(path2[i - 1]));
             i++;
         }
 
@@ -238,12 +245,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms3 = new ArrayList[path3.length + 1];
-        maps = new MapDirectory();
-        rooms3[0] = maps.getStartMap();
+        rooms3 = new ArrayList();
+        rooms3.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms3.length) {
-            rooms3[i] = maps.getIDLayout(path3[i - 1]);
+        while (i < path3.length) {
+            rooms3.add(mapDirectory.getIDLayout(path3[i - 1]));
             i++;
         }
 
@@ -263,12 +269,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms4 = new ArrayList[path4.length + 1];
-        maps = new MapDirectory();
-        rooms4[0] = maps.getStartMap();
+        rooms4 = new ArrayList();
+        rooms4.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms4.length) {
-            rooms4[i] = maps.getIDLayout(path4[i - 1]);
+        while (i < path4.length) {
+            rooms4.add(mapDirectory.getIDLayout(path4[i - 1]));
             i++;
         }
     }
@@ -298,11 +303,11 @@ public class GlobalSettings {
         return pathList;
     }
 
-    public static void setCurrentMap(ArrayList<Tile> currentMap) {
+    public static void setCurrentMap(TileMap currentMap) {
         GlobalSettings.currentMap = currentMap;
     }
 
-    public static ArrayList<Tile> getCurrentMap() {
+    public static TileMap getCurrentMap() {
         return currentMap;
     }
 
@@ -343,5 +348,13 @@ public class GlobalSettings {
 
     public static void setMaxHealth(int maxHealth) {
         GlobalSettings.maxHealth = maxHealth;
+    }
+
+    public static MapDirectory getMapDirectory() {
+        return mapDirectory;
+    }
+
+    public static void setMapDirectory(MapDirectory mapDirectory) {
+        GlobalSettings.mapDirectory = mapDirectory;
     }
 }

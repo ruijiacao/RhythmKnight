@@ -86,7 +86,7 @@ public class Conductor {
         FXGL.getGameTimer().runAtInterval(() -> {
             if (isActive) {
                 double currTime = ostPlayer.getCurrentTime().toSeconds();
-                ArrayList<Tile> curr = GlobalSettings.getCurrentMap();
+                TileMap curr = GlobalSettings.getCurrentMap();
 
                 if (currTime >= beatTimes[numOfBeats - 1] -.1) {
                     stopOST();
@@ -95,7 +95,7 @@ public class Conductor {
 
                 if (currTime >= beatTimes[currBeat.get()] - .1) {
                     if (currBeat.get() % 4 == 0) {
-                        for (Tile tile : curr) {
+                        for (Tile tile : curr.getTiles()) {
                             animator.tileDance(tile.getTileTexture());
                         }
                     }
