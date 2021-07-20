@@ -1,34 +1,33 @@
 package monsters;
 
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.texture.Texture;
 import javafx.scene.text.Text;
 import rhythm.Conductor;
 import settings.GlobalSettings;
 import songs.Song;
 import songs.SongList;
 import tilesystem.Tile;
+import ui.Notifier;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Zombie extends Monster {
-    private Entity wizard;
+    private Entity zombie;
     private ArrayList<Tile> map;
     private Tile currentTile;
     private boolean isInCombat;
     private int health;
+    private boolean isDefeated;
+    private GameView view;
 
     public Zombie (Tile currentTile) {
-        wizard = new EntityBuilder()
-                .view(FXGL.getAssetLoader().loadTexture("slime.gif"))
-                .buildAndAttach();
-        wizard.setX(currentTile.getPosition().getX());
-        wizard.setY(currentTile.getPosition().getY());
-        map = GlobalSettings.getCurrentMap();
         this.currentTile = currentTile;
-        health = 200;
+        health = 120;
     }
 
     /*
@@ -49,21 +48,29 @@ public class Zombie extends Monster {
 
     private void checkHealth() {
         if (health <= 0) {
-            // it's dead :O
-            // play death animation and take it off the scene
+            isDefeated = true;
         }
     }
 
     @Override
     public void enterBattle() {
         isInCombat = true;
-        }
+    }
 
     public boolean isInCombat() {
         return isInCombat;
     }
 
-    public void exitCombat() {
-        isInCombat = false;
+    public boolean isDefeated() {
+        return isDefeated;
+    }
+
+    public void doDamage(int dmg) {
+        health = health - dmg;
+        checkHealth();
+    }
+
+    public Tile getCurrentTile() {
+        return currentTile;
     }
 }

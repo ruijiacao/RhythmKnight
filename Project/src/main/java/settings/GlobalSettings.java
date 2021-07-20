@@ -6,6 +6,7 @@ import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
+import monsters.Monster;
 import org.jetbrains.annotations.NotNull;
 import tilesystem.MapDirectory;
 import tilesystem.Tile;
@@ -57,6 +58,9 @@ public class GlobalSettings {
     private static String playerName;
     private static int difficulty = -1;            // enum?
     private static int startingWeapon = -1;
+
+    // monsters
+    private static ArrayList<Monster> activeMonsters = new ArrayList<>();
 
     public static boolean canStart() {
         boolean canStart = true;
@@ -303,5 +307,17 @@ public class GlobalSettings {
 
     public static int getCurrPlayerTile() {
         return currPlayerTile;
+    }
+
+    public static void addActiveMonster(Monster monster) {
+        activeMonsters.add(monster);
+    }
+
+    public static ArrayList<Monster> getActiveMonsters () {
+        return activeMonsters;
+    }
+
+    public static void clearActiveMonsters() {
+        activeMonsters.clear();
     }
 }

@@ -2,6 +2,8 @@ package rhythm;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
+import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import settings.GlobalSettings;
@@ -101,5 +103,18 @@ public class Animator {
             player.setScaleY(player.getScaleX() - (.35 / 15.0));
             player.setOpacity(player.getOpacity() - (1 / 15.0));
         }, Duration.millis(1), 15);
+    }
+
+    public void displayDamage(Text damage) {
+        damage.setFill(Color.RED);
+        damage.setOpacity(1);
+        Point2D orig = new Point2D(damage.getX(), damage.getY());
+        FXGL.getGameTimer().runAtInterval(() -> {
+            damage.setY(damage.getY() + 1);
+            damage.setOpacity(damage.getOpacity() - (1 / 15.0));
+        }, Duration.millis(1), 15);
+        damage.setX(orig.getX());
+        damage.setY(orig.getY());
+
     }
 }

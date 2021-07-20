@@ -8,11 +8,14 @@ import initializers.LevelUIInitializer;
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import rooms.TemplateRoom;
 import settings.GlobalSettings;
 import tilesystem.MapLoader;
 import tilesystem.Tile;
 import tilesystem.TileType;
 import ui.Notifier;
+
+import java.util.Random;
 
 
 public class Mover {
@@ -70,14 +73,8 @@ public class Mover {
         scoreText = passedInScore;
 
         if (verifyBounds(event)) {
-            Point2D position = tile.getPosition();
-            if (tile.getType().equals(TileType.LOCKED_EXIT)) {
-                GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,
-                        position.getY() - 80));
-            } else {
-                GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
-                        position.getY() - 100));
-            }
+            Point2D position;
+            position = tile.getPosition();
 
             if (tile.isExit()) {
                 GlobalSettings.getPlayerSprite().setScaleX(.35);
@@ -87,15 +84,62 @@ public class Mover {
                 GlobalSettings.getPlayerSprite().setScaleX(.35);
                 GlobalSettings.getPlayerSprite().setScaleY(.35);
                 goBackInPath(tile);
-            } else if (!tile.isVisited()) {
+            } else if (tile.getMonster() != null && !tile.getMonster().isDefeated()) {
+                position = new TemplateRoom().buildTiles().get(tile.getTileID()).getPosition();
+                Text dmg = new Text("0");
+                dmg.setX(position.getX());
+                dmg.setY(position.getY() - 20);
+                FXGL.getGameScene().addUINode(dmg);
+                dmg.setScaleX(3);
+                dmg.setScaleY(3);
+                if (!tile.getMonster().isInCombat()) {
+                    tile.getMonster().enterBattle();
+                    int damage = (3 - GlobalSettings.getDifficulty()) * (10 + new Random().nextInt(10));
+                    tile.getMonster().doDamage(damage);
+                    dmg.setText(Integer.toString(damage));
+                    animator.displayDamage(dmg);
+                } else {
+                    int damage = (3 - GlobalSettings.getDifficulty()) * (10 + new Random().nextInt(10));
+                    tile.getMonster().doDamage(damage);
+                    dmg.setText(Integer.toString(damage));
+                    animator.displayDamage(dmg);
+                }
+            } else if (tile.getMonster() != null && tile.getMonster().isDefeated()) {
+                position = new TemplateRoom().buildTiles().get(tile.getTileID()).getPosition();
                 animator.playerMoved();
                 animator.pulsateScore(scoreText);
                 animator.pulsateTile(tile.getTileTexture());
+
+                GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                        position.getY() - 100));
+
+                tile.removeFromScene();
+                Tile visited = new Tile(position, TileType.VISITED);
+
+                visited.displayOnScene(conductor, scoreText);
+                score += 50 + scoreConstant;
+                scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
+                        + Initializer.getCurrFloor() + "\n" + score);
+
+                visited.setVisited(true);
+            } else if (!tile.isVisited()) {
+                GlobalSettings.setCurrPlayerTile(tile.getTileID());
+                animator.playerMoved();
+                animator.pulsateScore(scoreText);
+                animator.pulsateTile(tile.getTileTexture());
+                if (tile.getType().equals(TileType.LOCKED_EXIT)) {
+                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,
+                            position.getY() - 80));
+                } else {
+                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                            position.getY() - 100));
+                }
 
                 if (tile.isGold()) {
                     Initializer.setGold(Initializer.getGold() + 15);
                     LevelUIInitializer.updateGold(Initializer.getGold());
                 }
+
                 tile.removeFromScene();
                 Tile visited;
                 if (tile.getType().equals(TileType.LOCKED_EXIT)) {
@@ -112,6 +156,13 @@ public class Mover {
 
                 visited.setVisited(true);
             } else {
+                if (tile.getType().equals(TileType.LOCKED_EXIT)) {
+                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,
+                            position.getY() - 80));
+                } else {
+                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                            position.getY() - 100));
+                }
                 animator.playerMoved();
                 tile.removeFromScene();
                 Tile visited;
@@ -121,7 +172,6 @@ public class Mover {
 
             FXGL.getAudioPlayer().playSound(click);
             tile.setPlayerOnTile(true);
-            GlobalSettings.setCurrPlayerTile(tile.getTileID());
         }
     }
 }

@@ -8,6 +8,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import monsters.Monster;
 import rhythm.Animator;
 import rhythm.Conductor;
 import settings.GlobalSettings;
@@ -83,5 +84,6 @@ public class MapLoader {
 
     private static void clearScene() {
         FXGL.getGameScene().clearGameViews();
+        GlobalSettings.clearActiveMonsters();
     }
 }

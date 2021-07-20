@@ -12,6 +12,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import monsters.Monster;
 import org.w3c.dom.css.Rect;
 import settings.GlobalSettings;
 import tilesystem.*;
@@ -98,6 +99,14 @@ public class Conductor {
                     animator.playerDance();
                     currBeat.set(currBeat.get() + 1);
                     scoreConstant = new AtomicInteger(15);
+
+                    if (!GlobalSettings.getActiveMonsters().isEmpty()) {
+                        for (Monster monster : GlobalSettings.getActiveMonsters()) {
+                            if (monster.isInCombat()) {
+                                monster.attack();
+                            }
+                        }
+                    }
 
                     FXGL.getGameTimer().runAtInterval(() -> {
                         animator.pulsateCutout(cutout);

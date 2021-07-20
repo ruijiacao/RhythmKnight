@@ -21,10 +21,13 @@ public class TemplateRoom implements IRoom {
         // y + 110 and x + 190 for adjacent tiles southeast
         // y + 110 and x - 190 for adjacent tiles southwest
 
+        int i = 0;
         Tile origin = new Tile(new Point2D(1535, 45), TileType.ORIGIN);
         origin.setOrigin(true);
         origin.setVisited(true);
         tiles.add(origin);
+        origin.setTileID(i);
+        i++;
 
         Point2D currPos = new Point2D(1535, 45);
         positions.add(currPos);
@@ -38,6 +41,8 @@ public class TemplateRoom implements IRoom {
                         Tile newTile = new Tile(currPos, TileType.UNVISITED);
                         tiles.add(newTile);
                         positions.add(currPos);
+                        newTile.setTileID(i);
+                        i++;
                     }
                     currPos = new Point2D(currPos.getX(), currPos.getY() + 220);
                 }
@@ -48,6 +53,8 @@ public class TemplateRoom implements IRoom {
                         Tile newTile = new Tile(currPos, TileType.UNVISITED);
                         tiles.add(newTile);
                         positions.add(currPos);
+                        newTile.setTileID(i);
+                        i++;
                     }
                     currPos = new Point2D(currPos.getX(), currPos.getY() + 220);
                 }

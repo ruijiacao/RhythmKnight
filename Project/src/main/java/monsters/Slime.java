@@ -1,27 +1,28 @@
 package monsters;
 
-import com.almasb.fxgl.dsl.EntityBuilder;
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.texture.Texture;
 import settings.GlobalSettings;
 import tilesystem.Tile;
+import ui.Notifier;
 
 import java.util.ArrayList;
 
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+
 public class Slime extends Monster {
-    private Entity slime;
+    private Texture texture;
     private ArrayList<Tile> map;
     private Tile currentTile;
     private boolean isInCombat;
     private int health;
+    private GameView view;
+    private boolean isDefeated;
 
     public Slime (Tile currentTile) {
-        slime = new EntityBuilder()
-                .view(FXGL.getAssetLoader().loadTexture("slime.gif"))
-                .buildAndAttach();
-        slime.setX(currentTile.getPosition().getX());
-        slime.setY(currentTile.getPosition().getY());
-        map = GlobalSettings.getCurrentMap();
+        System.out.println(currentTile.getPosition().toString());
         this.currentTile = currentTile;
         health = 50;
     }
@@ -46,8 +47,7 @@ public class Slime extends Monster {
 
     private void checkHealth() {
         if (health <= 0) {
-            // it's dead :O
-            // play death animation and take it off the scene
+            isDefeated = true;
         }
     }
 
@@ -62,5 +62,22 @@ public class Slime extends Monster {
 
     public void exitCombat() {
         isInCombat = false;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void doDamage(int dmg) {
+        health = health - dmg;
+        checkHealth();
+    }
+
+    public boolean isDefeated() {
+        return isDefeated;
+    }
+
+    public Tile getCurrentTile() {
+        return currentTile;
     }
 }

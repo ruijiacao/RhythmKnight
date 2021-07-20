@@ -1,5 +1,6 @@
 package monsters;
 
+import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -9,28 +10,21 @@ import settings.GlobalSettings;
 import songs.Song;
 import songs.SongList;
 import tilesystem.Tile;
+import ui.Notifier;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Wizard extends Monster {
-    private Entity wizard;
     private ArrayList<Tile> map;
     private Tile currentTile;
     private boolean isInCombat;
     private int health;
-    private Conductor conductor;
+    private boolean isDefeated;
 
-    public Wizard (Tile currentTile, Conductor conductor) {
-        wizard = new EntityBuilder()
-                .view(FXGL.getAssetLoader().loadTexture("slime.gif"))
-                .buildAndAttach();
-        wizard.setX(currentTile.getPosition().getX());
-        wizard.setY(currentTile.getPosition().getY());
-        map = GlobalSettings.getCurrentMap();
+    public Wizard (Tile currentTile) {
         this.currentTile = currentTile;
         health = 100;
-        this.conductor = conductor;
     }
 
     /*
@@ -51,22 +45,13 @@ public class Wizard extends Monster {
 
     private void checkHealth() {
         if (health <= 0) {
-            // it's dead :O
-            // play death animation and take it off the scene
+            isDefeated = true;
         }
     }
 
     @Override
     public void enterBattle() {
         isInCombat = true;
-        Random rand = new Random();
-        Song newSong = SongList.getSongs()[rand.nextInt(5)];
-        int score = conductor.getPlayerScore();
-        conductor = new Conductor(newSong.getBpm(), newSong.getPath(), conductor.getPlayerScore());
-        conductor.startAndKeepRhythm(FXGL.getAssetLoader().loadTexture("newCutout.png"));
-        for (Tile tile : map) {
-            conductor.checkRhythm(tile, new Text("Level 1 / Floor 1 \n" + score));
-        }
     }
 
     public boolean isInCombat() {
@@ -75,5 +60,18 @@ public class Wizard extends Monster {
 
     public void exitCombat() {
         isInCombat = false;
+    }
+
+    public void doDamage(int dmg) {
+        health = health - dmg;
+        checkHealth();
+    }
+
+    public boolean isDefeated() {
+        return isDefeated;
+    }
+
+    public Tile getCurrentTile() {
+        return currentTile;
     }
 }

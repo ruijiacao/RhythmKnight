@@ -5,7 +5,14 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
+import monsters.Monster;
+import monsters.Slime;
+import monsters.Wizard;
+import monsters.Zombie;
 import rhythm.Conductor;
+import settings.GlobalSettings;
+
+import java.util.Random;
 
 public class Tile {
     private Texture tileTexture;
@@ -21,6 +28,8 @@ public class Tile {
     private TileType type;
     private int pathID;
     private int tileID;
+    private boolean isMonster;
+    private Monster monster;
 
     public Tile(Point2D position, TileType type) {
         switch (type) {
@@ -49,9 +58,31 @@ public class Tile {
             visited = true;
             break;
         case MONSTER:
-            tileTexture = FXGL.getAssetLoader().loadTexture("newEnemy.png");
-            tileTexture.setX(position.getX());
-            tileTexture.setY(position.getY());
+            Random rand = new Random();
+            int monsterID = rand.nextInt(3);
+            isMonster = true;
+            if (monsterID == 0) {
+                tileTexture = FXGL.getAssetLoader().loadTexture("slime-tile.gif");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                Slime slime = new Slime(this);
+                monster = slime;
+                GlobalSettings.addActiveMonster(slime);
+            } else if (monsterID == 1) {
+                tileTexture = FXGL.getAssetLoader().loadTexture("zombie-tile.gif");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                Zombie zombie = new Zombie(this);
+                monster = zombie;
+                GlobalSettings.addActiveMonster(zombie);
+            } else {
+                tileTexture = FXGL.getAssetLoader().loadTexture("wizard-tile.gif");
+                tileTexture.setX(position.getX());
+                tileTexture.setY(position.getY());
+                Wizard wizard = new Wizard(this);
+                monster = wizard;
+                GlobalSettings.addActiveMonster(wizard);
+            }
             break;
         case GOLD:
             tileTexture = FXGL.getAssetLoader().loadTexture("newGoldTile.png");
@@ -75,10 +106,6 @@ public class Tile {
             tileTexture.setY(position.getY());
             isExit = true;
             break;
-        case SLIME:
-            tileTexture = FXGL.getAssetLoader().loadTexture("monster_bg.png");
-            tileTexture.setX(position.getX());
-            tileTexture.setY(position.getY());
         default:
         }
         this.position = position;
@@ -213,5 +240,13 @@ public class Tile {
 
     public int getTileID() {
         return tileID;
+    }
+
+    public boolean isMonster() {
+        return isMonster;
+    }
+
+    public Monster getMonster() {
+        return monster;
     }
 }
