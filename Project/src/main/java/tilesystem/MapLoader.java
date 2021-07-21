@@ -68,7 +68,7 @@ public class MapLoader {
         getGameScene().addGameView(view);
         GlobalSettings.setPlayerSprite(playerSprite);
         GlobalSettings.setCurrentMap(tileMap);
-        GlobalSettings.setCurrPlayerTile(0);
+        GlobalSettings.setCurrPlayerTile(GlobalSettings.getMapDirectory().getMapOriginTileID(id));
 
         AtomicInteger i = new AtomicInteger();
         Animator anim = new Animator();

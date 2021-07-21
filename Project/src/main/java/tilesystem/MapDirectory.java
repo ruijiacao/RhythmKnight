@@ -89,4 +89,8 @@ public class MapDirectory {
     public Point2D getMapOrigin(int id) {
         return tilemaps.get(id).getTiles().get(0).getPosition();
     }
+
+    public int getMapOriginTileID(int id) {
+        return tilemaps.get(id).getTiles().get(0).getTileID();
+    }
 }
