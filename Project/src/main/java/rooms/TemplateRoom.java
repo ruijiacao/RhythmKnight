@@ -66,16 +66,26 @@ public class TemplateRoom implements IRoom {
     static void setOrigin(int tilePos, TileType type, ArrayList<Tile> map) {
         Point2D swapTilePos = map.get(tilePos).getPosition();
         Point2D originPos = map.get(0).getPosition();
-        map.set(0, new Tile(swapTilePos, TileType.ORIGIN));
-        map.set(tilePos, new Tile(originPos, type));
-        map.get(0).setTileID(0);
+        map.remove(0);
+        map.add(0, new Tile(swapTilePos, TileType.ORIGIN));
+        map.remove(tilePos);
+        map.add(tilePos, new Tile(originPos, type));
+        map.get(0).setTileID(tilePos);
+        map.get(tilePos).setTileID(0);
+        map.get(0).setTileID(tilePos);
+        map.get(tilePos).setTileID(0);
     }
 
     static void setOrigin(int tilePos, ArrayList<Tile> map) {
         Point2D swapTilePos = map.get(tilePos).getPosition();
-        map.set(0, new Tile(swapTilePos, TileType.ORIGIN));
-        map.set(tilePos, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        map.get(0).setTileID(0);
+        map.remove(0);
+        map.add(0, new Tile(swapTilePos, TileType.ORIGIN));
+        map.remove(tilePos);
+        map.add(tilePos, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
+        map.get(0).setTileID(tilePos);
+        map.get(tilePos).setTileID(0);
+        map.get(0).setTileID(tilePos);
+        map.get(tilePos).setTileID(0);
     }
 
     static void setTileType(int[] cellsNum, TileType type, ArrayList<Tile> map) {

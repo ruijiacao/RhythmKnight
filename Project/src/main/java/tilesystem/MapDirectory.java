@@ -23,7 +23,7 @@ public class MapDirectory {
         ArrayList<IRoom> rooms = new ArrayList<>();
         IRoom start = new StartingRoom();
         rooms.add(start);
-        Room1 room1 = new Room1();
+        IRoom room1 = new Room1();
         rooms.add(room1);
         IRoom room2 = new Room2();
         rooms.add(room2);
@@ -88,5 +88,9 @@ public class MapDirectory {
 
     public Point2D getMapOrigin(int id) {
         return tilemaps.get(id).getTiles().get(0).getPosition();
+    }
+
+    public int getMapOriginTileID(int id) {
+        return tilemaps.get(id).getTiles().get(0).getTileID();
     }
 }

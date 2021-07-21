@@ -24,11 +24,13 @@ public class Mover {
     private static final Animator animator = new Animator();
     private static final Sound click = FXGL.getAssetLoader().loadSound("snare01.wav");
 
-    private static boolean verifyBounds(MouseEvent point) {
-        return point.getX() > GlobalSettings.getPlayerSprite().getX() - 450
-                && point.getX() < GlobalSettings.getPlayerSprite().getX() + 450
-                && point.getY() > GlobalSettings.getPlayerSprite().getY() - 450
-                && point.getY() < GlobalSettings.getPlayerSprite().getY() + 450;
+    private static boolean verifyBounds(Tile tile) {
+        return tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 1 
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 1 
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 3 
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 3
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 4
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 4;
     }
 
     private static void goBackInPath() {
@@ -84,7 +86,7 @@ public class Mover {
         conductor = passedInCond;
         scoreText = passedInScore;
 
-        if (verifyBounds(event)) {
+        if (verifyBounds(tile)) {
             Point2D position;
             position = tile.getPosition();
 
@@ -119,6 +121,7 @@ public class Mover {
                         position.getY() - 100));
 
 //                Tile visited = new Tile(position, TileType.VISITED);
+                GlobalSettings.setCurrPlayerTile(tile.getTileID());
                 tile.setVisited();
                 tile.tileClick(conductor, scoreText);
 //                visited.tileClick(conductor, scoreText);
@@ -150,7 +153,7 @@ public class Mover {
                 if (tile.getType().equals(TileType.LOCKED_EXIT)) {
                     tile.setPosition(new Point2D(position.getX() + 30, position.getY() + 20));
                 }
-
+                GlobalSettings.setCurrPlayerTile(tile.getTileID());
                 tile.setVisited();
                 tile.tileClick(conductor, scoreText);
 
@@ -168,6 +171,7 @@ public class Mover {
                 tile.setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
                 tile.displayOnScene();
 
+                GlobalSettings.setCurrPlayerTile(tile.getTileID());
                 tile.tileClick(conductor, scoreText);
                 if (tile.getType().equals(TileType.LOCKED_EXIT)) {
                     GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,

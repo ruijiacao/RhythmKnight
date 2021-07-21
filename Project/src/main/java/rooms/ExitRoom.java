@@ -6,45 +6,20 @@ import tilesystem.TileType;
 
 import java.util.ArrayList;
 
-public class ExitRoom implements IRoom {
+public class ExitRoom extends TemplateRoom {
     @Override
     public ArrayList<Tile> buildTiles() {
-        ArrayList<Tile> tiles = new TemplateRoom().buildTiles();
-        removeTiles(tiles);
-        goldTiles(tiles);
+        
+        ArrayList<Tile> tile = super.buildTiles();
+        
+        setOrigin(27, TileType.EXITS_DUNGEON, tile);
 
-        int swap = (27);
+        int[] unused = {3, 4, 7, 8, 10, 11, 13, 14, 16, 17, 18, 20, 21, 22, 24, 25, 26};
+        removeUnused(unused, tile);
+        int[] gold = {17, 19};
+        setTileType(gold, TileType.GOLD, tile);
 
-        Point2D swapPos = tiles.get(swap).getPosition();
+        return tile;
 
-        tiles.set(0, new Tile(swapPos, TileType.ORIGIN));
-        tiles.set(swap, new Tile(new Point2D(1505, 25), TileType.EXITS_DUNGEON));
-        return tiles;
-    }
-
-    private void goldTiles(ArrayList<Tile> tiles) {
-        tiles.set(5, new Tile(tiles.get(5).getPosition(), TileType.GOLD));
-        tiles.set(15, new Tile(tiles.get(15).getPosition(), TileType.GOLD));
-        tiles.set(23, new Tile(tiles.get(23).getPosition(), TileType.GOLD));
-    }
-
-    private void removeTiles(ArrayList<Tile> tiles) {
-        tiles.set(3, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(4, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(7, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(8, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(10, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(11, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(13, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(14, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(16, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(17, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(18, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(20, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(21, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(22, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(24, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(25, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
-        tiles.set(26, new Tile(new Point2D(-1000, -1000), TileType.INVISIBLE));
     }
 }
