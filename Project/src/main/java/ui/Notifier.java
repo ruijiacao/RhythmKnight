@@ -4,12 +4,15 @@ import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 import initializers.Initializer;
+import initializers.LevelUIInitializer;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import rhythm.Animator;
 import rhythm.Conductor;
+import settings.GlobalSettings;
 
 public class Notifier {
     static Animator anim = new Animator();
@@ -71,6 +74,22 @@ This method creates an alert when the player reaches the end of the dungeon.
             System.exit(0);
         });
 
+        Text timeCompleted = new Text(Initializer.getTime().formatTime());
+        timeCompleted.setX(runAgain.getLayoutX() - 250);
+        timeCompleted.setY(runAgain.getLayoutY() + 20);
+        timeCompleted.setScaleX(0);
+        timeCompleted.setScaleY(0);
+        Text goldCollected = new Text(Integer.toString(Initializer.getGold()));
+        goldCollected.setX(runAgain.getLayoutX() - 250);
+        goldCollected.setY(runAgain.getLayoutY() + 60);
+        goldCollected.setScaleX(0);
+        goldCollected.setScaleY(0);
+        Text monstersKilled = new Text(Integer.toString(GlobalSettings.getMonstersKilled()));
+        monstersKilled.setX(runAgain.getLayoutX() - 200);
+        monstersKilled.setY(runAgain.getLayoutY() + 100);
+        monstersKilled.setScaleX(0);
+        monstersKilled.setScaleY(0);
+
         close.setScaleX(0);
         close.setScaleY(0);
         runAgain.setScaleX(0);
@@ -83,6 +102,12 @@ This method creates an alert when the player reaches the end of the dungeon.
             close.setScaleY(close.getScaleY() + (2.5 / 20.0));
             runAgain.setScaleX(runAgain.getScaleX() + (2.5 / 20.0));
             runAgain.setScaleY(runAgain.getScaleY() + (2.5 / 20.0));
+            timeCompleted.setScaleX(timeCompleted.getScaleX() + (2 / 20.0));
+            timeCompleted.setScaleY(timeCompleted.getScaleY() + (2 / 20.0));
+            goldCollected.setScaleX(goldCollected.getScaleX() + (2 / 20.0));
+            goldCollected.setScaleY(goldCollected.getScaleY() + (2 / 20.0));
+            monstersKilled.setScaleX(monstersKilled.getScaleX() + (2 / 20.0));
+            monstersKilled.setScaleY(monstersKilled.getScaleY() + (2 / 20.0));
         }, Duration.millis(1), 20);
 
         Conductor.stopOST();
@@ -95,6 +120,9 @@ This method creates an alert when the player reaches the end of the dungeon.
         FXGL.addUINode(fireworks2);
         FXGL.addUINode(close);
         FXGL.addUINode(runAgain);
+        FXGL.addUINode(timeCompleted);
+        FXGL.addUINode(goldCollected);
+        FXGL.addUINode(monstersKilled);
     }
 
     public static void createGameOverAlert() {

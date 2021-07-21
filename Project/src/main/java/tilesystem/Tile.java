@@ -229,7 +229,16 @@ public class Tile {
     public void setVisited() {
         this.visited = true;
         removeFromScene();
-        setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
+        switch (type) {
+            case GOLD:
+                setTileTexture(FXGL.getAssetLoader().loadTexture("newGoldTile.png"));
+                break;
+            case MYSTERY:
+                setTileTexture(FXGL.getAssetLoader().loadTexture("newMystery.png"));
+                break;
+            default:
+                setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
+        }
         displayOnScene();
     }
 

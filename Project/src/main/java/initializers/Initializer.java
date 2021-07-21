@@ -42,8 +42,8 @@ public class Initializer {
 
         String ostPath = SongList.getSongs()[0].getPath();
         int bpm = SongList.getSongs()[0].getBpm();
-        // String ostPath = CustomSongList.getSongs()[0].getPath();
-        // int bpm = CustomSongList.getSongs()[0].getBpm();
+        //String ostPath = CustomSongList.getSongs()[0].getPath();
+        //int bpm = CustomSongList.getSongs()[0].getBpm();
 
         currLevel = 1;
         currFloor = 1;
@@ -71,6 +71,7 @@ public class Initializer {
         GlobalSettings.setRoomCounter(0);
         GlobalSettings.setPlayerHealth((3 - GlobalSettings.getDifficulty()) * 30);
 
+        GlobalSettings.setMonstersKilled(0);
         time = new StopWatch();
         time.start();
     }

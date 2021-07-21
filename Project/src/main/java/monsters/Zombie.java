@@ -65,6 +65,7 @@ public class Zombie extends Monster {
         if (health <= 0) {
             isDefeated = true;
             isInCombat = false;
+            GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
         }
     }
 

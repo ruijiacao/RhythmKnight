@@ -66,7 +66,7 @@ public class GlobalSettings {
     private static int startingWeapon = -1;
     private static int playerHealth;
     private static int maxHealth;
-
+    private static int monstersKilled;
     // monsters
     private static ArrayList<Monster> activeMonsters = new ArrayList<>();
 
@@ -356,5 +356,13 @@ public class GlobalSettings {
 
     public static void setMapDirectory(MapDirectory mapDirectory) {
         GlobalSettings.mapDirectory = mapDirectory;
+    }
+
+    public static void setMonstersKilled(int monstersKilled) {
+        GlobalSettings.monstersKilled = monstersKilled;
+    }
+
+    public static int getMonstersKilled() {
+        return monstersKilled;
     }
 }

@@ -62,6 +62,7 @@ public class Wizard extends Monster {
         if (health <= 0) {
             isDefeated = true;
             isInCombat = false;
+            GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
         }
     }
 
@@ -75,6 +76,7 @@ public class Wizard extends Monster {
     }
 
     public void exitCombat() {
+
         isInCombat = false;
     }
 

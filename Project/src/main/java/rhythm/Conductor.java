@@ -38,6 +38,7 @@ public class Conductor {
     private static boolean isOnBeat;
     private AtomicInteger scoreConstant;
     private AtomicInteger currBeat = new AtomicInteger();
+    private static Texture cutout;
 
     public Conductor(int bpm, String path, int playerScore) {
         ost = new Media(new File(path).toURI().toString());
@@ -61,7 +62,9 @@ public class Conductor {
     - Calls the Animator class to animate the white cutout border pulsating on every beat.
     =============================================
      */
-    public void startAndKeepRhythm(Texture cutout) {
+    public void startAndKeepRhythm(Texture cutoutTexture) {
+        cutout = cutoutTexture;
+
         numOfBeats = (int) (bpm * (ost.getDuration().toSeconds() / 60)) + 1;
         beatTimes = new double[numOfBeats];
         isActive = true;
@@ -154,6 +157,14 @@ public class Conductor {
     public static void stopOST() {
         ostPlayer.stop();
         isActive = false;
+    }
+
+    public static Texture getCutout() {
+        return cutout;
+    }
+
+    public static void setCutout(Texture cutoutTexture) {
+        cutout = cutoutTexture;
     }
 
     public static MediaPlayer getOstPlayer() {
