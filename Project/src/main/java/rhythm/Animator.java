@@ -108,8 +108,29 @@ public class Animator {
     public void displayDamage(Text damage, Tile tile) {
         if (tile.getTileID() == GlobalSettings.getCurrPlayerTile()) {
             damage.setFill(Color.RED);
+            AtomicInteger frame = new AtomicInteger();
+            FXGL.getGameTimer().runAtInterval(() -> {
+                if (frame.get() < 5) {
+                    GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() - (1 / 5.0));
+                    frame.getAndIncrement();
+                } else {
+                    GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 5.0));
+                    frame.getAndIncrement();
+                }
+            }, Duration.millis(1), 11);
         } else {
             damage.setFill(Color.CORAL);
+            AtomicInteger frame = new AtomicInteger();
+            FXGL.getGameTimer().runAtInterval(() -> {
+                if (frame.get() < 4) {
+                    tile.setOpacity(tile.getOpacity() - (1 / 4.0));
+                    frame.getAndIncrement();
+                } else {
+                    tile.setOpacity(tile.getOpacity() + (1 / 4.0));
+                    frame.getAndIncrement();
+                }
+            }, Duration.millis(1), 9);
+            tile.setOpacity(1);
         }
         damage.setOpacity(1);
         Point2D orig = new Point2D(damage.getX(), damage.getY());

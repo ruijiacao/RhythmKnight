@@ -102,7 +102,7 @@ public class Tile {
             visited = false;
             break;
         case LOCKED_EXIT:
-            tileTexture = FXGL.getAssetLoader().loadTexture("lockedExitTile.png");
+            tileTexture = FXGL.getAssetLoader().loadTexture("newLockedExit.png");
             tileTexture.setX(position.getX() - 30);
             tileTexture.setY(position.getY() - 20);
             visited = true;

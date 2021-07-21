@@ -43,8 +43,7 @@ public class Wizard extends Monster {
             int playerTile = GlobalSettings.getCurrPlayerTile();
             int currTile = currentTile.getTileID();
 
-            if (currTile - 1 == playerTile || currTile - 4 == playerTile || currTile - 3 == playerTile ||
-                    currTile + 1 == playerTile || currTile + 4 == playerTile || currTile + 3 == playerTile) {
+            if (playerTile >= currTile - 5 || playerTile <= currTile + 5) {
                 Text dmg = new Text("15");
                 dmg.setX(GlobalSettings.getPlayerSprite().getX() + 75);
                 dmg.setY(GlobalSettings.getPlayerSprite().getY() + 200);
