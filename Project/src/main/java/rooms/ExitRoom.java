@@ -18,6 +18,8 @@ public class ExitRoom extends TemplateRoom {
         removeUnused(unused, tile);
         int[] gold = {17, 19};
         setTileType(gold, TileType.GOLD, tile);
+        int[] monster = {1, 2, 5, 6, 9, 12, 15, 23};
+        setTileType(monster, TileType.MONSTER, tile);
 
         return tile;
 
