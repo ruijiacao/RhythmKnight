@@ -20,11 +20,13 @@ public class MapDirectory {
     private ArrayList<TileMap> tilemaps;
 
     public MapDirectory() {
-        ArrayList<Room> rooms = new ArrayList<>();
 
+        //Room start = new Room(new int[][] {new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}});
+            // origin, unused, gold, monster, exits, mystery, lockedExits
+        ArrayList<Room> rooms = new ArrayList<>();
         Room start = new Room(new int[][] {new int[]{11},
                 new int[]{1, 3, 6, 9, 10, 13, 17, 19, 20, 22, 23, 24, 25, 26, 27},
-                new int[]{8}, new int[]{4, 5, 12, 18},
+                new int[]{8}, null, //new int[]{4, 5, 12, 18},
                 new int[]{2, 16, 21}, null, null});
         rooms.add(start);
         Room room1 = new Room(new int[][] {new int[]{26}, new int[]{2, 3, 10, 22, 14, 24, 25, 27},
@@ -37,7 +39,6 @@ public class MapDirectory {
         Room room3 = new Room(new int[][] {new int[]{26}, new int[]{4, 14, 17, 21, 25},
                 new int[]{2, 16}, new int[]{1, 8, 10, 15}, new int[]{7, 13, 27}, new int[]{3, 12, 18}, null});
         rooms.add(room3);
-
         Room room4 = new Room(new int[][] {new int[]{3}, new int[]{3, 5, 8, 10, 13, 17, 22, 24, 27},
                 new int[]{7, 19}, new int[]{1, 18, 27}, new int[]{4, 14, 20, 26}, new int[]{2, 15, 16}, null});
         rooms.add(room4);
@@ -82,14 +83,6 @@ public class MapDirectory {
         Room room16 = new Room(new int[][] {new int[]{16}, new int[]{1, 3, 4, 13, 14, 24, 27},
                 new int[]{7, 9}, new int[]{21, 23}, new int[]{2, 6, 26, 27}, new int[]{5, 11, 20, 22}, null});
         rooms.add(room16);
-        //Room start = new Room(new int[][] {new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}, new int[]{0}});
-        // origin
-        //      unused
-        //      gold
-        //      monster
-        //      exits
-        //      mystery
-        //      lockedExits
         Room room17 = new Room(new int[][] {new int[]{23}, new int[]{3, 10, 17},
                 new int[]{12, 19, 26}, new int[]{5, 11, 16, 18}, new int[]{7, 14, 21}, new int[]{4, 25}, null});
         rooms.add(room17);
@@ -104,11 +97,11 @@ public class MapDirectory {
         rooms.add(room20);
         Room exit = new Room(new int[][] {new int[]{27},
                 new int[]{3, 4, 7, 8, 10, 11, 13, 14, 16, 17, 18, 20, 21, 22, 24, 25, 26},
-                new int[]{17, 19}, new int[]{1, 2, 5, 6, 9, 12, 15, 23}, null, null, null});
+                new int[]{17, 19}, new int[]{1, 2, 5, 6, 9, 12, 15, 23}, new int[]{0}, null, null});
         rooms.add(exit);
         Room exit2 = new Room(new int[][] {new int[]{25},
                 new int[]{7, 14, 21, 3, 6, 10, 13, 17, 20, 24, 27, 26, 23, 19, 16}, new int[]{2, 1, 3}, null,
-                null, null, null});
+                new int[]{11}, null, null});
         rooms.add(exit2);
 
         tilemaps = new ArrayList<>();
