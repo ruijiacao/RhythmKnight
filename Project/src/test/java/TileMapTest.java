@@ -19,7 +19,7 @@ class TileMapTest {
         conductor = mock(Conductor.class);
         scoreText = mock(Text.class);
 
-        cut = new TileMap(conductor, scoreText);
+        //cut = new TileMap(conductor, scoreText);
     }
 
     @Test
