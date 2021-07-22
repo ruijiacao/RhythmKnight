@@ -65,7 +65,7 @@ public class Mover {
 
     private static void startAttacking(Tile tile, Text dmg) {
         tile.getMonster().enterBattle();
-        int damage = (3 - GlobalSettings.getDifficulty()) * (20 + new Random().nextInt(10));
+        int damage = (3 - GlobalSettings.getDifficulty() * 10) + (3 - GlobalSettings.getStartingWeapon() * new Random().nextInt(10));
         tile.getMonster().doDamage(damage);
         dmg.setText(Integer.toString(damage));
         animator.displayDamage(dmg, tile);

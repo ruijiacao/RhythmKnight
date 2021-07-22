@@ -45,14 +45,14 @@ public class Wizard extends Monster {
             int currTile = currentTile.getTileID();
 
             if (playerTile >= currTile - 5 || playerTile <= currTile + 5) {
-                Text dmg = new Text("15");
+                Text dmg = new Text("10");
                 dmg.setX(GlobalSettings.getPlayerSprite().getX() + 75);
                 dmg.setY(GlobalSettings.getPlayerSprite().getY() + 200);
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
                 anim.displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
-                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 15);
+                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 10);
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));
             }

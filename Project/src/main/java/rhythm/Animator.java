@@ -109,16 +109,27 @@ public class Animator {
         if (tile.getTileID() == GlobalSettings.getCurrPlayerTile()) {
             damage.setFill(Color.RED);
             AtomicInteger frame = new AtomicInteger();
+            Texture slash = FXGL.getAssetLoader().loadTexture("Slash_Effect.gif");
+            slash.setX(tile.getPosition().getX() - 25);
+            slash.setY(tile.getPosition().getY() - 100);
+            FXGL.addUINode(slash);
             FXGL.getGameTimer().runAtInterval(() -> {
                 if (frame.get() < 5) {
                     GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() - (1 / 5.0));
                     frame.getAndIncrement();
                 } else {
+                    if (frame.get() == 8) {
+                        FXGL.removeUINode(slash);
+                    }
                     GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 5.0));
                     frame.getAndIncrement();
                 }
             }, Duration.millis(1), 11);
         } else {
+            Texture slash = FXGL.getAssetLoader().loadTexture("Slash_Effect.gif");
+            slash.setX(tile.getPosition().getX() - 25);
+            slash.setY(tile.getPosition().getY() - 125);
+            FXGL.addUINode(slash);
             damage.setFill(Color.CORAL);
             AtomicInteger frame = new AtomicInteger();
             FXGL.getGameTimer().runAtInterval(() -> {
@@ -126,6 +137,9 @@ public class Animator {
                     tile.setOpacity(tile.getOpacity() - (1 / 4.0));
                     frame.getAndIncrement();
                 } else {
+                    if (frame.get() == 8) {
+                        FXGL.removeUINode(slash);
+                    }
                     tile.setOpacity(tile.getOpacity() + (1 / 4.0));
                     frame.getAndIncrement();
                 }

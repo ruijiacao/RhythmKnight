@@ -49,14 +49,14 @@ public class Slime extends Monster {
             int currTile = currentTile.getTileID();
 
             if (playerTile >= currTile - 5 || playerTile <= currTile + 5) {
-                Text dmg = new Text("2");
+                Text dmg = new Text("5");
                 dmg.setX(GlobalSettings.getPlayerSprite().getX() + 75);
                 dmg.setY(GlobalSettings.getPlayerSprite().getY() + 200);
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
                 anim.displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
-                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 2);
+                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 5);
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));
             }
