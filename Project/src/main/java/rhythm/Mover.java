@@ -93,6 +93,7 @@ public class Mover {
             if (tile.isExit()) {
                 GlobalSettings.getPlayerSprite().setScaleX(.35);
                 GlobalSettings.getPlayerSprite().setScaleY(.35);
+                System.out.println(tile.getPathID() + " " + tile.getType() + " " + tile.getTileID());
                 goForwardInPath(tile);
             } else if (tile.isOrigin() && GlobalSettings.getRoomCounter() != 0) {
                 GlobalSettings.getPlayerSprite().setScaleX(.35);

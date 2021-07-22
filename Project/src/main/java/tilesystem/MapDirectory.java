@@ -117,6 +117,11 @@ public class MapDirectory {
             tilemaps.add(i, new TileMap(i, rooms.get(i).buildTiles()));
             i++;
         }
+        // Link exits to randomized path mechanism
+        tilemaps.get(0).getTiles().get(11).setPathID(1);
+        tilemaps.get(0).getTiles().get(21).setPathID(2);
+        tilemaps.get(0).getTiles().get(16).setPathID(3);
+        tilemaps.get(0).getTiles().get(2).setPathID(4);
     }
 
 
