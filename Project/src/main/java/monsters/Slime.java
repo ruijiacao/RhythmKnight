@@ -7,8 +7,11 @@ import com.almasb.fxgl.texture.Texture;
 import initializers.LevelUIInitializer;
 import javafx.scene.text.Text;
 import rhythm.Animator;
+import rhythm.Conductor;
+import rhythm.Mover;
 import settings.GlobalSettings;
 import tilesystem.Tile;
+import tilesystem.TileType;
 import ui.Notifier;
 
 import java.util.ArrayList;
@@ -66,6 +69,7 @@ public class Slime extends Monster {
             isDefeated = true;
             isInCombat = false;
             GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
+            GlobalSettings.getActiveMonsters().remove(this);
         }
     }
 

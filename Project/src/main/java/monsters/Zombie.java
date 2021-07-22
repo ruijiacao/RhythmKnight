@@ -13,6 +13,7 @@ import settings.GlobalSettings;
 import songs.Song;
 import songs.SongList;
 import tilesystem.Tile;
+import tilesystem.TileType;
 import ui.Notifier;
 
 import java.util.ArrayList;
@@ -66,6 +67,7 @@ public class Zombie extends Monster {
             isDefeated = true;
             isInCombat = false;
             GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
+            GlobalSettings.getActiveMonsters().remove(this);
         }
     }
 

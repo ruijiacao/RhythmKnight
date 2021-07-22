@@ -23,9 +23,9 @@ public class Mover {
     private static final Sound click = FXGL.getAssetLoader().loadSound("snare01.wav");
 
     private static boolean verifyBounds(Tile tile) {
-        return tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 1 
-                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 1 
-                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 3 
+        return tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 1
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 1
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 3
                 || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 3
                 || tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 4
                 || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 4;
@@ -128,7 +128,19 @@ public class Mover {
                 scoreText.setText("Level " + Initializer.getCurrLevel() + " / Floor "
                         + Initializer.getCurrFloor() + "\n" + score);
 
-            } else if (!tile.isVisited()) {
+                if (GlobalSettings.getActiveMonsters().isEmpty()) {
+                    for (Tile t : GlobalSettings.getCurrentMap().getTiles()) {
+                        if (t.getType().equals(TileType.LOCKED_EXIT)) {
+                            t.removeFromScene();
+                            t.setTileTexture(FXGL.getAssetLoader().loadTexture("newStaircase.png"));
+                            t.displayOnScene();
+                            passedInCond.checkRhythm(t, scoreText);
+                            t.setExit(true);
+                        }
+                    }
+                }
+
+            } else if (!tile.isVisited() && !tile.getType().equals(TileType.LOCKED_EXIT)) {
 //                GlobalSettings.setCurrPlayerTile(tile.getTileID());
                 animator.playerMoved();
                 animator.pulsateScore(scoreText);
@@ -149,9 +161,6 @@ public class Mover {
                     }
                 }
 
-                if (tile.getType().equals(TileType.LOCKED_EXIT)) {
-                    tile.setPosition(new Point2D(position.getX() + 30, position.getY() + 20));
-                }
                 GlobalSettings.setCurrPlayerTile(tile.getTileID());
                 tile.setVisited();
                 tile.tileClick(conductor, scoreText);
@@ -163,6 +172,8 @@ public class Mover {
                 GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() + new Random().nextInt(11));
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
 
+            } else if (tile.getType().equals(TileType.LOCKED_EXIT)) {
+                System.out.println("Player cannot leave room until all monsters have been defeated.");
             } else {
                 animator.playerMoved();
                 animator.pulsateTile(tile.getTileTexture());
@@ -172,18 +183,17 @@ public class Mover {
 
                 GlobalSettings.setCurrPlayerTile(tile.getTileID());
                 tile.tileClick(conductor, scoreText);
-                if (tile.getType().equals(TileType.LOCKED_EXIT)) {
-                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 20,
-                            position.getY() - 80));
-                } else {
-                    GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
-                            position.getY() - 100));
-                }
+                GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                        position.getY() - 100));
 
             }
 
             FXGL.getAudioPlayer().playSound(click);
 //            tile.setPlayerOnTile(true);
         }
+    }
+
+    public static Text getScoreText() {
+        return scoreText;
     }
 }

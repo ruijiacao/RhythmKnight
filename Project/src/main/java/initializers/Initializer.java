@@ -74,6 +74,30 @@ public class Initializer {
         GlobalSettings.setMonstersKilled(0);
         time = new StopWatch();
         time.start();
+
+        for (Tile t : GlobalSettings.getCurrentMap().getTiles()) {
+            if (t.getType().equals(TileType.MONSTER)) {
+                t.removeFromScene();
+                t.setTileTexture(FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png"));
+                t.displayOnScene();
+                conductor.checkRhythm(t, scoreText);
+                t.setMonster(null);
+            }
+        }
+
+        GlobalSettings.clearActiveMonsters();
+
+        if (GlobalSettings.getActiveMonsters().isEmpty()) {
+            for (Tile t : GlobalSettings.getCurrentMap().getTiles()) {
+                if (t.getType().equals(TileType.LOCKED_EXIT)) {
+                    t.removeFromScene();
+                    t.setTileTexture(FXGL.getAssetLoader().loadTexture("newStaircase.png"));
+                    t.displayOnScene();
+                    conductor.checkRhythm(t, scoreText);
+                    t.setExit(true);
+                }
+            }
+        }
     }
 
     public static int getCurrFloor() {

@@ -3,6 +3,8 @@ package tilesystem;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
+import initializers.Initializer;
+import initializers.LevelUIInitializer;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
 import monsters.Monster;
@@ -12,6 +14,8 @@ import monsters.Zombie;
 import rhythm.Conductor;
 
 import java.util.Random;
+
+import rhythm.Mover;
 import settings.GlobalSettings;
 
 public class Tile {
@@ -306,5 +310,9 @@ public class Tile {
         removeFromScene();
 //        setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
         displayOnScene();
+    }
+
+    public void setMonster(Monster monster) {
+        this.monster = monster;
     }
 }

@@ -1,6 +1,7 @@
 package rooms;
 
 import javafx.geometry.Point2D;
+import settings.GlobalSettings;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
@@ -146,8 +147,8 @@ public class Room {
 
         removeUnused(unused, tiles);
         setTileType(gold, TileType.GOLD, tiles);
+        setTileType(exits, TileType.LOCKED_EXIT, tiles);
         setTileType(monster, TileType.MONSTER, tiles);
-        setTileType(exits, TileType.EXIT, tiles);
         setTileType(lockedExits, TileType.LOCKED_EXIT, tiles);
         setTileType(mystery, TileType.MYSTERY, tiles);
 

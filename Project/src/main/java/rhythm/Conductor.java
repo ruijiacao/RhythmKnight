@@ -39,6 +39,7 @@ public class Conductor {
     private AtomicInteger scoreConstant;
     private AtomicInteger currBeat = new AtomicInteger();
     private static Texture cutout;
+    private static Text scoreText;
 
     public Conductor(int bpm, String path, int playerScore) {
         ost = new Media(new File(path).toURI().toString());
