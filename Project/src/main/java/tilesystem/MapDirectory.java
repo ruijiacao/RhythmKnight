@@ -34,6 +34,7 @@ public class MapDirectory {
 
             while (read.hasNextLine()) {
                 String line = read.nextLine();
+                // Remove whitespace
                 line = line.replaceAll("\\s","");
                 String[] lineComponents = line.split(String.valueOf((char) 47)); // /
                 int[] origin = null;
@@ -45,7 +46,6 @@ public class MapDirectory {
                 int[] lockedExits = null;
 
                 for (int i = 0; i < lineComponents.length; i++) {
-                    System.out.println(lineComponents[i]);
                     if (!lineComponents[i].isBlank()) {
                         String[] csv = lineComponents[i].split(",");
                         int[] values = new int[csv.length];
