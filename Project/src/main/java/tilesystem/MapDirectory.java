@@ -25,9 +25,12 @@ public class MapDirectory {
 
         // origin, unused, gold, monster, exits, mystery, lockedExits
         try {
-            Scanner read = new Scanner(new File("." + File.separator + "src" + File.separator + "main" + File.separator
+            Scanner read = new Scanner(new File("Project" + File.separator + "src" + File.separator + "main" + File.separator
                     + "resources" + File.separator + "assets" + File.separator + "map" + File.separator
                     + "rooms.txt"));
+            /*Scanner read = new Scanner(new File("." + File.separator + "src" + File.separator + "main" + File.separator
+                    + "resources" + File.separator + "assets" + File.separator + "map" + File.separator
+                    + "rooms.txt"));*/
 
             tilemaps = new ArrayList<>();
             int addedRooms = 0;
