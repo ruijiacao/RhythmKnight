@@ -24,6 +24,7 @@ public class Mover {
 
     private static boolean verifyBounds(Tile tile) {
         return tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 1
+                || tile.getTileID() == GlobalSettings.getCurrPlayerTile()
                 || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 1
                 || tile.getTileID() == GlobalSettings.getCurrPlayerTile() + 3
                 || tile.getTileID() == GlobalSettings.getCurrPlayerTile() - 3
@@ -97,6 +98,17 @@ public class Mover {
                 GlobalSettings.getPlayerSprite().setScaleX(.35);
                 GlobalSettings.getPlayerSprite().setScaleY(.35);
                 goBackInPath();
+            } else if (tile.isOrigin()) {
+                animator.playerMoved();
+                animator.pulsateTile(tile.getTileTexture());
+                tile.removeFromScene();
+                tile.setTileTexture(FXGL.getAssetLoader().loadTexture("player.png"));
+                tile.displayOnScene();
+                GlobalSettings.setCurrPlayerTile(tile.getTileID());
+                GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                        position.getY() - 100));
+                tile.tileClick(conductor, scoreText);
+
             } else if (tile.getMonster() != null && !tile.getMonster().isDefeated()) {
 //                position = new TemplateRoom().buildTiles().get(tile.getTileID()).getPosition();
                 Text dmg = new Text("0");
@@ -174,6 +186,16 @@ public class Mover {
 
             } else if (tile.getType().equals(TileType.LOCKED_EXIT)) {
                 System.out.println("Player cannot leave room until all monsters have been defeated.");
+            } else if (tile.isGold()) {
+                animator.playerMoved();
+                animator.pulsateTile(tile.getTileTexture());
+                tile.removeFromScene();
+                tile.setTileTexture(FXGL.getAssetLoader().loadTexture("newGoldTile.png"));
+                tile.displayOnScene();
+                GlobalSettings.setCurrPlayerTile(tile.getTileID());
+                tile.tileClick(conductor, scoreText);
+                GlobalSettings.setPlayerPos(new Point2D(position.getX() - 50,
+                        position.getY() - 100));
             } else {
                 animator.playerMoved();
                 animator.pulsateTile(tile.getTileTexture());
