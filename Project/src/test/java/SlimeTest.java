@@ -1,7 +1,6 @@
-package monsters;
-
 import com.almasb.fxgl.app.GameApplication;
 import javafx.geometry.Point2D;
+import monsters.Slime;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.testfx.framework.junit.ApplicationTest;

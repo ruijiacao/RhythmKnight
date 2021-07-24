@@ -1,6 +1,14 @@
+import com.almasb.fxgl.app.GameApplication;
+import javafx.geometry.Point2D;
+import monsters.Monster;
+import monsters.Slime;
+import monsters.Wizard;
+import monsters.Zombie;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import settings.GlobalSettings;
+import tilesystem.Tile;
+import tilesystem.TileType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,4 +83,47 @@ public class GlobalSettingsTest {
 
     }
 
+    // validates if the active monsters arraylist is instantiated and can add correctly
+    @Test
+    public void initActiveMonsters() {
+
+        GameApplication.launch(GameApp.class, new String[0]);
+
+        // add some monsters
+        Monster slime = new Slime(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+        Monster wizard = new Wizard(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+        Monster zombie = new Zombie(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+
+        GlobalSettings.addActiveMonster(slime);
+        GlobalSettings.addActiveMonster(wizard);
+        GlobalSettings.addActiveMonster(zombie);
+
+        assertEquals(slime, GlobalSettings.getActiveMonsters().get(0));
+        assertEquals(wizard, GlobalSettings.getActiveMonsters().get(1));
+        assertEquals(zombie, GlobalSettings.getActiveMonsters().get(2));
+    }
+
+    // do damage to the monsters, which should take them off the activeMonsters ArrayList
+    @Test
+    public void clearActiveMonsters() {
+
+        GameApplication.launch(GameApp.class, new String[0]);
+
+        GlobalSettings.clearActiveMonsters();
+
+        // add some monsters
+        Monster slime = new Slime(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+        Monster wizard = new Wizard(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+        Monster zombie = new Zombie(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+
+        GlobalSettings.addActiveMonster(slime);
+        GlobalSettings.addActiveMonster(wizard);
+        GlobalSettings.addActiveMonster(zombie);
+
+        slime.doDamage(100);
+        wizard.doDamage(150);
+        zombie.doDamage(200);
+
+        assertTrue(GlobalSettings.getActiveMonsters().isEmpty());
+    }
 }
