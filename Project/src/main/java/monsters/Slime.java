@@ -57,4 +57,43 @@ public class Slime extends Monster {
         }
     }
 
+
+    private void checkHealth() {
+        if (health <= 0) {
+            isDefeated = true;
+            isInCombat = false;
+            GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
+            GlobalSettings.getActiveMonsters().remove(this);
+        }
+    }
+
+    @Override
+    public void enterBattle() {
+        isInCombat = true;
+    }
+
+    public boolean isInCombat() {
+        return isInCombat;
+    }
+
+    public void exitCombat() {
+        isInCombat = false;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void doDamage(int dmg) {
+        health = health - dmg;
+        checkHealth();
+    }
+
+    public boolean isDefeated() {
+        return isDefeated;
+    }
+
+    public Tile getCurrentTile() {
+        return currentTile;
+    }
 }
