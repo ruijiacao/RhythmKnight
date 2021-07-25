@@ -17,9 +17,9 @@ public class TileTest extends ApplicationTest {
 
     @Test
     public void testConstructor() {
-        //Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
-        //Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
-        //Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
+        Tile tile1 = new Tile(new Point2D(405, 435), TileType.INVISIBLE);
+        Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
+        Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
     }
 
 

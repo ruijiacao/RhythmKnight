@@ -102,4 +102,5 @@ public class Slime extends Monster {
     public Tile getCurrentTile() {
         return currentTile;
     }
+    public int getHealth() {return health;}
 }
