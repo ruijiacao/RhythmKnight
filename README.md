@@ -27,10 +27,19 @@ Tile object with some initialized fields.  We then examined the functionality of
 - Finally, we included two tests covering the GlobalSettings class.  These two two tests check all default settings of the game such as resolution, sound, and windwow width. 
 
 ### Test-Driven Development Process for Milestone 3
-For the Milestone 3 project, we added unit tests cover software classes that control the movement of the player.
+For the Milestone 3 project, we added unit tests to cover software classes that control the movement of the player.
 - First, we included several tests to examine the functionality of the MapDirectory class since this class manages various dungeon rooms used in our game. In particular, we tested 
 the functionality of some of rooms used in the game.  For each room, the corresponding unit test examined that it returned the desired properties, such as Tile types.
 - Next, we added tests to examine the functionality of the Generator class, which served to generate a random sequence of rooms that the player would explore during the game.
 The unit test examined the getRoomID() method by ensuring the return value of the method stayed within the total range of the rooms.
 - Finally, we included a test covering the Initializer class, which served to initialize all the properties of the game. In particular, we tested the setGold() method by changing the value
 of the field.
+
+### Test-Driven Development Process for Milestone 4
+For the Milestone 4 project, we added unit tests to cover sofeware classes that represent several entities of the game.
+- First, we included several tests to examine the functionality of the subclasses of the Monster class since they represent monsters in the
+game. For each type of monster (Slime, Zombie, Wizard), the corresponing unit tests examined that its methods, such as doDamage(), yielded
+the desired effect.  For example, the doDomage() method should decrease the health of the monster.
+- Next, we included unit tests covering the some of the layout components of the game since the they were central to the functionality of 
+the game.  For example, we added a few unit tests to enture that the elements of the MapDirectory() class correctly corresponded to 
+our design.
