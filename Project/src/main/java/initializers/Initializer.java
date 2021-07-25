@@ -1,5 +1,6 @@
 package initializers;
 
+import Player.Player;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -26,6 +27,7 @@ public class Initializer {
     private static int currFloor;
     private static StopWatch time;
     private static Conductor conductor;
+    private Player player;
 
     /*
     ========== INITIALIZER FOR LEVEL 1 ==========
@@ -39,6 +41,7 @@ public class Initializer {
     public void initStart() {
         FXGL.getGameScene().clearGameViews();
         FXGL.getGameScene().clearUINodes();
+        Player player = new Player();
 
         String ostPath = SongList.getSongs()[0].getPath();
         int bpm = SongList.getSongs()[0].getBpm();
@@ -50,28 +53,35 @@ public class Initializer {
         conductor = new Conductor(bpm, ostPath, score);
         MapDirectory maps = new MapDirectory();
         GlobalSettings.setMapDirectory(maps);
+        GlobalSettings.setRoomCounter(0);
 
-        scoreText = new Text("Level " + Initializer.getCurrLevel() + " / Floor "
-            + Initializer.getCurrFloor() + "\n0");
+        scoreText = new Text("Room " + (GlobalSettings.getRoomCounter() + 1)
+            + "\nScore:" + player.getScore());
         scoreText.setX(500);
         scoreText.setY(1000);
         scoreText.setScaleX(3);
         scoreText.setScaleY(3);
         scoreText.setFill(Color.WHITE);
         FXGL.getGameScene().addUINodes(scoreText);
+        GlobalSettings.getPlayer().setHealth((3 - GlobalSettings.getDifficulty()) * 30);
 
-        LevelUIInitializer.initLevelUI();
+        GlobalSettings.getPlayer().resetStats();
+
+        GlobalSettings.getPlayer().setGold((3 - GlobalSettings.getDifficulty()) * 30);
+
+
 
         var cutout = FXGL.getAssetLoader().loadTexture("newCutout.png");
 
+        LevelUIInitializer.initLevelUI();
+
         FXGL.getGameTimer().runOnceAfter(() -> conductor.startAndKeepRhythm(cutout), Duration.millis(3));
+
+
 
         GlobalSettings.generatePath(GlobalSettings.getDifficulty());
         MapLoader.loadMap(0, conductor, scoreText);
-        GlobalSettings.setRoomCounter(0);
-        GlobalSettings.setPlayerHealth((3 - GlobalSettings.getDifficulty()) * 30);
 
-        GlobalSettings.setMonstersKilled(0);
         time = new StopWatch();
         time.start();
 
@@ -98,14 +108,6 @@ public class Initializer {
                 }
             }
         }
-    }
-
-    public static int getCurrFloor() {
-        return currFloor;
-    }
-
-    public static int getCurrLevel() {
-        return currLevel;
     }
 
     public static int getGold() {

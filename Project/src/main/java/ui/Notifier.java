@@ -1,5 +1,6 @@
 package ui;
 
+import Player.Player;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
@@ -31,6 +32,8 @@ This method creates an alert when the player reaches the end of the dungeon.
         alert.showAndWait();
         System.exit(0);
          */
+
+        Player currentPlayer = GlobalSettings.getPlayer();
         Rectangle dimBG = new Rectangle(1920,1080);
         dimBG.setFill(Color.BLACK);
         dimBG.setOpacity(.25);
@@ -63,6 +66,7 @@ This method creates an alert when the player reaches the end of the dungeon.
             FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
             AppMainMenu menu = new AppMainMenu(MenuType.MAIN_MENU);
             FXGL.getAudioPlayer().stopAllSounds();
+            GlobalSettings.getPlayer().resetStats();
             menu.fireGame();
         });
 
@@ -79,12 +83,12 @@ This method creates an alert when the player reaches the end of the dungeon.
         timeCompleted.setY(runAgain.getLayoutY() + 20);
         timeCompleted.setScaleX(0);
         timeCompleted.setScaleY(0);
-        Text goldCollected = new Text(Integer.toString(Initializer.getGold()));
+        Text goldCollected = new Text(Integer.toString(currentPlayer.getGold()));
         goldCollected.setX(runAgain.getLayoutX() - 250);
         goldCollected.setY(runAgain.getLayoutY() + 60);
         goldCollected.setScaleX(0);
         goldCollected.setScaleY(0);
-        Text monstersKilled = new Text(Integer.toString(GlobalSettings.getMonstersKilled()));
+        Text monstersKilled = new Text(Integer.toString(currentPlayer.getMonstersSlain()));
         monstersKilled.setX(runAgain.getLayoutX() - 200);
         monstersKilled.setY(runAgain.getLayoutY() + 100);
         monstersKilled.setScaleX(0);
@@ -126,6 +130,7 @@ This method creates an alert when the player reaches the end of the dungeon.
     }
 
     public static void createGameOverAlert() {
+        Player currentPlayer = GlobalSettings.getPlayer();
         Rectangle dimBG = new Rectangle(1920,1080);
         dimBG.setFill(Color.BLACK);
         dimBG.setOpacity(.25);
@@ -145,6 +150,7 @@ This method creates an alert when the player reaches the end of the dungeon.
             FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("SelectSFX.mp3"));
             AppMainMenu menu = new AppMainMenu(MenuType.MAIN_MENU);
             FXGL.getAudioPlayer().stopAllSounds();
+            GlobalSettings.getPlayer().resetStats();
             menu.fireGame();
         });
 

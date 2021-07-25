@@ -120,9 +120,9 @@ public class GlobalSettingsTest {
         GlobalSettings.addActiveMonster(wizard);
         GlobalSettings.addActiveMonster(zombie);
 
-        slime.doDamage(100);
-        wizard.doDamage(150);
-        zombie.doDamage(200);
+        slime.takeDamage(100);
+        wizard.takeDamage(150);
+        zombie.takeDamage(200);
 
         assertTrue(GlobalSettings.getActiveMonsters().isEmpty());
     }

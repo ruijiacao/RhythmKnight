@@ -2,6 +2,7 @@ package rhythm;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
+import initializers.LevelUIInitializer;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Scene;
@@ -129,6 +130,7 @@ public class Conductor {
                     cutout.setOpacity(0);
                 }
             }
+            LevelUIInitializer.updateTimeElapsed();
         }, Duration.seconds(1 / 60.0));
     }
 
@@ -147,6 +149,8 @@ public class Conductor {
         tile.getTileTexture().setOnMouseClicked(mouseEvent -> {
             if (isOnBeat) {
                 Mover.move(mouseEvent, tile, this, scoreText, playerScore, scoreConstant.get());
+            } else {
+                LevelUIInitializer.updateStatus("Offbeat, the screen outline\npulses to the beat!");
             }
         });
     }

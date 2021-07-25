@@ -19,17 +19,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Wizard extends Monster {
-    private ArrayList<Tile> map;
-    private Tile currentTile;
-    private boolean isInCombat;
-    private int health;
-    private boolean isDefeated;
-    private Animator anim;
 
     public Wizard (Tile currentTile) {
-        this.currentTile = currentTile;
-        health = 100;
-        anim = new Animator();
+        super(currentTile);
+        this.setHealth(100);
     }
 
     /*
@@ -40,9 +33,9 @@ public class Wizard extends Monster {
      */
     @Override
     public void attack() {
-        if (isInCombat) {
+        if (inCombat()) {
             int playerTile = GlobalSettings.getCurrPlayerTile();
-            int currTile = currentTile.getTileID();
+            int currTile = getCurrentTile().getTileID();
 
             if (playerTile >= currTile - 5 || playerTile <= currTile + 5) {
                 Text dmg = new Text("10");
@@ -51,47 +44,13 @@ public class Wizard extends Monster {
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
-                anim.displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
-                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 10);
-                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                getAnim().displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
+//                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 10);
+//                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                GlobalSettings.getPlayer().updateHealth(-10);
+                LevelUIInitializer.updateHealth(GlobalSettings.getPlayer().getHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));
             }
         }
-    }
-
-    private void checkHealth() {
-        if (health <= 0) {
-            isDefeated = true;
-            isInCombat = false;
-            GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
-            GlobalSettings.getActiveMonsters().remove(this);
-        }
-    }
-
-    @Override
-    public void enterBattle() {
-        isInCombat = true;
-    }
-
-    public boolean isInCombat() {
-        return isInCombat;
-    }
-
-    public void exitCombat() {
-
-        isInCombat = false;
-    }
-
-    public void doDamage(int dmg) {
-        health = health - dmg;
-        checkHealth();
-    }
-
-    public boolean isDefeated() {
-        return isDefeated;
-    }
-
-    public Tile getCurrentTile() {
-        return currentTile;
     }
 }

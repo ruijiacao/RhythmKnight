@@ -44,9 +44,10 @@ public class ConfigMenuGen implements IGenerator<Node> {
         // Textbox for name; set initial value if previously chosen
         TextField tfEnterName = (TextField) IGenerator.nodeGen(new TextField(), 465, 715, 2);
         tfEnterName.setAlignment(Pos.CENTER);
-        if (GlobalSettings.getPlayerName() != null && !GlobalSettings.getPlayerName().isBlank()) {
-            tfEnterName.setText(GlobalSettings.getPlayerName());
+        if (GlobalSettings.getPlayer().getName() != null && !GlobalSettings.getPlayer().getName().isBlank()) {
+            tfEnterName.setText(GlobalSettings.getPlayer().getName());
         }
+
 
         // Weapon selection header
         Text weaponSelect = (Text) IGenerator.nodeGen(new Text(), 1060, 360, 1);
@@ -130,7 +131,7 @@ public class ConfigMenuGen implements IGenerator<Node> {
                     startingWeapon = -1;
                     break;
                 }
-                GlobalSettings.setStartingWeapon(startingWeapon);
+                GlobalSettings.getPlayer().setWeapon(startingWeapon);
             }
         });
         return configNodes;

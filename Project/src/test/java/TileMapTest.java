@@ -14,16 +14,14 @@ class TileMapTest {
     private Text scoreText;
     private TileMap cut;
 
-    @BeforeEach
-    public void setCuT() {
-        conductor = mock(Conductor.class);
-        scoreText = mock(Text.class);
-
-        //cut = new TileMap(conductor, scoreText);
-    }
+//    @BeforeEach
+//    public void setCuT() {
+//        //cut = new TileMap(conductor, scoreText);
+//    }
 
     @Test
     public void constructorTest() {
+//        cut = new TileMap(0, null);
         assertNotNull(cut);
         assertEquals(cut.getSize(), 0);
     }

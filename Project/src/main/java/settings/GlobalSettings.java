@@ -1,5 +1,6 @@
 package settings;
 
+import Player.Player;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
@@ -36,6 +37,8 @@ public class GlobalSettings {
     private static Texture playerSprite;
     private static int currPlayerTile;
 
+    private static Player player;
+
     //Room Counter
     private static int roomCounter = 0;
     private static int pathChosen;
@@ -61,7 +64,6 @@ public class GlobalSettings {
 
 
     // Game config
-    private static String playerName;
     private static int difficulty = -1;            // enum?
     private static int startingWeapon = -1;
     private static int playerHealth;
@@ -72,7 +74,7 @@ public class GlobalSettings {
 
     public static boolean canStart() {
         boolean canStart = true;
-        if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()
+        if (player.getName() == null || player.getName().isBlank()
                 && GlobalSettings.difficulty == -1
                 && GlobalSettings.startingWeapon == -1) {
             IGenerator.createAlert("", "Please use the configuration menu to set your preferences "
@@ -81,11 +83,8 @@ public class GlobalSettings {
 
             // comment out the previous 3 lines and uncomment the next 3 lines for quick testing
 
-//            GlobalSettings.setPlayerName("TestKnight");
-//            GlobalSettings.setDifficulty(1);
-//            GlobalSettings.setStartingWeapon(1);
         } else {
-            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
+            if (player.getName() == null || player.getName().isBlank()) {
                 IGenerator.createAlert("", "A name was not selected, please try again");
                 canStart = false;
             }
@@ -93,7 +92,7 @@ public class GlobalSettings {
                 IGenerator.createAlert("", "A difficulty was not selected, please try again");
                 canStart = false;
             }
-            if (GlobalSettings.startingWeapon == -1) {
+            if (player.getWeapon() == -1) {
                 IGenerator.createAlert("", "A starting weapon was not selected, please try again");
                 canStart = false;
             }
@@ -122,11 +121,11 @@ public class GlobalSettings {
     }
 
     public static String getPlayerName() {
-        return playerName;
+        return player.getName();
     }
 
     public static void setPlayerName(String playerName) {
-        GlobalSettings.playerName = playerName;
+        player.setName(playerName);
     }
 
     public static int getDifficulty() {
@@ -142,11 +141,11 @@ public class GlobalSettings {
     }
 
     public static int getStartingWeapon() {
-        return startingWeapon;
+        return player.getWeapon();
     }
 
     public static void setStartingWeapon(int startingWeapon) {
-        GlobalSettings.startingWeapon = startingWeapon;
+        player.setWeapon(startingWeapon);
     }
 
     public static void setPlayerSprite(Texture playerSprite) {
@@ -171,6 +170,7 @@ public class GlobalSettings {
         game.setTitle(GlobalSettings.getGameTitle());
         game.setVersion(GlobalSettings.getVersion());
         game.setMainMenuEnabled(true);
+        player = new Player();
         game.setSceneFactory(new SceneFactory() {
             @NotNull
             @Override
@@ -332,22 +332,15 @@ public class GlobalSettings {
     }
 
     public static int getPlayerHealth() {
-        return playerHealth;
+        return player.getHealth();
     }
 
     public static void setPlayerHealth(int playerHealth) {
-        GlobalSettings.playerHealth = playerHealth;
-        if (playerHealth <= 0) {
-            Notifier.createGameOverAlert();
-        }
+        player.updateHealth(playerHealth);
     }
 
-    public static int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public static void setMaxHealth(int maxHealth) {
-        GlobalSettings.maxHealth = maxHealth;
+    public static Player getPlayer() {
+        return player;
     }
 
     public static MapDirectory getMapDirectory() {

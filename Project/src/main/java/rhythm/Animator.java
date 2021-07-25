@@ -4,6 +4,9 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import settings.GlobalSettings;
@@ -149,6 +152,7 @@ public class Animator {
         damage.setOpacity(1);
         Point2D orig = new Point2D(damage.getX(), damage.getY());
         FXGL.getGameTimer().runAtInterval(() -> {
+            damage.setFont(Font.font("", FontWeight.NORMAL, FontPosture.REGULAR, 20));
             damage.setY(damage.getY() + 1);
             damage.setOpacity(damage.getOpacity() - (1 / 15.0));
         }, Duration.millis(1), 15);
