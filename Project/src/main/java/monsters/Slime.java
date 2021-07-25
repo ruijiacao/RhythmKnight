@@ -59,9 +59,9 @@ public class Slime extends Monster {
 
 
     private void checkHealth() {
-        if (health <= 0) {
-            isDefeated = true;
-            isInCombat = false;
+        if (this.getHealth() <= 0) {
+            this.setSlain(true);
+            this.setInCombat (false);
             GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
             GlobalSettings.getActiveMonsters().remove(this);
         }
@@ -69,31 +69,31 @@ public class Slime extends Monster {
 
     @Override
     public void enterBattle() {
-        isInCombat = true;
+        this.setInCombat(true);
     }
 
     public boolean isInCombat() {
-        return isInCombat;
+        return this.inCombat();
     }
 
     public void exitCombat() {
-        isInCombat = false;
+        this.setInCombat(false);
     }
 
     public Texture getTexture() {
-        return texture;
+        return getTexture();
     }
 
     public void doDamage(int dmg) {
-        health = health - dmg;
+        this.setHealth(this.getHealth() - dmg);
         checkHealth();
     }
 
     public boolean isDefeated() {
-        return isDefeated;
+        return super.isDefeated();
     }
 
     public Tile getCurrentTile() {
-        return currentTile;
+        return this.getCurrentTile();
     }
 }

@@ -1,5 +1,6 @@
 import com.almasb.fxgl.app.GameApplication;
 import javafx.geometry.Point2D;
+import monsters.Monster;
 import monsters.Slime;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
@@ -11,13 +12,8 @@ import tilesystem.TileType;
 import static org.junit.Assert.*;
 
 public class SlimeTest extends ApplicationTest{
-
-    @BeforeAll
-    public static void testSetUp() throws Exception {
-        GameApp.main(new String[0]);
-    }
-
-    @Test
+    
+    @org.junit.jupiter.api.Test
     public void takeDamageTest() {
         GameApplication.launch(GameApp.class, new String[0]);
         Tile tile = new Tile(new Point2D(405, 435), TileType.INVISIBLE);
@@ -28,12 +24,10 @@ public class SlimeTest extends ApplicationTest{
 
     @org.junit.jupiter.api.Test
     public void testIsDefeated() {
+        GameApplication.launch(GameApp.class, new String[0]);
         Tile tile = new Tile(new Point2D(405, 435), TileType.INVISIBLE);
         Slime monster = new Slime(tile);
         monster.takeDamage(51);
         Assertions.assertEquals(true, monster.isDefeated());
     }
-
-
-
 }
