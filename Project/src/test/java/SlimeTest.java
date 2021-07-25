@@ -12,7 +12,7 @@ import tilesystem.TileType;
 import static org.junit.Assert.*;
 
 public class SlimeTest extends ApplicationTest{
-    
+
     @org.junit.jupiter.api.Test
     public void takeDamageTest() {
         GameApplication.launch(GameApp.class, new String[0]);
