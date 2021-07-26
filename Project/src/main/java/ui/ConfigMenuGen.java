@@ -44,9 +44,11 @@ public class ConfigMenuGen implements IGenerator<Node> {
         // Textbox for name; set initial value if previously chosen
         TextField tfEnterName = (TextField) IGenerator.nodeGen(new TextField(), 465, 715, 2);
         tfEnterName.setAlignment(Pos.CENTER);
-        if (GlobalSettings.getPlayerName() != null && !GlobalSettings.getPlayerName().isBlank()) {
-            tfEnterName.setText(GlobalSettings.getPlayerName());
+        if (GlobalSettings.getPlayer().getName() != null
+            && !GlobalSettings.getPlayer().getName().isBlank()) {
+            tfEnterName.setText(GlobalSettings.getPlayer().getName());
         }
+
 
         // Weapon selection header
         Text weaponSelect = (Text) IGenerator.nodeGen(new Text(), 1060, 360, 1);
@@ -55,9 +57,9 @@ public class ConfigMenuGen implements IGenerator<Node> {
 
         // Weapon selection; set initial value if previously chosen
         ComboBox cbWeapons = (ComboBox) IGenerator.nodeGen(new ComboBox(), 1100, 380, 1);
-        cbWeapons.getItems().add("Weapon 0");
-        cbWeapons.getItems().add("Weapon 1");
-        cbWeapons.getItems().add("Weapon 2");
+        cbWeapons.getItems().add("Knife");
+        cbWeapons.getItems().add("Sword");
+        cbWeapons.getItems().add("Hammer");
         if (GlobalSettings.getStartingWeapon() != -1) {
             cbWeapons.setValue(cbWeapons.getItems().get(GlobalSettings.getStartingWeapon()));
         }
@@ -117,20 +119,20 @@ public class ConfigMenuGen implements IGenerator<Node> {
                 int startingWeapon;
                 switch ((String) cbWeapons.getValue()) {
 
-                case "Weapon 0":
+                case "Knife":
                     startingWeapon = 0;
                     break;
-                case "Weapon 1":
+                case "Sword":
                     startingWeapon = 1;
                     break;
-                case "Weapon 2":
+                case "Hammer":
                     startingWeapon = 2;
                     break;
                 default:
                     startingWeapon = -1;
                     break;
                 }
-                GlobalSettings.setStartingWeapon(startingWeapon);
+                GlobalSettings.getPlayer().setWeapon(startingWeapon);
             }
         });
         return configNodes;

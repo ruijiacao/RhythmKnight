@@ -1,16 +1,19 @@
 package settings;
 
+import players.Player;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
+import monsters.Monster;
 import org.jetbrains.annotations.NotNull;
 import tilesystem.MapDirectory;
-import tilesystem.Tile;
+import tilesystem.TileMap;
 import ui.AppMainMenu;
 import ui.IGenerator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +32,9 @@ public class GlobalSettings {
             "Micah Lingle - Character/Level Design"
     );
     private static Texture playerSprite;
+    private static int currPlayerTile;
+
+    private static Player player;
 
     //Room Counter
     private static int roomCounter = 0;
@@ -41,29 +47,41 @@ public class GlobalSettings {
     private static int[] path4;
 
     // room lists
-    private static ArrayList<Tile>[] rooms1;
-    private static ArrayList<Tile>[] rooms2;
-    private static ArrayList<Tile>[] rooms3;
-    private static ArrayList<Tile>[] rooms4;
+    private static ArrayList<TileMap> rooms1;
+    private static ArrayList<TileMap> rooms2;
+    private static ArrayList<TileMap> rooms3;
+    private static ArrayList<TileMap> rooms4;
 
     // paths list
     private static ArrayList<Integer> pathList;
 
+    // current map
+    private static TileMap currentMap;
+    private static MapDirectory mapDirectory;
+
+
     // Game config
-    private static String playerName;
     private static int difficulty = -1;            // enum?
     private static int startingWeapon = -1;
+    private static int playerHealth;
+    private static int maxHealth;
+    private static int monstersKilled;
+    // monsters
+    private static ArrayList<Monster> activeMonsters = new ArrayList<>();
 
     public static boolean canStart() {
         boolean canStart = true;
-        if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()
+        if (player.getName() == null || player.getName().isBlank()
                 && GlobalSettings.difficulty == -1
                 && GlobalSettings.startingWeapon == -1) {
             IGenerator.createAlert("", "Please use the configuration menu to set your preferences "
                     + "before starting the game!");
             canStart = false;
+
+            // comment out the previous 3 lines and uncomment the next 3 lines for quick testing
+
         } else {
-            if (GlobalSettings.playerName == null || GlobalSettings.playerName.isBlank()) {
+            if (player.getName() == null || player.getName().isBlank()) {
                 IGenerator.createAlert("", "A name was not selected, please try again");
                 canStart = false;
             }
@@ -71,7 +89,7 @@ public class GlobalSettings {
                 IGenerator.createAlert("", "A difficulty was not selected, please try again");
                 canStart = false;
             }
-            if (GlobalSettings.startingWeapon == -1) {
+            if (player.getWeapon() == -1) {
                 IGenerator.createAlert("", "A starting weapon was not selected, please try again");
                 canStart = false;
             }
@@ -100,11 +118,11 @@ public class GlobalSettings {
     }
 
     public static String getPlayerName() {
-        return playerName;
+        return player.getName();
     }
 
     public static void setPlayerName(String playerName) {
-        GlobalSettings.playerName = playerName;
+        player.setName(playerName);
     }
 
     public static int getDifficulty() {
@@ -120,11 +138,11 @@ public class GlobalSettings {
     }
 
     public static int getStartingWeapon() {
-        return startingWeapon;
+        return player.getWeapon();
     }
 
     public static void setStartingWeapon(int startingWeapon) {
-        GlobalSettings.startingWeapon = startingWeapon;
+        player.setWeapon(startingWeapon);
     }
 
     public static void setPlayerSprite(Texture playerSprite) {
@@ -149,6 +167,7 @@ public class GlobalSettings {
         game.setTitle(GlobalSettings.getGameTitle());
         game.setVersion(GlobalSettings.getVersion());
         game.setMainMenuEnabled(true);
+        player = new Player();
         game.setSceneFactory(new SceneFactory() {
             @NotNull
             @Override
@@ -175,12 +194,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms1 = new ArrayList[path1.length + 1];
-        MapDirectory maps = new MapDirectory();
-        rooms1[0] = maps.getStartMap();
+        rooms1 = new ArrayList();
+        rooms1.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms1.length) {
-            rooms1[i] = maps.getIDLayout(path1[i - 1]);
+        while (i < path1.length) {
+            rooms1.add(mapDirectory.getIDLayout(path1[i - 1]));
             i++;
         }
 
@@ -200,12 +218,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms2 = new ArrayList[path2.length + 1];
-        maps = new MapDirectory();
-        rooms2[0] = maps.getStartMap();
+        rooms2 = new ArrayList();
+        rooms2.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms2.length) {
-            rooms2[i] = maps.getIDLayout(path2[i - 1]);
+        while (i < path2.length) {
+            rooms2.add(mapDirectory.getIDLayout(path2[i - 1]));
             i++;
         }
 
@@ -225,12 +242,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms3 = new ArrayList[path3.length + 1];
-        maps = new MapDirectory();
-        rooms3[0] = maps.getStartMap();
+        rooms3 = new ArrayList();
+        rooms3.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms3.length) {
-            rooms3[i] = maps.getIDLayout(path3[i - 1]);
+        while (i < path3.length) {
+            rooms3.add(mapDirectory.getIDLayout(path3[i - 1]));
             i++;
         }
 
@@ -250,12 +266,11 @@ public class GlobalSettings {
             }
         }
 
-        rooms4 = new ArrayList[path4.length + 1];
-        maps = new MapDirectory();
-        rooms4[0] = maps.getStartMap();
+        rooms4 = new ArrayList();
+        rooms4.add(mapDirectory.getStartMap());
         i = 1;
-        while (i < rooms4.length) {
-            rooms4[i] = maps.getIDLayout(path4[i - 1]);
+        while (i < path4.length) {
+            rooms4.add(mapDirectory.getIDLayout(path4[i - 1]));
             i++;
         }
     }
@@ -285,4 +300,59 @@ public class GlobalSettings {
         return pathList;
     }
 
+    public static void setCurrentMap(TileMap currentMap) {
+        GlobalSettings.currentMap = currentMap;
+    }
+
+    public static TileMap getCurrentMap() {
+        return currentMap;
+    }
+
+    public static void setCurrPlayerTile(int currPlayerTile) {
+        GlobalSettings.currPlayerTile = currPlayerTile;
+    }
+
+    public static int getCurrPlayerTile() {
+        return currPlayerTile;
+    }
+
+    public static void addActiveMonster(Monster monster) {
+        activeMonsters.add(monster);
+    }
+
+    public static ArrayList<Monster> getActiveMonsters() {
+        return activeMonsters;
+    }
+
+    public static void clearActiveMonsters() {
+        activeMonsters.clear();
+    }
+
+    public static int getPlayerHealth() {
+        return player.getHealth();
+    }
+
+    public static void setPlayerHealth(int playerHealth) {
+        player.updateHealth(playerHealth);
+    }
+
+    public static Player getPlayer() {
+        return player;
+    }
+
+    public static MapDirectory getMapDirectory() {
+        return mapDirectory;
+    }
+
+    public static void setMapDirectory(MapDirectory mapDirectory) {
+        GlobalSettings.mapDirectory = mapDirectory;
+    }
+
+    public static void setMonstersKilled(int monstersKilled) {
+        GlobalSettings.monstersKilled = monstersKilled;
+    }
+
+    public static int getMonstersKilled() {
+        return monstersKilled;
+    }
 }

@@ -3,7 +3,9 @@ package tilesystem;
 import javafx.geometry.Point2D;
 import rooms.*;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
 ===== HOW TO MAP LAYOUT IMAGES TO TILES =====
@@ -16,77 +18,101 @@ import java.util.ArrayList;
 ==============================================
  */
 public class MapDirectory {
-    private ArrayList<ArrayList<Tile>> tilemaps;
+    private ArrayList<TileMap> tilemaps;
 
     public MapDirectory() {
-        ArrayList<IRoom> rooms = new ArrayList<>();
-        IRoom start = new StartingRoom();
-        rooms.add(start);
-        Room1 room1 = new Room1();
-        rooms.add(room1);
-        IRoom room2 = new Room2();
-        rooms.add(room2);
-        IRoom room3 = new Room3();
-        rooms.add(room3);
-        IRoom room4 = new Room4();
-        rooms.add(room4);
-        IRoom room5 = new Room5();
-        rooms.add(room5);
-        IRoom room6 = new Room6();
-        rooms.add(room6);
-        IRoom room7 = new Room7();
-        rooms.add(room7);
-        IRoom room8 = new Room8();
-        rooms.add(room8);
-        IRoom room9 = new Room9();
-        rooms.add(room9);
-        IRoom room10 = new Room10();
-        rooms.add(room10);
-        IRoom room11 = new Room11();
-        rooms.add(room11);
-        IRoom room12 = new Room12();
-        rooms.add(room12);
-        IRoom room13 = new Room13();
-        rooms.add(room13);
-        IRoom room14 = new Room14();
-        rooms.add(room14);
-        IRoom room15 = new Room15();
-        rooms.add(room15);
-        IRoom room16 = new Room16();
-        rooms.add(room16);
-        IRoom room17 = new Room17();
-        rooms.add(room17);
-        IRoom room18 = new Room18();
-        rooms.add(room18);
-        IRoom room19 = new Room19();
-        rooms.add(room19);
-        IRoom room20 = new Room20();
-        rooms.add(room20);
-        IRoom exit = new ExitRoom();
-        rooms.add(exit);
-        IRoom exit2 = new ExitRoom2();
-        rooms.add(exit2);
 
-        tilemaps = new ArrayList<>();
-        int i = 0;
-        while (i < 23) {
-            tilemaps.add(i, rooms.get(i).buildTiles());
-            i++;
+        // origin, unused, gold, monster, exits, mystery, lockedExits
+        try {
+            Scanner read = new Scanner(new File("Project" + File.separator + "src"
+                    + File.separator + "main" + File.separator + "resources" + File.separator
+                    + "assets" + File.separator + "map" + File.separator
+                    + "rooms.txt"));
+            /*Scanner read = new Scanner(new File("." + File.separator + "src" + File.separator
+                    + "main" + File.separator + "resources" + File.separator + "assets"
+                    + File.separator + "map" + File.separator + "rooms.txt"));*/
+
+            tilemaps = new ArrayList<>();
+            int addedRooms = 0;
+
+            while (read.hasNextLine()) {
+                String line = read.nextLine();
+                // Remove whitespace
+                line = line.replaceAll("\\s", "");
+                String[] lineComponents = line.split(String.valueOf((char) 47)); // /
+                int[] origin = null;
+                int[] unused = null;
+                int[] gold = null;
+                int[] monster = null;
+                int[] exits = null;
+                int[] mystery = null;
+                int[] lockedExits = null;
+
+                for (int i = 0; i < lineComponents.length; i++) {
+                    if (!lineComponents[i].isBlank()) {
+                        String[] csv = lineComponents[i].split(",");
+                        int[] values = new int[csv.length];
+                        for (int j = 0; j < csv.length; j++) {
+                            values[j] = Integer.parseInt(csv[j]);
+                        }
+                        switch (i) {
+                        case 0:
+                            origin = values;
+                            break;
+                        case 1:
+                            unused = values;
+                            break;
+                        case 2:
+                            gold = values;
+                            break;
+                        case 3:
+                            monster = values;
+                            break;
+                        case 4:
+                            exits = values;
+                            break;
+                        case 5:
+                            mystery = values;
+                            break;
+                        case 6:
+                            lockedExits = values;
+                            break;
+                        default:
+                        }
+                    }
+                }
+                int[][] allData = new int[][]{origin, unused, gold,
+                    monster, exits, mystery, lockedExits};
+                Room room = new Room(allData);
+                tilemaps.add(addedRooms, new TileMap(addedRooms, room.buildTiles()));
+                addedRooms++;
+            }
+
+            // Link exits to randomized path mechanism
+            tilemaps.get(0).getTiles().get(1).setPathID(1);
+            tilemaps.get(0).getTiles().get(21).setPathID(2);
+            tilemaps.get(0).getTiles().get(16).setPathID(3);
+            tilemaps.get(0).getTiles().get(2).setPathID(4);
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
-    public ArrayList<ArrayList<Tile>> getTilemaps() {
-        return tilemaps;
-    }
 
-    public ArrayList<Tile> getStartMap() {
+
+    public TileMap getStartMap() {
         return tilemaps.get(0);
     }
 
-    public ArrayList<Tile> getIDLayout(int id) {
+    public TileMap getIDLayout(int id) {
         return tilemaps.get(id);
     }
 
     public Point2D getMapOrigin(int id) {
-        return tilemaps.get(id).get(0).getPosition();
+        return tilemaps.get(id).getTiles().get(0).getPosition();
+    }
+
+    public int getMapOriginTileID(int id) {
+        return tilemaps.get(id).getTiles().get(0).getTileID();
     }
 }

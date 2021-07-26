@@ -4,11 +4,13 @@ import com.almasb.fxgl.dsl.FXGL;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.apache.commons.lang3.time.StopWatch;
+import players.Player;
 import rhythm.*;
 import settings.GlobalSettings;
+import songs.SongList;
 import tilesystem.*;
 
-import java.io.File;
 
 public class Initializer {
     // Global app variables
@@ -20,6 +22,9 @@ public class Initializer {
     private Text healthText;
     private static int currLevel;
     private static int currFloor;
+    private static StopWatch time;
+    private static Conductor conductor;
+    private Player player;
 
     /*
     ========== INITIALIZER FOR LEVEL 1 ==========
@@ -30,54 +35,77 @@ public class Initializer {
     - Calls the Level UI Initializer to deal with UI
     - Calls the MapLoader to load the starting room
      */
-    public void initLevel1() {
-        // Uncomment the potential filepaths below if music does not play
+    public void initStart() {
+        FXGL.getGameScene().clearGameViews();
+        FXGL.getGameScene().clearUINodes();
+        player = GlobalSettings.getPlayer();
 
-        String ostPath = "Project" + File.separator
-              + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-            + "assets" + File.separator + "sounds" + File.separator + "Diodes.mp3";
-
-        //String ostPath = "src" + File.separator + "main" + File.separator + "resources"
-        //  + File.separator + "assets" + File.separator + "sounds" + File.separator
-        //+ "Diodes.mp3";
-
-        /*String ostPath = "." + File.separator + "src" + File.separator + "main" + File.separator
-          + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
-          + "Diodes.mp3";*/
+        String ostPath = SongList.getSongs()[0].getPath();
+        int bpm = SongList.getSongs()[0].getBpm();
+        //String ostPath = CustomSongList.getSongs()[0].getPath();
+        //int bpm = CustomSongList.getSongs()[0].getBpm();
 
         currLevel = 1;
         currFloor = 1;
-        int bpm = 135;
-        Conductor conductor = new Conductor(bpm, ostPath, score);
+        conductor = new Conductor(bpm, ostPath, score);
+        MapDirectory maps = new MapDirectory();
+        GlobalSettings.setMapDirectory(maps);
+        GlobalSettings.setRoomCounter(0);
 
-        scoreText = new Text("Level " + Initializer.getCurrLevel() + " / Floor "
-            + Initializer.getCurrFloor() + "\n0");
+        scoreText = new Text("Room " + (GlobalSettings.getRoomCounter() + 1)
+            + "\nScore:" + player.getScore());
         scoreText.setX(500);
         scoreText.setY(1000);
         scoreText.setScaleX(3);
         scoreText.setScaleY(3);
         scoreText.setFill(Color.WHITE);
         FXGL.getGameScene().addUINodes(scoreText);
+        GlobalSettings.getPlayer().setHealth((3 - GlobalSettings.getDifficulty()) * 30);
 
-        LevelUIInitializer.initLevelUI();
+        GlobalSettings.getPlayer().resetStats();
+
+        GlobalSettings.getPlayer().setGold((3 - GlobalSettings.getDifficulty()) * 30);
+
+
 
         var cutout = FXGL.getAssetLoader().loadTexture("newCutout.png");
 
-        FXGL.getGameTimer().runOnceAfter(() -> {
-            conductor.startAndKeepRhythm(cutout);
-        }, Duration.millis(1));
+        LevelUIInitializer.initLevelUI();
+
+        FXGL.getGameTimer().runOnceAfter(
+            () -> conductor.startAndKeepRhythm(cutout), Duration.millis(3));
+
+
 
         GlobalSettings.generatePath(GlobalSettings.getDifficulty());
         MapLoader.loadMap(0, conductor, scoreText);
-        GlobalSettings.setRoomCounter(0);
-    }
 
-    public static int getCurrFloor() {
-        return currFloor;
-    }
+        time = new StopWatch();
+        time.start();
 
-    public static int getCurrLevel() {
-        return currLevel;
+        for (Tile t : GlobalSettings.getCurrentMap().getTiles()) {
+            if (t.getType().equals(TileType.MONSTER)) {
+                t.removeFromScene();
+                t.setTileTexture(FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png"));
+                t.displayOnScene();
+                conductor.checkRhythm(t, scoreText);
+                t.setMonster(null);
+            }
+        }
+
+        GlobalSettings.clearActiveMonsters();
+
+        if (GlobalSettings.getActiveMonsters().isEmpty()) {
+            for (Tile t : GlobalSettings.getCurrentMap().getTiles()) {
+                if (t.getType().equals(TileType.LOCKED_EXIT)) {
+                    t.removeFromScene();
+                    t.setTileTexture(FXGL.getAssetLoader().loadTexture("newStaircase.png"));
+                    t.displayOnScene();
+                    conductor.checkRhythm(t, scoreText);
+                    t.setExit(true);
+                }
+            }
+        }
     }
 
     public static int getGold() {
@@ -86,5 +114,17 @@ public class Initializer {
 
     public static void setGold(int newGold) {
         gold = newGold;
+    }
+
+    public static StopWatch getTime() {
+        return time;
+    }
+
+    public static void stopTime() {
+        time.stop();
+    }
+
+    public Conductor getConductor() {
+        return conductor;
     }
 }

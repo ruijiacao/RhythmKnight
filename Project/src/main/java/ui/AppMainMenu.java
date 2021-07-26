@@ -35,4 +35,8 @@ public class AppMainMenu extends FXGLMenu {
         getContentRoot().getChildren().addAll(splashGen.componentGen());
     }
 
+    public void fireGame() {
+        fireNewGame();
+    }
+
 }
