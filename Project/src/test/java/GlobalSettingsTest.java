@@ -90,9 +90,9 @@ public class GlobalSettingsTest {
         GameApplication.launch(GameApp.class, new String[0]);
 
         // add some monsters
-        Monster slime = new Slime(new Tile(new Point2D(0 ,0), TileType.MONSTER));
-        Monster wizard = new Wizard(new Tile(new Point2D(0 ,0), TileType.MONSTER));
-        Monster zombie = new Zombie(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+        Monster slime = new Slime(new Tile(new Point2D(0, 0), TileType.MONSTER));
+        Monster wizard = new Wizard(new Tile(new Point2D(0, 0), TileType.MONSTER));
+        Monster zombie = new Zombie(new Tile(new Point2D(0, 0), TileType.MONSTER));
 
         GlobalSettings.addActiveMonster(slime);
         GlobalSettings.addActiveMonster(wizard);
@@ -112,9 +112,9 @@ public class GlobalSettingsTest {
         GlobalSettings.clearActiveMonsters();
 
         // add some monsters
-        Monster slime = new Slime(new Tile(new Point2D(0 ,0), TileType.MONSTER));
-        Monster wizard = new Wizard(new Tile(new Point2D(0 ,0), TileType.MONSTER));
-        Monster zombie = new Zombie(new Tile(new Point2D(0 ,0), TileType.MONSTER));
+        Monster slime = new Slime(new Tile(new Point2D(0, 0), TileType.MONSTER));
+        Monster wizard = new Wizard(new Tile(new Point2D(0, 0), TileType.MONSTER));
+        Monster zombie = new Zombie(new Tile(new Point2D(0, 0), TileType.MONSTER));
 
         GlobalSettings.addActiveMonster(slime);
         GlobalSettings.addActiveMonster(wizard);

@@ -3,12 +3,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import rooms.*;
 import tilesystem.MapDirectory;
-import tilesystem.Tile;
-import tilesystem.TileType;
-import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class MapDirectoryTest {

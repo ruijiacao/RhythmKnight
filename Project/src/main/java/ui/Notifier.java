@@ -1,6 +1,6 @@
 package ui;
 
-import player.player;
+import players.Player;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 import initializers.Initializer;
@@ -14,7 +14,7 @@ import rhythm.Conductor;
 import settings.GlobalSettings;
 
 public class Notifier {
-    static Animator anim = new Animator();
+    private static Animator anim = new Animator();
     /*
 This method creates an alert when the player reaches the end of the dungeon.
  */
@@ -32,8 +32,8 @@ This method creates an alert when the player reaches the end of the dungeon.
          */
 
         Initializer.stopTime();
-        player currentPlayer = GlobalSettings.getPlayer();
-        Rectangle dimBG = new Rectangle(1920,1080);
+        Player currentPlayer = GlobalSettings.getPlayer();
+        Rectangle dimBG = new Rectangle(1920, 1080);
         dimBG.setFill(Color.BLACK);
         dimBG.setOpacity(.25);
 
@@ -128,7 +128,7 @@ This method creates an alert when the player reaches the end of the dungeon.
     }
 
     public static void createGameOverAlert() {
-        Rectangle dimBG = new Rectangle(1920,1080);
+        Rectangle dimBG = new Rectangle(1920, 1080);
         dimBG.setFill(Color.BLACK);
         dimBG.setOpacity(.25);
         Initializer.stopTime();

@@ -3,8 +3,6 @@ package tilesystem;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
-import initializers.Initializer;
-import initializers.LevelUIInitializer;
 import javafx.geometry.Point2D;
 import javafx.scene.text.Text;
 import monsters.Monster;
@@ -12,16 +10,10 @@ import monsters.Slime;
 import monsters.Wizard;
 import monsters.Zombie;
 import rhythm.Conductor;
-
 import java.util.Random;
-
-import rhythm.Mover;
-import settings.GlobalSettings;
 
 public class Tile {
     private Texture tileTexture;
-    private boolean isActive;
-    private boolean playerOnTile;
     private boolean isOrigin;
     private boolean visited;
     private boolean isExit;
@@ -38,19 +30,7 @@ public class Tile {
 
     public Tile(Point2D position, TileType type) {
         switch (type) {
-//        case UNVISITED:
-//            tileTexture = FXGL.getAssetLoader().loadTexture("newUnvisitedTile.png");
-//            tileTexture.setX(position.getX());
-//            tileTexture.setY(position.getY());
-//            break;
-//        case VISITED:
-//            tileTexture = FXGL.getAssetLoader().loadTexture("normal-tile.png");
-//            tileTexture.setX(position.getX());
-//            tileTexture.setY(position.getY());
-//            visited = true;
-//            break;
         case INVISIBLE:
-
             break;
         case EXIT:
             tileTexture = FXGL.getAssetLoader().loadTexture("newStaircase.png");
@@ -128,8 +108,6 @@ public class Tile {
         }
         this.position = position;
         this.setScale(1.35);
-        isActive = false;
-        playerOnTile = false;
         this.type = type;
     }
     public Tile(Point2D position) {
@@ -139,8 +117,6 @@ public class Tile {
         tileTexture.setY(position.getY());
         this.position = position;
         this.setScale(1.35);
-        isActive = false;
-        playerOnTile = false;
         this.type = TileType.NORMAL;
     }
 
@@ -177,10 +153,6 @@ public class Tile {
         tileTexture.setScaleY(scale);
     }
 
-    public void setActive(boolean status) {
-        isActive = status;
-    }
-
     public Texture getTileTexture() {
         return tileTexture;
     }
@@ -205,14 +177,14 @@ public class Tile {
         this.visited = true;
         removeFromScene();
         switch (type) {
-            case GOLD:
-                setTileTexture(FXGL.getAssetLoader().loadTexture("newGoldTile.png"));
-                break;
-            case MYSTERY:
-                setTileTexture(FXGL.getAssetLoader().loadTexture("newMystery.png"));
-                break;
-            default:
-                setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
+        case GOLD:
+            setTileTexture(FXGL.getAssetLoader().loadTexture("newGoldTile.png"));
+            break;
+        case MYSTERY:
+            setTileTexture(FXGL.getAssetLoader().loadTexture("newMystery.png"));
+            break;
+        default:
+            setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
         }
         displayOnScene();
     }

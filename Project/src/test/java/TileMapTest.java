@@ -1,14 +1,10 @@
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 
 import com.almasb.fxgl.app.GameApplication;
 import javafx.geometry.Point2D;
 import java.util.ArrayList;
-import javafx.scene.text.Text;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit.ApplicationTest;
-import rhythm.Conductor;
 import tilesystem.Tile;
 import tilesystem.TileMap;
 import tilesystem.TileType;
@@ -30,7 +26,7 @@ class TileMapTest extends ApplicationTest {
     @Test
     void addTile() {
         cut = new TileMap(0, new ArrayList<Tile>());
-        Tile tile = new Tile(new Point2D(430,405), TileType.INVISIBLE);
+        Tile tile = new Tile(new Point2D(430, 405), TileType.INVISIBLE);
         cut.addTile(tile);
         assertEquals(cut.getSize(), 1);
     }
@@ -38,7 +34,7 @@ class TileMapTest extends ApplicationTest {
     @Test
     void removeTile() {
         cut = new TileMap(0, new ArrayList<Tile>());
-        Tile tile = new Tile(new Point2D(430,405), TileType.INVISIBLE);
+        Tile tile = new Tile(new Point2D(430, 405), TileType.INVISIBLE);
         cut.addTile(tile);
         cut.removeTile(tile);
         assertEquals(cut.getSize(), 0);
@@ -47,7 +43,7 @@ class TileMapTest extends ApplicationTest {
     @Test
     void getTileTest() {
         cut = new TileMap(0, new ArrayList<Tile>());
-        Tile tile = new Tile(new Point2D(430,405), TileType.INVISIBLE);
+        Tile tile = new Tile(new Point2D(430, 405), TileType.INVISIBLE);
         cut.addTile(tile);
         assertEquals(tile, cut.getTile(0));
     }

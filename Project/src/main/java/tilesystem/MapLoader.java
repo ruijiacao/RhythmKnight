@@ -8,12 +8,9 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.texture.Texture;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import monsters.Monster;
 import rhythm.Animator;
 import rhythm.Conductor;
 import settings.GlobalSettings;
-
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
@@ -41,7 +38,7 @@ public class MapLoader {
         TileMap tileMap = GlobalSettings.getMapDirectory().getIDLayout(id);
 
         for (Tile tile : tileMap.getTiles()) {
-            if (tile.isMonster()) {
+            if (tile.isMonster() && !tile.getMonster().isDefeated()) {
                 GlobalSettings.addActiveMonster(tile.getMonster());
             }
         }

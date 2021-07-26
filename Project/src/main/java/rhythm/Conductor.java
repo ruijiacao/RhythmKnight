@@ -3,27 +3,19 @@ package rhythm;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.texture.Texture;
 import initializers.LevelUIInitializer;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import monsters.Monster;
 import monsters.Slime;
 import monsters.Wizard;
 import monsters.Zombie;
-import org.w3c.dom.css.Rect;
 import settings.GlobalSettings;
 import tilesystem.*;
 import ui.Notifier;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
@@ -93,7 +85,7 @@ public class Conductor {
                 double currTime = ostPlayer.getCurrentTime().toSeconds();
                 TileMap curr = GlobalSettings.getCurrentMap();
 
-                if (currTime >= beatTimes[numOfBeats - 1] -.1) {
+                if (currTime >= beatTimes[numOfBeats - 1] - .1) {
                     stopOST();
                     Notifier.createGameOverAlert();
                 }

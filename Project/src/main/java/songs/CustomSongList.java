@@ -8,30 +8,33 @@ public class CustomSongList {
     // check the switch statements below to determine which return statement to use
     // based on your directory settings
 
-    private static final int dir = 1;
+    private static final int DIR = 1;
 
     private static void init() {
         songs[0] = new Song() {
             @Override
             public String getPath() {
-                switch (dir) {
+                switch (DIR) {
                     case 1:
-                        return "Project" + File.separator
-                                + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-                                + "assets" + File.separator + "sounds" + File.separator + "custom" + File.separator
-                                + "Arlow - Freefall.mp3";
+                        return "Project" + File.separator + "src" + File.separator + "main"
+                            + File.separator + "resources" + File.separator + "assets"
+                            + File.separator + "sounds" + File.separator
+                            + "custom" + File.separator + "Arlow - Freefall.mp3";
                     case 2:
                         return "src" + File.separator + "main" + File.separator + "resources"
-                                + File.separator + "assets" + File.separator + "sounds" + File.separator
-                                + "custom" + File.separator + "Arlow - Freefall.mp3";
+                                + File.separator + "assets" + File.separator + "sounds"
+                                + File.separator + "custom" + File.separator
+                                + "Arlow - Freefall.mp3";
                     case 3:
-                        return "." + File.separator + "src" + File.separator + "main" + File.separator
-                                + "resources" + File.separator + "assets" + File.separator + "sounds" + File.separator
+                        return "." + File.separator + "src" + File.separator + "main"
+                                + File.separator + "resources" + File.separator + "assets"
+                                + File.separator + "sounds" + File.separator
                                 + "custom" + File.separator + "Arlow - Freefall.mp3";
                     default:
                         return "Project" + File.separator
-                                + "src" + File.separator + "main" + File.separator + "resources" + File.separator
-                                + "assets" + File.separator + "sounds" + File.separator + "custom" + File.separator
+                                + "src" + File.separator + "main" + File.separator + "resources"
+                                + File.separator + "assets" + File.separator + "sounds"
+                                + File.separator + "custom" + File.separator
                                 + "Arlow - Freefall.mp3";
                 }
             }

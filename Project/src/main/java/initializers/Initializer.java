@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.apache.commons.lang3.time.StopWatch;
+import players.Player;
 import rhythm.*;
 import settings.GlobalSettings;
 import songs.SongList;
@@ -23,7 +24,7 @@ public class Initializer {
     private static int currFloor;
     private static StopWatch time;
     private static Conductor conductor;
-    private player.player player;
+    private Player player;
 
     /*
     ========== INITIALIZER FOR LEVEL 1 ==========

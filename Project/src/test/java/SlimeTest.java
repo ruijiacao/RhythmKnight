@@ -1,16 +1,14 @@
 import com.almasb.fxgl.app.GameApplication;
 import javafx.geometry.Point2D;
 import monsters.Slime;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.testfx.framework.junit.ApplicationTest;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
 import static org.junit.Assert.*;
 
-public class SlimeTest extends ApplicationTest{
+public class SlimeTest extends ApplicationTest {
 
     @org.junit.jupiter.api.Test
     public void takeDamageTest() {

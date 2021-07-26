@@ -1,7 +1,6 @@
 package rooms;
 
 import javafx.geometry.Point2D;
-import settings.GlobalSettings;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
@@ -18,7 +17,7 @@ public class Room {
     private int[] lockedExits;
     private ArrayList<Tile> tiles = new ArrayList<>();
 
-    public Room (int[][] allData) {
+    public Room(int[][] allData) {
         if (allData[0] == null) {
             this.origin = -1;
         } else {
@@ -32,7 +31,7 @@ public class Room {
         this.lockedExits = allData[6];
     }
 
-    public Room (int[] unused,
+    public Room(int[] unused,
                  int[] gold,
                  int[] monster,
                  int[] exits,
@@ -41,7 +40,7 @@ public class Room {
         this(-1, unused, gold, monster, exits, mystery, lockedExits);
     }
 
-    public Room (int origin,
+    public Room(int origin,
                  int[] unused,
                  int[] gold,
                  int[] monster,

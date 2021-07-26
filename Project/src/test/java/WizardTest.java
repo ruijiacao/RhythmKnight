@@ -3,14 +3,13 @@ import javafx.geometry.Point2D;
 import monsters.Wizard;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.testfx.framework.junit.ApplicationTest;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
 import static org.junit.Assert.*;
 
-public class WizardTest extends ApplicationTest{
+public class WizardTest extends ApplicationTest {
 
     @Test
     public void takeDamageTest() {

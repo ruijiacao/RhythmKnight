@@ -1,6 +1,6 @@
 package settings;
 
-import player.player;
+import players.Player;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
@@ -34,7 +34,7 @@ public class GlobalSettings {
     private static Texture playerSprite;
     private static int currPlayerTile;
 
-    private static player player;
+    private static Player player;
 
     //Room Counter
     private static int roomCounter = 0;
@@ -167,7 +167,7 @@ public class GlobalSettings {
         game.setTitle(GlobalSettings.getGameTitle());
         game.setVersion(GlobalSettings.getVersion());
         game.setMainMenuEnabled(true);
-        player = new player();
+        player = new Player();
         game.setSceneFactory(new SceneFactory() {
             @NotNull
             @Override
@@ -320,7 +320,7 @@ public class GlobalSettings {
         activeMonsters.add(monster);
     }
 
-    public static ArrayList<Monster> getActiveMonsters () {
+    public static ArrayList<Monster> getActiveMonsters() {
         return activeMonsters;
     }
 
@@ -336,7 +336,7 @@ public class GlobalSettings {
         player.updateHealth(playerHealth);
     }
 
-    public static player getPlayer() {
+    public static Player getPlayer() {
         return player;
     }
 

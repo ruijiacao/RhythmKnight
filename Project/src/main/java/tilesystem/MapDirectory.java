@@ -1,7 +1,6 @@
 package tilesystem;
 
 import javafx.geometry.Point2D;
-import rhythm.Conductor;
 import rooms.*;
 
 import java.io.File;
@@ -25,12 +24,13 @@ public class MapDirectory {
 
         // origin, unused, gold, monster, exits, mystery, lockedExits
         try {
-            Scanner read = new Scanner(new File("Project" + File.separator + "src" + File.separator + "main" + File.separator
-                    + "resources" + File.separator + "assets" + File.separator + "map" + File.separator
+            Scanner read = new Scanner(new File("Project" + File.separator + "src"
+                    + File.separator + "main" + File.separator + "resources" + File.separator
+                    + "assets" + File.separator + "map" + File.separator
                     + "rooms.txt"));
-            /*Scanner read = new Scanner(new File("." + File.separator + "src" + File.separator + "main" + File.separator
-                    + "resources" + File.separator + "assets" + File.separator + "map" + File.separator
-                    + "rooms.txt"));*/
+            /*Scanner read = new Scanner(new File("." + File.separator + "src" + File.separator
+                    + "main" + File.separator + "resources" + File.separator + "assets"
+                    + File.separator + "map" + File.separator + "rooms.txt"));*/
 
             tilemaps = new ArrayList<>();
             int addedRooms = 0;
@@ -38,7 +38,7 @@ public class MapDirectory {
             while (read.hasNextLine()) {
                 String line = read.nextLine();
                 // Remove whitespace
-                line = line.replaceAll("\\s","");
+                line = line.replaceAll("\\s", "");
                 String[] lineComponents = line.split(String.valueOf((char) 47)); // /
                 int[] origin = null;
                 int[] unused = null;
@@ -56,38 +56,40 @@ public class MapDirectory {
                             values[j] = Integer.parseInt(csv[j]);
                         }
                         switch (i) {
-                            case 0:
-                                origin = values;
-                                break;
-                            case 1:
-                                unused = values;
-                                break;
-                            case 2:
-                                gold = values;
-                                break;
-                            case 3:
-                                monster = values;
-                                break;
-                            case 4:
-                                exits = values;
-                                break;
-                            case 5:
-                                mystery = values;
-                                break;
-                            case 6:
-                                lockedExits = values;
-                                break;
+                        case 0:
+                            origin = values;
+                            break;
+                        case 1:
+                            unused = values;
+                            break;
+                        case 2:
+                            gold = values;
+                            break;
+                        case 3:
+                            monster = values;
+                            break;
+                        case 4:
+                            exits = values;
+                            break;
+                        case 5:
+                            mystery = values;
+                            break;
+                        case 6:
+                            lockedExits = values;
+                            break;
+                        default:
                         }
                     }
                 }
-                int[][] allData = new int[][]{origin, unused, gold, monster, exits, mystery, lockedExits};
+                int[][] allData = new int[][]{origin, unused, gold,
+                    monster, exits, mystery, lockedExits};
                 Room room = new Room(allData);
                 tilemaps.add(addedRooms, new TileMap(addedRooms, room.buildTiles()));
                 addedRooms++;
             }
 
             // Link exits to randomized path mechanism
-            tilemaps.get(0).getTiles().get(11).setPathID(1);
+            tilemaps.get(0).getTiles().get(1).setPathID(1);
             tilemaps.get(0).getTiles().get(21).setPathID(2);
             tilemaps.get(0).getTiles().get(16).setPathID(3);
             tilemaps.get(0).getTiles().get(2).setPathID(4);
@@ -105,7 +107,6 @@ public class MapDirectory {
     public TileMap getIDLayout(int id) {
         return tilemaps.get(id);
     }
-
 
     public Point2D getMapOrigin(int id) {
         return tilemaps.get(id).getTiles().get(0).getPosition();

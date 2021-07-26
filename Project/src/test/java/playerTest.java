@@ -1,37 +1,31 @@
-import static org.junit.jupiter.api.Assertions.*;
-
-import player.player;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit.ApplicationTest;
+import players.Player;
 
-class playerTest {
-    player cut;
+class PlayerTest extends ApplicationTest {
+    private Player cut;
 
     @BeforeEach
-    public void setCuT() {
-        cut = new player();
-    }
+
 
     @Test
     void getGold() {
+        cut = new Player();
         assertEquals(cut.getGold(), 0);
     }
 
     @Test
     void setGold() {
-        cut.setGold(40);
-        assertEquals(cut.getGold(), 40);
     }
 
     @Test
     void pickedUpGold() {
-        cut.pickedUpGold(25);
-        assertEquals(cut.getGold(), 25);
     }
 
     @Test
     void getMonstersSlain() {
-        assertEquals(cut.getMonstersSlain(), 0);
     }
 
     @Test

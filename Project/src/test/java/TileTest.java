@@ -1,3 +1,4 @@
+import com.almasb.fxgl.app.GameApplication;
 import javafx.geometry.Point2D;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -6,13 +7,11 @@ import org.testfx.framework.junit.ApplicationTest;
 import tilesystem.Tile;
 import tilesystem.TileType;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class TileTest extends ApplicationTest {
 
     @BeforeAll
     public static void testSetUp() throws Exception {
-        GameApp.main(new String[0]);
+        GameApplication.launch(GameApp.class, new String[0]);
     }
 
     @Test
