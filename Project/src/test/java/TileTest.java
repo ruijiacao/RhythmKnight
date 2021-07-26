@@ -105,14 +105,6 @@ public class TileTest extends ApplicationTest {
     // checks if all tile properties are reset back to normal
     @Test
     void reset() {
-        //Tile tile1 = new Tile(new Point2D(405, 435), TileType.UNVISITED);
-        //Assertions.assertEquals(tile1.getPosition().getX(), 405.0);
-        //Assertions.assertEquals(tile1.getPosition().getY(), 435.0);
-        //tile1.setScale(.5);
-        //tile1.setOpacity(0);
-        //tile1.reset();
-//
-        //Assertions.assertEquals(1.35, tile1.getScale());
-        //Assertions.assertEquals(1, tile1.getOpacity());
+
     }
 }

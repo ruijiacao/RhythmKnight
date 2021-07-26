@@ -1,26 +1,14 @@
 package monsters;
 
-import com.almasb.fxgl.app.scene.GameView;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
 import initializers.LevelUIInitializer;
 import javafx.scene.text.Text;
-import rhythm.Animator;
-import rhythm.Conductor;
 import settings.GlobalSettings;
-import songs.Song;
-import songs.SongList;
 import tilesystem.Tile;
-import tilesystem.TileType;
-import ui.Notifier;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Wizard extends Monster {
 
-    public Wizard (Tile currentTile) {
+    public Wizard(Tile currentTile) {
         super(currentTile);
         this.setHealth(100);
     }
@@ -44,9 +32,8 @@ public class Wizard extends Monster {
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
-                getAnim().displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
-//                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 10);
-//                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                getAnim().displayDamage(dmg, GlobalSettings.getCurrentMap()
+                    .getTile(GlobalSettings.getCurrPlayerTile()));
                 GlobalSettings.getPlayer().updateHealth(-10);
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayer().getHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));

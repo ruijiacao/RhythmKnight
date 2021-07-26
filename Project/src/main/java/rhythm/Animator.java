@@ -25,7 +25,8 @@ public class Animator {
      */
     public void pulsateCutout(Texture cutout) {
         cutout.setOpacity(1);
-        FXGL.run(() -> cutout.setOpacity(cutout.getOpacity() - 1 / 15.0), Duration.millis(1), 15);
+        FXGL.run(
+            () -> cutout.setOpacity(cutout.getOpacity() - 1 / 15.0), Duration.millis(1), 15);
     }
 
     /*
@@ -72,7 +73,10 @@ public class Animator {
 
     public void playerDance() {
         GlobalSettings.getPlayerSprite().setScaleY(.40);
-        FXGL.run(() -> GlobalSettings.getPlayerSprite().setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - (.05 / 30)), Duration.millis(1), 15);
+        FXGL.run(
+            () -> GlobalSettings.getPlayerSprite()
+                .setScaleY(GlobalSettings.getPlayerSprite().getScaleY()
+                    - (.05 / 30)), Duration.millis(1), 15);
     }
 
     public void playerMoved() {
@@ -80,9 +84,12 @@ public class Animator {
         GlobalSettings.getPlayerSprite().setScaleY(.5);
         GlobalSettings.getPlayerSprite().setOpacity(0);
         FXGL.run(() -> {
-            GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 15.0));
-            GlobalSettings.getPlayerSprite().setScaleX(GlobalSettings.getPlayerSprite().getScaleX() - .01);
-            GlobalSettings.getPlayerSprite().setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - .01);
+            GlobalSettings.getPlayerSprite()
+                .setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 15.0));
+            GlobalSettings.getPlayerSprite()
+                .setScaleX(GlobalSettings.getPlayerSprite().getScaleX() - .01);
+            GlobalSettings.getPlayerSprite()
+                .setScaleY(GlobalSettings.getPlayerSprite().getScaleY() - .01);
         }, Duration.millis(1), 15);
     }
 
@@ -118,13 +125,15 @@ public class Animator {
             FXGL.addUINode(slash);
             FXGL.getGameTimer().runAtInterval(() -> {
                 if (frame.get() < 5) {
-                    GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() - (1 / 5.0));
+                    GlobalSettings.getPlayerSprite()
+                        .setOpacity(GlobalSettings.getPlayerSprite().getOpacity() - (1 / 5.0));
                     frame.getAndIncrement();
                 } else {
                     if (frame.get() == 8) {
                         FXGL.removeUINode(slash);
                     }
-                    GlobalSettings.getPlayerSprite().setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 5.0));
+                    GlobalSettings.getPlayerSprite()
+                        .setOpacity(GlobalSettings.getPlayerSprite().getOpacity() + (1 / 5.0));
                     frame.getAndIncrement();
                 }
             }, Duration.millis(1), 11);

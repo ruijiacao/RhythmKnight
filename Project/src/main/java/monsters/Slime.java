@@ -1,28 +1,16 @@
 package monsters;
 
-import Player.Player;
 import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.texture.Texture;
 import initializers.LevelUIInitializer;
 import javafx.scene.text.Text;
-import rhythm.Animator;
-import rhythm.Conductor;
-import rhythm.Mover;
 import settings.GlobalSettings;
 import tilesystem.Tile;
-import tilesystem.TileType;
-import ui.Notifier;
-
-import java.util.ArrayList;
-
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
 public class Slime extends Monster {
     private GameView view;
 
-    public Slime (Tile currentTile) {
+    public Slime(Tile currentTile) {
         super(currentTile);
         this.setHealth(50);
     }
@@ -47,53 +35,12 @@ public class Slime extends Monster {
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
-                this.getAnim().displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
-//                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 5);
-//                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                this.getAnim().displayDamage(dmg,
+                    GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
                 GlobalSettings.getPlayer().updateHealth(-5);
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayer().getHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));
             }
         }
-    }
-
-
-    private void checkHealth() {
-        if (this.getHealth() <= 0) {
-            this.setSlain(true);
-            this.setInCombat (false);
-            GlobalSettings.setMonstersKilled(GlobalSettings.getMonstersKilled() + 1);
-            GlobalSettings.getActiveMonsters().remove(this);
-        }
-    }
-
-    @Override
-    public void enterBattle() {
-        this.setInCombat(true);
-    }
-
-    public boolean isInCombat() {
-        return this.inCombat();
-    }
-
-    public void exitCombat() {
-        this.setInCombat(false);
-    }
-
-    public Texture getTexture() {
-        return getTexture();
-    }
-
-    public void doDamage(int dmg) {
-        this.setHealth(this.getHealth() - dmg);
-        checkHealth();
-    }
-
-    public boolean isDefeated() {
-        return super.isDefeated();
-    }
-
-    public Tile getCurrentTile() {
-        return this.getCurrentTile();
     }
 }

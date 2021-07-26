@@ -150,7 +150,6 @@ public class Tile {
         tileTexture.setY(position.getY());
         this.setScale(1.35);
         FXGL.getGameScene().addGameView(gameView);
-//        isActive = true;
     }
 
 
@@ -182,23 +181,12 @@ public class Tile {
         isActive = status;
     }
 
-    public void setPlayerOnTile(boolean status) {
-        playerOnTile = status;
-        if (playerOnTile) {
-            tileTexture = FXGL.getAssetLoader().loadTexture("player.png");
-        }
-    }
-
     public Texture getTileTexture() {
         return tileTexture;
     }
 
     public double getOpacity() {
         return tileTexture.getOpacity();
-    }
-
-    public double getScale() {
-        return tileTexture.getScaleX();
     }
 
     public Point2D getPosition() {
@@ -209,25 +197,8 @@ public class Tile {
         return type;
     }
 
-    public boolean isPlayerOnTile() {
-        return playerOnTile;
-    }
-
-    public boolean isTileActive() {
-        return isActive;
-    }
-
     public boolean isOrigin() {
         return isOrigin;
-    }
-
-    public void setOrigin(boolean origin) {
-        isOrigin = origin;
-    }
-
-    public void reset() {
-        setScale(1.35);
-        setOpacity(1);
     }
 
     public void setVisited() {
@@ -304,12 +275,6 @@ public class Tile {
 
     public void setGoldTaken() {
         setGoldAmount(0);
-    }
-
-    public void refresh() {
-        removeFromScene();
-//        setTileTexture(FXGL.getAssetLoader().loadTexture("normal-tile.png"));
-        displayOnScene();
     }
 
     public void setMonster(Monster monster) {

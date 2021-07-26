@@ -1,6 +1,6 @@
 package settings;
 
-import Player.Player;
+import player.player;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
@@ -9,13 +9,10 @@ import com.almasb.fxgl.texture.Texture;
 import javafx.geometry.Point2D;
 import monsters.Monster;
 import org.jetbrains.annotations.NotNull;
-import rhythm.Animator;
 import tilesystem.MapDirectory;
-import tilesystem.Tile;
 import tilesystem.TileMap;
 import ui.AppMainMenu;
 import ui.IGenerator;
-import ui.Notifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +34,7 @@ public class GlobalSettings {
     private static Texture playerSprite;
     private static int currPlayerTile;
 
-    private static Player player;
+    private static player player;
 
     //Room Counter
     private static int roomCounter = 0;
@@ -170,7 +167,7 @@ public class GlobalSettings {
         game.setTitle(GlobalSettings.getGameTitle());
         game.setVersion(GlobalSettings.getVersion());
         game.setMainMenuEnabled(true);
-        player = new Player();
+        player = new player();
         game.setSceneFactory(new SceneFactory() {
             @NotNull
             @Override
@@ -339,7 +336,7 @@ public class GlobalSettings {
         player.updateHealth(playerHealth);
     }
 
-    public static Player getPlayer() {
+    public static player getPlayer() {
         return player;
     }
 

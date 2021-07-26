@@ -1,6 +1,5 @@
 package initializers;
 
-import Player.Player;
 import com.almasb.fxgl.dsl.FXGL;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -8,12 +7,9 @@ import javafx.util.Duration;
 import org.apache.commons.lang3.time.StopWatch;
 import rhythm.*;
 import settings.GlobalSettings;
-import songs.CustomSongList;
-import songs.Song;
 import songs.SongList;
 import tilesystem.*;
 
-import java.io.File;
 
 public class Initializer {
     // Global app variables
@@ -27,7 +23,7 @@ public class Initializer {
     private static int currFloor;
     private static StopWatch time;
     private static Conductor conductor;
-    private Player player;
+    private player.player player;
 
     /*
     ========== INITIALIZER FOR LEVEL 1 ==========
@@ -41,7 +37,7 @@ public class Initializer {
     public void initStart() {
         FXGL.getGameScene().clearGameViews();
         FXGL.getGameScene().clearUINodes();
-        Player player = new Player();
+        player = GlobalSettings.getPlayer();
 
         String ostPath = SongList.getSongs()[0].getPath();
         int bpm = SongList.getSongs()[0].getBpm();
@@ -75,7 +71,8 @@ public class Initializer {
 
         LevelUIInitializer.initLevelUI();
 
-        FXGL.getGameTimer().runOnceAfter(() -> conductor.startAndKeepRhythm(cutout), Duration.millis(3));
+        FXGL.getGameTimer().runOnceAfter(
+            () -> conductor.startAndKeepRhythm(cutout), Duration.millis(3));
 
 
 
@@ -120,6 +117,10 @@ public class Initializer {
 
     public static StopWatch getTime() {
         return time;
+    }
+
+    public static void stopTime() {
+        time.stop();
     }
 
     public Conductor getConductor() {

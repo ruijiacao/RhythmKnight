@@ -1,8 +1,6 @@
 package monsters;
 
-import com.almasb.fxgl.app.scene.GameView;
 import com.almasb.fxgl.texture.Texture;
-import java.util.ArrayList;
 import rhythm.Animator;
 import settings.GlobalSettings;
 import tilesystem.Tile;
@@ -30,7 +28,7 @@ public abstract class Monster {
         return inCombat;
     };
 
-    public void takeDamage(int hp){
+    public void takeDamage(int hp) {
         health -= hp;
         checkHealth();
     };
@@ -39,7 +37,9 @@ public abstract class Monster {
         return (this.slain);
     };
 
-    public void setSlain(Boolean status) {this.slain = status;}
+    public void setSlain(Boolean status) {
+        this.slain = status;
+    }
 
     public void slain() {
         this.inCombat = false;
@@ -56,13 +56,13 @@ public abstract class Monster {
         if (this.getHealth() <= 0) {
             inCombat = false;
             this.slain();
-            GlobalSettings.getActiveMonsters().remove(this);
         }
     }
 
     public int getHealth() {
         return health;
     }
+
     public Tile getCurrentTile() {
         return tile;
     };
@@ -82,5 +82,8 @@ public abstract class Monster {
     public Animator getAnim() {
         return anim;
     }
-    public void setInCombat(Boolean status) {this.inCombat = status;}
+
+    public void setInCombat(Boolean status) {
+        this.inCombat = status;
+    }
 }

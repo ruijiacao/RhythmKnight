@@ -1,27 +1,14 @@
 package monsters;
 
-import com.almasb.fxgl.app.scene.GameView;
-import com.almasb.fxgl.dsl.EntityBuilder;
 import com.almasb.fxgl.dsl.FXGL;
-import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.texture.Texture;
 import initializers.LevelUIInitializer;
 import javafx.scene.text.Text;
-import rhythm.Animator;
-import rhythm.Conductor;
 import settings.GlobalSettings;
-import songs.Song;
-import songs.SongList;
 import tilesystem.Tile;
-import tilesystem.TileType;
-import ui.Notifier;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class Zombie extends Monster {
 
-    public Zombie (Tile currentTile) {
+    public Zombie(Tile currentTile) {
         super(currentTile);
         this.setHealth(120);
     }
@@ -45,9 +32,8 @@ public class Zombie extends Monster {
                 FXGL.getGameScene().addUINode(dmg);
                 dmg.setScaleX(3);
                 dmg.setScaleY(3);
-                getAnim().displayDamage(dmg, GlobalSettings.getCurrentMap().getTile(GlobalSettings.getCurrPlayerTile()));
-//                GlobalSettings.setPlayerHealth(GlobalSettings.getPlayerHealth() - 15);
-//                LevelUIInitializer.updateHealth(GlobalSettings.getPlayerHealth());
+                getAnim().displayDamage(dmg, GlobalSettings.getCurrentMap()
+                    .getTile(GlobalSettings.getCurrPlayerTile()));
                 GlobalSettings.getPlayer().updateHealth(-15);
                 LevelUIInitializer.updateHealth(GlobalSettings.getPlayer().getHealth());
                 FXGL.getAudioPlayer().playSound(FXGL.getAssetLoader().loadSound("hit-player.wav"));

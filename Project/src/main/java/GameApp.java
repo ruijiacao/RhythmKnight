@@ -1,21 +1,9 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.entity.Entity;
-import org.apache.commons.lang3.time.StopWatch;
 import settings.GlobalSettings;
 import initializers.Initializer;
 
-import java.util.Timer;
-
 public class GameApp extends GameApplication {
-    
-
-    // Global app variables
-    private static int currLevel;
-    private static int currFloor;
-    private Entity map;
-    private Entity layout;
-    private Entity uiBg;
 
     /*
     ===== GAME WINDOW SETTINGS =====

@@ -45,6 +45,7 @@ public class Mover {
 
     private static void goForwardInPath(Tile exit) {
         if (GlobalSettings.getRoomCounter() == 7 + GlobalSettings.getDifficulty()) {
+            LevelUIInitializer.updateStatus("You escaped the dungeon!");
             Notifier.createWinAlert();
         } else if (GlobalSettings.getRoomCounter() == 6
                 + GlobalSettings.getDifficulty()) {
@@ -123,7 +124,7 @@ public class Mover {
                 LevelUIInitializer.updateStatus("Attacked the monster!");
 
                 if (tile.getMonster().isDefeated()){
-
+                    GlobalSettings.getActiveMonsters().remove(tile.getMonster());
                     LevelUIInitializer.updateStatus("Monster slain!");
                     animator.playerMoved();
                     animator.pulsateScore(scoreText);

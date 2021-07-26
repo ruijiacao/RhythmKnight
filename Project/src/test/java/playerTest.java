@@ -1,15 +1,15 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Player.Player;
+import player.player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PlayerTest {
-    Player cut;
+class playerTest {
+    player cut;
 
     @BeforeEach
     public void setCuT() {
-        cut = new Player();
+        cut = new player();
     }
 
     @Test

@@ -1,11 +1,9 @@
 package ui;
 
-import Player.Player;
-import com.almasb.fxgl.app.scene.FXGLMenu;
+import player.player;
 import com.almasb.fxgl.app.scene.MenuType;
 import com.almasb.fxgl.dsl.FXGL;
 import initializers.Initializer;
-import initializers.LevelUIInitializer;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -33,7 +31,8 @@ This method creates an alert when the player reaches the end of the dungeon.
         System.exit(0);
          */
 
-        Player currentPlayer = GlobalSettings.getPlayer();
+        Initializer.stopTime();
+        player currentPlayer = GlobalSettings.getPlayer();
         Rectangle dimBG = new Rectangle(1920,1080);
         dimBG.setFill(Color.BLACK);
         dimBG.setOpacity(.25);
@@ -57,7 +56,6 @@ This method creates an alert when the player reaches the end of the dungeon.
 
         winAlert.setScaleX(0);
         winAlert.setScaleY(0);
-
 
         Button runAgain = new Button("Run Again!");
         runAgain.setLayoutX(1175);
@@ -130,11 +128,10 @@ This method creates an alert when the player reaches the end of the dungeon.
     }
 
     public static void createGameOverAlert() {
-        Player currentPlayer = GlobalSettings.getPlayer();
         Rectangle dimBG = new Rectangle(1920,1080);
         dimBG.setFill(Color.BLACK);
         dimBG.setOpacity(.25);
-
+        Initializer.stopTime();
 
         var gameAlert = FXGL.getAssetLoader().loadTexture("game-over-screen.png");
         gameAlert.setLayoutX(600);

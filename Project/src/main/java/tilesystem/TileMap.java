@@ -33,12 +33,18 @@ public class TileMap {
 
 
     public void addTile(Tile tile) {
+        tiles.add(tile);
         size++;
     }
 
     public void removeTile(Tile tile) {
+        tiles.remove(tile);
         tile.removeFromScene();
         size--;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Tile getTile(int id) {

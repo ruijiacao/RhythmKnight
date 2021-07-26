@@ -78,10 +78,16 @@ public class LevelUIInitializer {
         goldText.setText("Gold: \n" + newValue);
     }
 
-    public static void updateHealth (int newValue) {healthText.setText("HP: \n" + newValue);}
+    public static void updateHealth(int newValue) {
+        healthText.setText("HP: \n" + newValue);
+    }
 
-    public static void updateStatus (String update) { statusText.setText(update);}
+    public static void updateStatus(String update) {
+        statusText.setText(update);
+    }
 
-    public static void updateTimeElapsed() { timeElapsed.setText(Initializer.getTime().formatTime()); }
+    public static void updateTimeElapsed() {
+        timeElapsed.setText(Initializer.getTime().formatTime());
+    }
 
 }

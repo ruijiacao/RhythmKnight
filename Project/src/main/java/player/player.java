@@ -1,11 +1,10 @@
-package Player;
+package player;
 
-import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.ui.Position;
 import ui.Notifier;
 
 
-public class Player {
+public class player {
 
     private int score;
     private int gold;
@@ -15,7 +14,7 @@ public class Player {
     private int weapon;
     private Position position;
 
-    public Player() {
+    public player() {
         this.name = null;
         this.gold = 0;
         this.monstersSlain = 0;
