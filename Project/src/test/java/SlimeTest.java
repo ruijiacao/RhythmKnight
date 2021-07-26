@@ -23,6 +23,7 @@ public class SlimeTest extends ApplicationTest{
 
     @org.junit.jupiter.api.Test
     public void testIsDefeated() {
+        GameApplication.launch(GameApp.class, new String[0]);
         Tile tile = new Tile(new Point2D(405, 435), TileType.INVISIBLE);
         Slime monster = new Slime(tile);
         monster.takeDamage(51);
